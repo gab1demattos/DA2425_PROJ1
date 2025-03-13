@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/untitled.dir/SetUp/UFDS.cpp.o CMakeFiles/untitled.dir/SetUp/Input.cpp.o CMakeFiles/untitled.dir/SetUp/Main.cpp.o CMakeFiles/untitled.dir/SetUp/Menu.cpp.o CMakeFiles/untitled.dir/SetUp/Map.cpp.o -o untitled

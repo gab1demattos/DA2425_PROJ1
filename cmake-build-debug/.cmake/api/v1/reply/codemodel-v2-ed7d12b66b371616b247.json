@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "untitled::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-untitled-Debug-3cd5e9e6f875871af76a.json",
+					"jsonFile" : "target-untitled-Debug-d53d7cba1e7beddc55c0.json",
 					"name" : "untitled",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/gabrielademattosbarbozadasilva/Documents/Documentos/FEUP/2ANO/2Semestre/DA/Proj1/DA2425_PRJ1_G<TN>/cmake-build-debug",
-		"source" : "/Users/gabrielademattosbarbozadasilva/Documents/Documentos/FEUP/2ANO/2Semestre/DA/Proj1/DA2425_PRJ1_G<TN>"
+		"build" : "/home/francisca/uni/2ano/2S/DA/DA2425_PROJ1/cmake-build-debug",
+		"source" : "/home/francisca/uni/2ano/2S/DA/DA2425_PROJ1"
 	},
 	"version" : 
 	{
