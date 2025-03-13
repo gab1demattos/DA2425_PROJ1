@@ -1,3 +1,0 @@
-/Users/maluvieira/Documents/uni/2ano/2sem/DA/projects/DA2425_PROJ1/cmake-build-debug/CMakeFiles/untitled.dir
-/Users/maluvieira/Documents/uni/2ano/2sem/DA/projects/DA2425_PROJ1/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/maluvieira/Documents/uni/2ano/2sem/DA/projects/DA2425_PROJ1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
