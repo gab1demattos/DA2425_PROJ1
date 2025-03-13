@@ -1,7 +1,7 @@
 #include "Menu.h"
 
-/*
-int menuOptions() {
+
+int options() {
 
     cout << "----------------------------------------------" << endl;
     cout << "             CHOOSE AN OPTION" << endl;
@@ -10,18 +10,15 @@ int menuOptions() {
     int i;
 
     do {
-        cout << "0: Load new graph" << endl;
-        cout << "1: Read new vehicle file and generate new table" << endl;
-        cout << "2: Display graph" << endl;
-        cout << "3: Display accesible graph from the central" << endl;
-        cout << "4: Display articulated points" << endl;
-        cout << "5: Read delivery file and calculate vehicle paths" << endl;
-        cout << "6: Exit program" << endl;
+        cout << "1: Best Route and Alternative Independent Route " << endl;
+        cout << "2: Restricted Route Planning " << endl;
+        cout << "3: Environmentally-Friendly Route Planning" << endl;
+        cout << "4: Exit" << endl;
         cout << "Option: ";
         cin >> i;
         cout << endl << endl;
 
-        if (i > 6) cout << "Invalid input." << endl;
-    } while (i > 6);
+        if (i > 4) cout << "Invalid input." << endl;
+    } while (i > 4);
     return i;
-}*/
+}
