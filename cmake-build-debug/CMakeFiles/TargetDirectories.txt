@@ -1,0 +1,3 @@
+/Users/gabrielademattosbarbozadasilva/Documents/Documentos/FEUP/2ANO/2Semestre/DA/Proj1/DA2425_PRJ1_G<TN>/cmake-build-debug/CMakeFiles/untitled.dir
+/Users/gabrielademattosbarbozadasilva/Documents/Documentos/FEUP/2ANO/2Semestre/DA/Proj1/DA2425_PRJ1_G<TN>/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/gabrielademattosbarbozadasilva/Documents/Documentos/FEUP/2ANO/2Semestre/DA/Proj1/DA2425_PRJ1_G<TN>/cmake-build-debug/CMakeFiles/rebuild_cache.dir
