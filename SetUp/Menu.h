@@ -11,9 +11,11 @@ int optionsMenu();
 template<class T>
 void optionBestRoute(Graph<T> *g);
 
-void optionRestrictedRoute();
+template<class T>
+void optionRestrictedRoute(Graph<T> *g);
 
-void optionEnvironmentalRoute();
+template<class T>
+void optionEnvironmentalRoute(Graph<T> *g);
 
 bool isModeDriving(const string& mode);
 

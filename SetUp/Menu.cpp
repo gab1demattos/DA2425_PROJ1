@@ -44,11 +44,12 @@ void optionBestRoute(Graph<T> *g) {
     bestRoute(g->findVertex(source), g->findVertex(destination));
 }
 
-void optionRestrictedRoute() {
+template<class T>
+void optionRestrictedRoute(Graph<T> *g) {
     string mode;
     int source, destination, includeNode;
     vector<int> avoidNodes;
-    //vector<pair<int, int>> avoidSegments;
+    vector<pair<int, int>> avoidSegments;
 
     cout << "Mode: ";
     cin >> mode;
@@ -79,18 +80,19 @@ void optionRestrictedRoute() {
     cout << "IncludeNode : ";
     cin >> includeNode;
 
+    restrictedRoute(g->findVertex(source), g->findVertex(destination), avoidNodes, avoidSegments, g->findVertex(includeNode));
+
 }
 
-void optionEnvironmentalRoute() {
+template<class T>
+void optionEnvironmentalRoute(Graph<T> *g) {
     string mode;
     int source, destination, maxWalkTime;
     vector<int> avoidNodes;
-    //vector<pair<int, int>> avoidSegments;
+    vector<pair<int, int>> avoidSegments;
 
     cout << "Mode: ";
     cin >> mode;
-    if (!isModeDriving(mode))
-        cout << "Invalid input." << endl;
 
     cout << "Source : ";
     cin >> source;
@@ -98,7 +100,7 @@ void optionEnvironmentalRoute() {
     cout << "Destination : ";
     cin >> destination;
 
-    cout << "IncludeNode : ";
+    cout << "MaxWalkTime : ";
     cin >> maxWalkTime;
 
     cout << "AvoidNodes: " << endl;
@@ -114,6 +116,8 @@ void optionEnvironmentalRoute() {
 
     cout << "AvoidSegments: " << endl;
     // to do
+
+    environmentalRoute(g->findVertex(source), g->findVertex(destination), maxWalkTime, avoidNodes, avoidSegments);
 }
 
 

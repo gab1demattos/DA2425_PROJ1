@@ -4,25 +4,26 @@
 
 int main() {
 
+    //Graph<int>* graph = new Graph<int>();
+    //createGraph(graph);
+
     switch (int option = optionsMenu()) {
         case 1:
             cout << "Finding best and alternative independent routes..." << endl;
-            optionBestRoute();
+            //optionBestRoute(graph);
             break;
         case 2:
             cout << "Finding route based on the given restrictions..." << endl;
-            optionRestrictedRoute();
+            //optionRestrictedRoute(graph);
             break;
         case 3:
             cout << "Finding driving-walking route..." << endl;
-            optionEnvironmentalRoute();
+            //optionEnvironmentalRoute(graph);
             break;
         default:
             break;
     }
 
-    //Graph<int>* graph = new Graph<int>();
-    //createGraph(graph);
 
     return 0;
 }
