@@ -13,4 +13,7 @@ vector<Edge<T>*> getDistancesInfo(const string& filename, Graph<T> *graph);
 template <class T>
 vector<Vertex<T>*> getLocationsInfo(const string& filename);
 
+template <class T>
+void createGraph(Graph<T> *graph);
+
 #endif //MAP_H

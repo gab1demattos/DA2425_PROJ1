@@ -18,3 +18,15 @@ vector<Vertex<T>*> getLocationsInfo(const string& filename) {
         locations.push_back(readLocationFromFile<T>(line));
     return locations;
 }
+
+template <class T>
+void createGraph(Graph<T> *graph) {
+    vector<Edge<int>*> edges = getDistancesInfo<int>("/SetUp/Data/Distances.csv", graph);
+    vector<Vertex<int>*> vertices = getLocationsInfo<int>("/SetUp/Data/Locations.csv");
+
+    for (Vertex<int>* vertex : vertices)
+        graph->addVertex(vertex->getInfo());
+
+    for (Edge<int>* edge : edges)
+        graph->addEdge(edge->getOrig()->getInfo(), edge->getDest()->getInfo(), edge->getDriving(), edge->getWalking());
+}

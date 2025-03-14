@@ -1,3 +1,4 @@
+add_compile_definitions()
 cmake_minimum_required(VERSION 3.30)
 project(untitled)
 
