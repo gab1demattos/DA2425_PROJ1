@@ -19,5 +19,7 @@ Vertex<T>* readLocationFromFile(const string& line);
 template <class T>
 Edge<T>* readDistancesFromFile(const string& line, Graph<T>* graph);
 
+bool fileExists(const string& filename);
+
 
 #endif //INPUT_H
