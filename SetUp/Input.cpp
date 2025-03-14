@@ -2,18 +2,30 @@
 #include <sstream>
 #include <fstream>
 
+bool fileExists(const string& filename) {
+    ifstream f;
+    f.open(filename);
+    if (f.is_open()) {
+        f.close();
+        return true;
+    }
+    return false;
+}
+
 vector<string> readInputFile(const string& filename) {
     vector<string> lines;
-
     ifstream ifs;
-    ifs.open(filename); // opening file
 
-    if (ifs.is_open()) {
-        string line;
-        while (getline(ifs, line))  // reading each line
-            lines.push_back(line);  // and storing it in vector 'lines'
-        ifs.close();    // close file
+    if (fileExists(filename)) {
+        ifs.open(filename); // opening file
+        if (ifs.is_open()) {
+            string line;
+            while (getline(ifs, line))  // reading each line
+                lines.push_back(line);  // and storing it in vector 'lines'
+            ifs.close();    // close file
+        }
     }
+
     return lines;
 }
 

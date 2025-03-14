@@ -1,7 +1,7 @@
 #include "Menu.h"
 
 
-int options() {
+int optionsMenu() {
 
     cout << "----------------------------------------------" << endl;
     cout << "             CHOOSE AN OPTION" << endl;

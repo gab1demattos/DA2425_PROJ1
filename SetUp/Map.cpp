@@ -21,8 +21,8 @@ vector<Vertex<T>*> getLocationsInfo(const string& filename) {
 
 template <class T>
 void createGraph(Graph<T> *graph) {
-    vector<Edge<int>*> edges = getDistancesInfo<int>("/SetUp/Data/Distances.csv", graph);
-    vector<Vertex<int>*> vertices = getLocationsInfo<int>("/SetUp/Data/Locations.csv");
+    vector<Edge<int>*> edges = getDistancesInfo<int>("Data/Distances.csv", graph);
+    vector<Vertex<int>*> vertices = getLocationsInfo<int>("Data/Locations.csv");
 
     for (Vertex<int>* vertex : vertices)
         graph->addVertex(vertex->getInfo());

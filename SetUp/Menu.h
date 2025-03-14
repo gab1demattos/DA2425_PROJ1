@@ -4,6 +4,6 @@
 #include <iostream>
 using namespace std;
 
-int options();
+int optionsMenu();
 
 #endif //MENU_H
