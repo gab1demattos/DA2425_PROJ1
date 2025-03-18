@@ -1,4 +1,5 @@
 #include "Input.h"
+
 #include <sstream>
 #include <fstream>
 
@@ -18,47 +19,77 @@ vector<string> readInputFile(const string& filename) {
 }
 
 
-template <class T>
-Vertex<T>* readLocationFromFile(const string& line) {
-    stringstream ss(line);
-    string name, code, value1, value2;
-    T id;
-    bool parking = false;
+void readLocations(const string& filename, Graph<int>& graph) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error: Unable to open " << filename << endl;
+        return;
+    }
 
-    getline(ss, name, ',');
-    getline(ss, value1, ',');     // id (string)
-    id = stoi(value1);           // convert id from string to int
-    getline(ss, code, ',');
-    getline(ss, value2, ',');    // parking (string)
-    if (value2 == "1") parking = true;
-    else if (value2 == "0") parking = false;
+    string line;
+    getline(file, line); // Skip the header line
 
-    Vertex<T>* location = new Vertex<T>(id);
-    location->setCode(code);
-    location->setParking(parking);
-    location->setLocation(name);
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string name, code, idStr, parkingStr;
+        int location_id;
+        bool parking;
 
-    return location;
+        getline(ss, name, ',');
+        getline(ss, idStr, ',');
+        location_id = stoi(idStr);
+        getline(ss, code, ',');
+        getline(ss, parkingStr, ',');
+        parking = (parkingStr == "1");
+
+        Vertex<int>* location = new Vertex<int>(location_id);
+        location->setCode(code);
+        location->setParking(parking);
+        location->setLocation(name);
+        graph.addVertex(location_id);
+    }
+
+    file.close();
 }
 
-template <class T>
-Edge<T>* readDistancesFromFile(const string& line, Graph<T>* graph) {
-    stringstream ss(line);
-    string loc1, loc2, value1, value2;
-    int drivingTime, walkTime;
 
-    getline(ss, loc1, ',');
-    getline(ss, loc2, ',');
+void readDistances(const string& filename, Graph<int>& graph) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cerr << "Error: Unable to open " << filename << endl;
+        return;
+    }
 
-    getline(ss, value1, ',');   // driving time (string)
-    if (value1 == "X") drivingTime = 0;
-    else drivingTime = stoi(value1);     // convert from string to int
+    string line;
+    getline(file, line); // Skip the header line
 
-    getline(ss, value2, ',');    // parking (string)
-    walkTime = stoi(value2);     // convert to int
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string loc1, loc2, driveTimeStr, walkTimeStr;
+        int drivingTime, walkingTime;
 
-    Vertex<T>* orig = graph->findVertexByCode(loc1);
-    Vertex<T>* dest = graph->findVertexByCode(loc2);
+        getline(ss, loc1, ',');
+        getline(ss, loc2, ',');
+        getline(ss, driveTimeStr, ',');
+        getline(ss, walkTimeStr, ',');
 
-    return new Edge<T>(orig, dest, drivingTime, walkTime);
+        walkingTime = stoi(walkTimeStr);
+
+        Vertex<int>* orig = graph.findVertexByCode(loc1);
+        Vertex<int>* dest = graph.findVertexByCode(loc2);
+
+        if (orig && dest) {
+            // Only add driving edge if it is not "X"
+            if (driveTimeStr != "X") {
+                drivingTime = stoi(driveTimeStr);
+                graph.addEdge(orig->getInfo(), dest->getInfo(), drivingTime, walkingTime);
+            } else {
+                // If "X", only add the walking edge
+                graph.addEdge(orig->getInfo(), dest->getInfo(), 0, walkingTime);
+            }
+        }
+    }
+
+    file.close();
 }
+
