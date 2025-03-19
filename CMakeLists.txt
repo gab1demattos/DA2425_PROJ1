@@ -17,4 +17,8 @@ add_executable(untitled
         SetUp/Map.h
         SetUp/Map.cpp
         SetUp/Routes.h
-        SetUp/Routes.cpp)
+        SetUp/Routes.cpp
+        SetUp/readCSV.cpp
+        SetUp/readCSV.h
+
+)

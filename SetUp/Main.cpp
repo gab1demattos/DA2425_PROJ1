@@ -1,11 +1,16 @@
 #include "Map.h"
 #include "Graph.h"
 #include "Menu.h"
+#include "readCSV.h"
 
 int main() {
+    Graph<int> graph;
 
-    //Graph<int>* graph = new Graph<int>();
-    //createGraph(graph);
+    // read locations and add vertices to the graph
+    readLocations("../Data/Locations.csv", graph);
+
+    // read distances and add edges to the graph
+    readDistances("../Data/Distances.csv", graph);
 
     switch (int option = optionsMenu()) {
         case 1:
@@ -20,6 +25,8 @@ int main() {
             cout << "Finding driving-walking route..." << endl;
             //optionEnvironmentalRoute(graph);
             break;
+        case 4:
+            cout << "Exiting..." << endl;
         default:
             break;
     }
