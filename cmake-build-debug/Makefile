@@ -249,6 +249,30 @@ SetUp/UFDS.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/SetUp/UFDS.cpp.s
 .PHONY : SetUp/UFDS.cpp.s
 
+SetUp/readCSV.o: SetUp/readCSV.cpp.o
+.PHONY : SetUp/readCSV.o
+
+# target to build an object file
+SetUp/readCSV.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/SetUp/readCSV.cpp.o
+.PHONY : SetUp/readCSV.cpp.o
+
+SetUp/readCSV.i: SetUp/readCSV.cpp.i
+.PHONY : SetUp/readCSV.i
+
+# target to preprocess a source file
+SetUp/readCSV.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/SetUp/readCSV.cpp.i
+.PHONY : SetUp/readCSV.cpp.i
+
+SetUp/readCSV.s: SetUp/readCSV.cpp.s
+.PHONY : SetUp/readCSV.s
+
+# target to generate assembly for a file
+SetUp/readCSV.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/untitled.dir/build.make CMakeFiles/untitled.dir/SetUp/readCSV.cpp.s
+.PHONY : SetUp/readCSV.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -273,6 +297,9 @@ help:
 	@echo "... SetUp/UFDS.o"
 	@echo "... SetUp/UFDS.i"
 	@echo "... SetUp/UFDS.s"
+	@echo "... SetUp/readCSV.o"
+	@echo "... SetUp/readCSV.i"
+	@echo "... SetUp/readCSV.s"
 .PHONY : help
 
 

@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/untitled.dir/SetUp/Menu.cpp.o.d"
   "CMakeFiles/untitled.dir/SetUp/UFDS.cpp.o"
   "CMakeFiles/untitled.dir/SetUp/UFDS.cpp.o.d"
+  "CMakeFiles/untitled.dir/SetUp/readCSV.cpp.o"
+  "CMakeFiles/untitled.dir/SetUp/readCSV.cpp.o.d"
   "untitled"
   "untitled.pdb"
 )

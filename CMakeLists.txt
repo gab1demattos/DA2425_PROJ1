@@ -14,4 +14,6 @@ add_executable(untitled
         SetUp/Menu.h
         SetUp/Menu.cpp
         SetUp/Map.h
-        SetUp/Map.cpp)
+        SetUp/Map.cpp
+        SetUp/readCSV.cpp
+        SetUp/readCSV.h)
