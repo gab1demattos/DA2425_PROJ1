@@ -14,14 +14,14 @@ int main() {
     readDistances("../Data/PortoDistances.csv", graph);
 
     // Print the graph for debugging
-    printGraph(graph);
+    //printGraph(graph);
 
-    std::cout << "Best Route: ";
-    for (size_t i = 0; i < BestRoute(&graph, 3, 8).first.size(); ++i) {
-        std::cout << BestRoute(&graph, 3, 8).first[i];
-       if (i < BestRoute(&graph, 3, 8).first.size() - 1) std::cout << ",";
-    }
-    std::cout << "(" << BestRoute(&graph, 3, 8).second << ")" << std::endl;
+    // std::cout << "Best Route: ";
+    // for (size_t i = 0; i < BestRoute(&graph, 3, 8).first.size(); ++i) {
+    //     std::cout << BestRoute(&graph, 3, 8).first[i];
+    //    if (i < BestRoute(&graph, 3, 8).first.size() - 1) std::cout << ",";
+    // }
+    // std::cout << "(" << BestRoute(&graph, 3, 8).second << ")" << std::endl;
 
     switch (int option = optionsMenu()) {
         case 1:
