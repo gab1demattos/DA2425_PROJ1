@@ -26,7 +26,7 @@ int main() {
     switch (int option = optionsMenu()) {
         case 1:
             cout << "Finding best and alternative independent routes..." << endl;
-            //optionBestRoute(graph);
+            optionBestRoute(&graph);
             break;
         case 2:
             cout << "Finding route based on the given restrictions..." << endl;

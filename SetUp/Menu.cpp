@@ -1,6 +1,8 @@
 #include "Menu.h"
+#include "IndependentRoutePlanning.h"
 
 #include <sstream>
+#include <fstream>
 
 
 int optionsMenu() {
@@ -30,19 +32,34 @@ void optionBestRoute(Graph<T> *g) {
     string mode;
     int source, destination;
 
-    cout << "Mode: ";
-    cin >> mode;
+    // Read from file
+    ifstream inputFile("input.txt");
+    if (!inputFile.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return;
+    }
+
+    string line;
+    while (getline(inputFile, line)) {
+        if (line.find("Mode:") != string::npos) {
+            mode = line.substr(line.find(":") + 1);
+        } else if (line.find("Source:") != string::npos) {
+            source = stoi(line.substr(line.find(":") + 1));
+        } else if (line.find("Destination:") != string::npos) {
+            destination = stoi(line.substr(line.find(":") + 1));
+        }
+    }
+    inputFile.close();
+
     if (!isModeDriving(mode))
         cout << "Invalid input." << endl;
 
-    cout << "Source : ";
-    cin >> source;
-
-    cout << "Destination : ";
-    cin >> destination;
-
-    bestRoute(g->findVertex(source), g->findVertex(destination));
+    BestRoute(&g,source, destination);
 }
+
+//explicit declaration
+template<class T>
+void optionBestRoute(Graph<T> *g);
 
 template<class T>
 void optionRestrictedRoute(Graph<T> *g) {

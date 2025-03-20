@@ -22,4 +22,6 @@ add_executable(untitled
         SetUp/readCSV.h
         SetUp/IndependentRoutePlanning.cpp
         SetUp/IndependentRoutePlanning.h
+        SetUp/Output.cpp
+        SetUp/Output.h
 )
