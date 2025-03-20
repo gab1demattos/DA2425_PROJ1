@@ -1,5 +1,6 @@
 #include "Map.h"
 #include "Graph.h"
+#include "IndependentRoutePlanning.h"
 #include "Menu.h"
 #include "readCSV.h"
 
@@ -11,6 +12,12 @@ int main() {
 
     // read distances and add edges to the graph
     readDistances("../Data/Distances.csv", graph);
+
+    cout << "Best Route: ";
+    for (auto e: BestRoute(&graph, 3, 8).first) {
+        cout << e << ',';
+    }
+    cout << "(" << BestRoute(&graph, 3, 8).second << ")" << endl;
 
     switch (int option = optionsMenu()) {
         case 1:

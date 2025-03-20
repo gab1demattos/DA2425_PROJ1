@@ -20,5 +20,6 @@ add_executable(untitled
         SetUp/Routes.cpp
         SetUp/readCSV.cpp
         SetUp/readCSV.h
-
+        SetUp/IndependentRoutePlanning.cpp
+        SetUp/IndependentRoutePlanning.h
 )
