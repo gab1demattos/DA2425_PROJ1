@@ -15,8 +15,10 @@ bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
     return false;
 }
 
+
 template <class T>
 void dijkstra(Graph<T> * g, const int &origin) {
+
     // Initialize the vertices
     for(auto v : g->getVertexSet()) {
         v->setDist(INF);
@@ -44,7 +46,7 @@ void dijkstra(Graph<T> * g, const int &origin) {
 }
 
 template <class T>
-std::pair<std::vector<T>,int> BestRoute(Graph<T> * g, const int &origin, const int &dest) {
+std::pair<std::vector<T>, int> BestRoute(Graph<T> * g, const int &origin, const int &dest) {
     dijkstra(g, origin);
 
     std::vector<T> res;
@@ -52,16 +54,23 @@ std::pair<std::vector<T>,int> BestRoute(Graph<T> * g, const int &origin, const i
     if (v == nullptr || v->getDist() == INF) { // missing or disconnected
         return std::make_pair(res, 0);
     }
+
+    // Reconstruct the path and calculate the total travel time
+    int totalTime = 0;
     res.push_back(v->getInfo());
-    while(v->getPath() != nullptr) {
-        v = v->getPath()->getOrig();
+    while (v->getPath() != nullptr) {
+        auto edge = v->getPath();
+        totalTime += edge->getDriving(); // Add the driving time of the current edge
+        v = edge->getOrig();
         res.push_back(v->getInfo());
     }
     reverse(res.begin(), res.end());
-    if(res.empty() || res[0] != origin) {
+
+    if (res.empty() || res[0] != origin) {
         std::cout << "Origin not found!!" << std::endl;
     }
-    return std::make_pair(res, v->getDist());
+
+    return std::make_pair(res, totalTime);
 }
 
 // Add explicit instantiation
