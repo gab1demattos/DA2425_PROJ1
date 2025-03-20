@@ -5,6 +5,8 @@
 #include <utility> // for std::pair
 #include <algorithm>
 
+#include "Output.h"
+
 template <class T>
 bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
     if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
@@ -46,13 +48,14 @@ void dijkstra(Graph<T> * g, const int &origin) {
 }
 
 template <class T>
-std::pair<std::vector<T>, int> BestRoute(Graph<T> * g, const int &origin, const int &dest) {
+void BestRoute(Graph<T> * g, const int &origin, const int &dest) {
     dijkstra(g, origin);
 
     std::vector<T> res;
     auto v = g->findVertex(dest);
     if (v == nullptr || v->getDist() == INF) { // missing or disconnected
-        return std::make_pair(res, 0);
+        outputBestRoute(origin, dest, res, 0);
+        return;
     }
 
     // Reconstruct the path and calculate the total travel time
@@ -70,9 +73,9 @@ std::pair<std::vector<T>, int> BestRoute(Graph<T> * g, const int &origin, const 
         std::cout << "Origin not found!!" << std::endl;
     }
 
-    return std::make_pair(res, totalTime);
+    outputBestRoute(origin, dest, res, totalTime);
 }
 
 // Add explicit instantiation
-template std::pair<std::vector<int>, int> BestRoute<int>(Graph<int>*, const int&, const int&);
+template void BestRoute<int>(Graph<int>*, const int&, const int&);
 
