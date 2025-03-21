@@ -54,12 +54,11 @@ void optionBestRoute(Graph<T> *g) {
     if (!isModeDriving(mode))
         cout << "Invalid input." << endl;
 
-    BestRoute(&g,source, destination);
+    BestRoute(g,source, destination);
 }
 
-//explicit declaration
-template<class T>
-void optionBestRoute(Graph<T> *g);
+// Explicit instantiation for the required type (e.g., int)
+template void optionBestRoute<int>(Graph<int> *g);
 
 template<class T>
 void optionRestrictedRoute(Graph<T> *g) {
@@ -138,7 +137,6 @@ void optionEnvironmentalRoute(Graph<T> *g) {
 }
 
 
-// ???
 bool isModeDriving(const string& mode) {
     string res;
     for (const char c : mode)

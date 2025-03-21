@@ -4,7 +4,16 @@
 #include "Menu.h"
 #include "readCSV.h"
 
-int main() {
+int main(int argc, char const *argv[]) {
+
+    // // Check if the user provided an input file
+    // if (argc < 2) {
+    //     cerr << "Usage: " << argv[0] << " <input_file>" << endl;
+    //     return 1; // Exit with an error code
+    // }
+    //
+    // string inputFile = argv[1]; // Get the input file path from the command line
+
     Graph<int> graph;
 
     // read locations and add vertices to the graph
