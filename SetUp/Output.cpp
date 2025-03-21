@@ -34,9 +34,9 @@ void OutputBestRoute(int source, int destination, const pair<vector<int>,int>& s
     cout << "(" << totalCost << ")" << endl;
 
     if (alternativeRoute.empty()) {
-        cout << "AlternativeRoute: None" << endl;
+        cout << "AlternativeRoute:None" << endl;
     } else {
-        cout << "AlternativeRoute: ";
+        cout << "AlternativeRoute:";
         for (size_t i = 0; i < alternativeRoute.size(); ++i) {
             cout << alternativeRoute[i];
             if (i < alternativeRoute.size() - 1) {

@@ -35,7 +35,10 @@ void optionBestRoute(Graph<T> *g) {
     string mode;
     int source, destination;
 
-    InputBestRoute(mode, source, destination);
+    // Get input values
+    if (!InputBestRoute(mode, source, destination)) {
+        return; // Stop if input is invalid
+    }
 
     pair<vector<T>,int> solBestRoute = BestRoute(g,source, destination);
 

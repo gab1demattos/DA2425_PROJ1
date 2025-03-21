@@ -7,12 +7,12 @@ bool isModeDriving(const string& mode) {
     return res == "driving";
 }
 
-void InputBestRoute(string & mode, int & source, int & destination) {
+bool InputBestRoute(string & mode, int & source, int & destination) {
     // Read from file
     ifstream inputFile("../Input/input.txt");
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
-        return;
+        return false;
     }
 
     string line;
@@ -27,6 +27,10 @@ void InputBestRoute(string & mode, int & source, int & destination) {
     }
     inputFile.close();
 
-    if (!isModeDriving(mode))
+    if (!isModeDriving(mode)) {
         cout << "Invalid input." << endl;
+        return false;
+    }
+
+    return true;
 }

@@ -11,6 +11,6 @@
 
 using namespace std;
 
-void InputBestRoute(string & mode, int & source, int & destination);
+bool InputBestRoute(string & mode, int & source, int & destination);
 
 #endif //INPUT_H
