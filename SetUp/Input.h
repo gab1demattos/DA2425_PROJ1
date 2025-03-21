@@ -1,13 +1,15 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include <vector>
+
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <regex>
 
 #include "Graph.h"
+
+using namespace std;
 
 void InputBestRoute(string & mode, int & source, int & destination);
 

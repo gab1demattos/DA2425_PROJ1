@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "Input.h"
+#include "Output.h"
 
 
 int optionsMenu() {
@@ -36,7 +37,12 @@ void optionBestRoute(Graph<T> *g) {
 
     InputBestRoute(mode, source, destination);
 
-    BestRoute(g,source, destination);
+    pair<vector<T>,int> sol = BestRoute(g,source, destination);
+
+    vector<T> bestRoute = sol.first;
+    int totalCost = sol.second;
+
+    OutputBestRoute(source, destination, bestRoute, totalCost);
 }
 
 // Explicit instantiation for the required type (e.g., int)
