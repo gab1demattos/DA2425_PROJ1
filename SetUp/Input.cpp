@@ -18,11 +18,11 @@ void InputBestRoute(string & mode, int & source, int & destination) {
     string line;
     while (getline(inputFile, line)) {
         if (line.find("Mode:") != string::npos) {
-            mode = line.substr(line.find(":") + 1);
+            mode = line.substr(line.find(':') + 1);
         } else if (line.find("Source:") != string::npos) {
-            source = stoi(line.substr(line.find(":") + 1));
+            source = stoi(line.substr(line.find(':') + 1));
         } else if (line.find("Destination:") != string::npos) {
-            destination = stoi(line.substr(line.find(":") + 1));
+            destination = stoi(line.substr(line.find(':') + 1));
         }
     }
     inputFile.close();

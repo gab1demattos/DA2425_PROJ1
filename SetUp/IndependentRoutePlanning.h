@@ -7,7 +7,7 @@ template <class T>
 void dijkstra(Graph<T> * g, const int &origin);
 
 template <class T>
-void BestRoute(Graph<T> * g, const int &origin, const int &dest);
+pair<vector<T>,int> BestRoute(Graph<T> * g, const int &origin, const int &dest);
 
 
 #endif //INDEPENDENTROUTEPLANNING_H
