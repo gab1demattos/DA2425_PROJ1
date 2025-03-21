@@ -33,7 +33,7 @@ void optionBestRoute(Graph<T> *g) {
     int source, destination;
 
     // Read from file
-    ifstream inputFile("input.txt");
+    ifstream inputFile("../Input/input.txt");
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
         return;
