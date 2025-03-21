@@ -78,3 +78,31 @@ pair<vector<T>,int> BestRoute(Graph<T> * g, const int &origin, const int &dest) 
 // Add explicit instantiation
 template pair<vector<int>,int> BestRoute<int>(Graph<int>*, const int&, const int&);
 
+template <class T>
+pair<vector<int>,int> AlternativeRoute(Graph<T>* g, const pair<vector<int>,int>& primaryRoute, int source, int destination) {
+    // Create a copy of the graph to avoid modifying the original
+    Graph<T> modifiedGraph = *g;
+
+    // Remove intermediate nodes of the primary route (except source and destination)
+    for (size_t i = 1; i < primaryRoute.first.size() - 1; ++i) {
+        modifiedGraph.removeVertex(primaryRoute.first[i]);
+    }
+
+    // Remove intermediate segments of the primary route
+    for (size_t i = 0; i < primaryRoute.first.size() - 1; ++i) {
+        modifiedGraph.removeEdge(primaryRoute.first[i], primaryRoute.first[i + 1]);
+    }
+
+    // Find the alternative route on the modified graph
+    pair<vector<int>,int> alternativeRoute = BestRoute(&modifiedGraph, source, destination);
+
+    if (alternativeRoute.first.empty() || alternativeRoute.second < primaryRoute.second) {
+        // No valid alternative route exists
+        alternativeRoute.first.clear(); // Mark as invalid
+    }
+
+    return alternativeRoute;
+}
+
+// Add explicit instantiation
+template pair<vector<int>,int> AlternativeRoute<int>(Graph<int>*, const pair<vector<int>,int>& , int, int);

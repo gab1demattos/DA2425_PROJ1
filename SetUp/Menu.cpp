@@ -37,12 +37,11 @@ void optionBestRoute(Graph<T> *g) {
 
     InputBestRoute(mode, source, destination);
 
-    pair<vector<T>,int> sol = BestRoute(g,source, destination);
+    pair<vector<T>,int> solBestRoute = BestRoute(g,source, destination);
 
-    vector<T> bestRoute = sol.first;
-    int totalCost = sol.second;
+    pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
-    OutputBestRoute(source, destination, bestRoute, totalCost);
+    OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
 }
 
 // Explicit instantiation for the required type (e.g., int)
@@ -50,7 +49,7 @@ template void optionBestRoute<int>(Graph<int> *g);
 
 template<class T>
 void optionRestrictedRoute(Graph<T> *g) {
-    string mode;
+    /*string mode;
     int source, destination, includeNode;
     vector<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
@@ -85,12 +84,12 @@ void optionRestrictedRoute(Graph<T> *g) {
     cin >> includeNode;
 
     restrictedRoute(g->findVertex(source), g->findVertex(destination), avoidNodes, avoidSegments, g->findVertex(includeNode));
-
+*/
 }
 
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g) {
-    string mode;
+    /*string mode;
     int source, destination, maxWalkTime;
     vector<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
@@ -122,4 +121,5 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     // to do
 
     environmentalRoute(g->findVertex(source), g->findVertex(destination), maxWalkTime, avoidNodes, avoidSegments);
+    */
 }
