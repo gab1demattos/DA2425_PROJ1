@@ -1,6 +1,11 @@
 #include "Menu.h"
+#include "IndependentRoutePlanning.h"
 
 #include <sstream>
+#include <fstream>
+
+#include "Input.h"
+#include "Output.h"
 
 
 int optionsMenu() {
@@ -30,23 +35,24 @@ void optionBestRoute(Graph<T> *g) {
     string mode;
     int source, destination;
 
-    cout << "Mode: ";
-    cin >> mode;
-    if (!isModeDriving(mode))
-        cout << "Invalid input." << endl;
+    // Get input values
+    if (!InputBestRoute(mode, source, destination)) {
+        return; // Stop if input is invalid
+    }
 
-    cout << "Source : ";
-    cin >> source;
+    pair<vector<T>,int> solBestRoute = BestRoute(g,source, destination);
 
-    cout << "Destination : ";
-    cin >> destination;
+    pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
-    bestRoute(g->findVertex(source), g->findVertex(destination));
+    OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
 }
+
+// Explicit instantiation for the required type (e.g., int)
+template void optionBestRoute<int>(Graph<int> *g);
 
 template<class T>
 void optionRestrictedRoute(Graph<T> *g) {
-    string mode;
+    /*string mode;
     int source, destination, includeNode;
     vector<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
@@ -81,12 +87,12 @@ void optionRestrictedRoute(Graph<T> *g) {
     cin >> includeNode;
 
     restrictedRoute(g->findVertex(source), g->findVertex(destination), avoidNodes, avoidSegments, g->findVertex(includeNode));
-
+*/
 }
 
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g) {
-    string mode;
+    /*string mode;
     int source, destination, maxWalkTime;
     vector<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
@@ -118,13 +124,5 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     // to do
 
     environmentalRoute(g->findVertex(source), g->findVertex(destination), maxWalkTime, avoidNodes, avoidSegments);
-}
-
-
-// ???
-bool isModeDriving(const string& mode) {
-    string res;
-    for (const char c : mode)
-        res += static_cast<char>(tolower(c));
-    return res == "driving";
+    */
 }
