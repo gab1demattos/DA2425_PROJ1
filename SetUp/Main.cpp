@@ -1,21 +1,24 @@
-#include "Map.h"
 #include "Graph.h"
+#include "IndependentRoutePlanning.h"
 #include "Menu.h"
 #include "readCSV.h"
 
-int main() {
+int main(int argc, char const *argv[]) {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
-    readLocations("../Data/Locations.csv", graph);
+    readLocations("../Data/PortoLocations.csv", graph);
 
     // read distances and add edges to the graph
-    readDistances("../Data/Distances.csv", graph);
+    readDistances("../Data/PortoDistances.csv", graph);
+
+    // Print the graph for debugging
+    //printGraph(graph);
 
     switch (int option = optionsMenu()) {
         case 1:
-            cout << "Finding best and alternative independent routes..." << endl;
-            //optionBestRoute(graph);
+            cout << "Finding best and alternative independent routes..." << endl << endl;
+            optionBestRoute(&graph);
             break;
         case 2:
             cout << "Finding route based on the given restrictions..." << endl;
@@ -30,7 +33,6 @@ int main() {
         default:
             break;
     }
-
 
     return 0;
 }

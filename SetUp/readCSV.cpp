@@ -1,6 +1,7 @@
 #include "readCSV.h"
 #include <iostream>
 #include <fstream>
+#include <limits.h>
 #include <sstream>
 #include <vector>
 #include "Graph.h"
@@ -61,7 +62,7 @@ void readDistances(const std::string& filename, Graph<int>& graph) {
         std::getline(ss, drivingStr, ',');
         std::getline(ss, walkingStr, ',');
 
-        int driving = (drivingStr == "X") ? INF : std::stoi(drivingStr);
+        int driving = (drivingStr == "X") ? INT_MAX : std::stoi(drivingStr);
         int walking = std::stoi(walkingStr);
 
         // find vertices by code
