@@ -4,6 +4,8 @@
 #include <sstream>
 #include <fstream>
 
+#include "Input.h"
+
 
 int optionsMenu() {
 
@@ -32,27 +34,7 @@ void optionBestRoute(Graph<T> *g) {
     string mode;
     int source, destination;
 
-    // Read from file
-    ifstream inputFile("../Input/input.txt");
-    if (!inputFile.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return;
-    }
-
-    string line;
-    while (getline(inputFile, line)) {
-        if (line.find("Mode:") != string::npos) {
-            mode = line.substr(line.find(":") + 1);
-        } else if (line.find("Source:") != string::npos) {
-            source = stoi(line.substr(line.find(":") + 1));
-        } else if (line.find("Destination:") != string::npos) {
-            destination = stoi(line.substr(line.find(":") + 1));
-        }
-    }
-    inputFile.close();
-
-    if (!isModeDriving(mode))
-        cout << "Invalid input." << endl;
+    InputBestRoute(mode, source, destination);
 
     BestRoute(g,source, destination);
 }
@@ -134,12 +116,4 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     // to do
 
     environmentalRoute(g->findVertex(source), g->findVertex(destination), maxWalkTime, avoidNodes, avoidSegments);
-}
-
-
-bool isModeDriving(const string& mode) {
-    string res;
-    for (const char c : mode)
-        res += static_cast<char>(tolower(c));
-    return res == "driving";
 }

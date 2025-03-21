@@ -54,7 +54,7 @@ void BestRoute(Graph<T> * g, const int &origin, const int &dest) {
     std::vector<T> res;
     auto v = g->findVertex(dest);
     if (v == nullptr || v->getDist() == INF) { // missing or disconnected
-        outputBestRoute(origin, dest, res, 0);
+        OutputBestRoute(origin, dest, res, 0);
         return;
     }
 
@@ -73,7 +73,7 @@ void BestRoute(Graph<T> * g, const int &origin, const int &dest) {
         std::cout << "Origin not found!!" << std::endl;
     }
 
-    outputBestRoute(origin, dest, res, totalTime);
+    OutputBestRoute(origin, dest, res, totalTime);
 }
 
 // Add explicit instantiation

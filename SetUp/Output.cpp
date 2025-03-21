@@ -12,7 +12,7 @@ using namespace std;
  * @param bestRoute A vector containing the nodes in the best route.
  * @param totalCost The total cost (e.g., distance or time) of the best route.
  */
-void outputBestRoute(int source, int destination, const vector<int>& bestRoute, int totalCost) {
+void OutputBestRoute(int source, int destination, const vector<int>& bestRoute, int totalCost) {
     // Output the source and destination
     cout << "Source:" << source << endl;
     cout << "Destination:" << destination << endl;
