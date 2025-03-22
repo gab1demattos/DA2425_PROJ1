@@ -7,10 +7,10 @@ int main(int argc, char const *argv[]) {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
-    readLocations("../Data/PortoLocations.csv", graph);
+    readLocations("Data/PortoLocations.csv", graph);
 
     // read distances and add edges to the graph
-    readDistances("../Data/PortoDistances.csv", graph);
+    readDistances("Data/PortoDistances.csv", graph);
 
     // Print the graph for debugging
     //printGraph(graph);

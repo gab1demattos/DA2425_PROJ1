@@ -9,7 +9,7 @@ bool isModeDriving(const string& mode) {
 
 bool InputBestRoute(string & mode, int & source, int & destination) {
     // Read from file
-    ifstream inputFile("../Input/input.txt");
+    ifstream inputFile("Input/input.txt");
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
         return false;
