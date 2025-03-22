@@ -9,12 +9,12 @@
 
 template <class T>
 bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
-    /*if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
         edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
         edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
         return true;
     }
-    return false;*/
+    return false;
 }
 
 
@@ -22,18 +22,26 @@ template <class T>
 void restrictedDijkstra(Graph<T> * g, const int &origin, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments) {
 
     // Initialize the vertices
-    /*for(auto v : g->getVertexSet()) {
+    for(auto v : g->getVertexSet()) {
         v->setDist(INF);
         v->setPath(nullptr);
     }
     auto s = g->findVertex(origin);
     s->setDist(0);
 
-    MutablePriorityQueue<Vertex<T>> q;
+    MutablePriorityQueue<Vertex<T> > q;
     q.insert(s);
     while( ! q.empty() ) {
         auto v = q.extractMin();
         for(auto e : v->getAdj()) {
+            // skip restricted nodes
+            if (std::find(avoidNodes.begin(), avoidNodes.end(), e->getDest()->getInfo()) != avoidNodes.end())
+                  continue;
+            // skip restricted segments
+            if (std::find(avoidSegments.begin(), avoidSegments.end(),
+                std::make_pair(e->getOrig()->getInfo(), e->getDest()->getInfo())) != avoidSegments.end()) {
+                continue;
+            }
             auto oldDist = e->getDest()->getDist();
             if (relax(e)) {
                 if (oldDist == INF) {
@@ -44,7 +52,7 @@ void restrictedDijkstra(Graph<T> * g, const int &origin, const vector<T> &avoidN
                 }
             }
         }
-    }*/
+    }
 }
 
 template <class T>
@@ -53,12 +61,8 @@ pair<vector<T>,int> EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &or
     // identify all parking nodes
     vector<Vertex<T> *> parkingNodes;
     for (auto v : g->getVertexSet()) {
-        if (v->isParkingAvailable() && v->getInfo != origin && v->getInfo != dest) {
+        if (v->isParkingAvailable() && v->getInfo() != origin && v->getInfo() != dest)
             parkingNodes.push_back(v);
-    }
-    if (parkingNodes.empty()) {
-        cout << "No available parking spots." << endl;
-        return;
     }
 
     // find shortest path from origin to each parking node
