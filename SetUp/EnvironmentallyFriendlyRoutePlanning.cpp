@@ -56,7 +56,7 @@ void restrictedDijkstra(Graph<T> * g, const int &origin, const vector<T> &avoidN
 }
 
 template <class T>
-pair<vector<T>,int> EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int &dest, const int &maxWalkTime, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments) {
+void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int &dest, const int &maxWalkTime, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments, pair<vector<T>,T> &drivingRoute, T &parkingNode, pair<vector<T>,T> &walkingRoute, int &totalTime) {
 
     // identify all parking nodes
     vector<Vertex<T> *> parkingNodes;
@@ -70,29 +70,30 @@ pair<vector<T>,int> EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &or
     vector<pair<vector<T>, int> > drivingPaths;
     for (auto v : parkingNodes) {
         vector<T> drivingPath;
-        int drivingTime = 0;
+        int driveTime = 0;
         Vertex<T> *temp = v;
 
         while (temp->getPath() != nullptr) {
             auto edge = temp->getPath();
-            drivingTime += edge->getDriving();
+            driveTime += edge->getDriving();
             drivingPath.push_back(temp->getInfo());
             temp = edge->getOrig();
         }
 
         drivingPath.push_back(origin);
         reverse(drivingPath.begin(), drivingPath.end());
-        drivingPaths.push_back(make_pair(drivingPath, drivingTime));
+        drivingPaths.push_back(make_pair(drivingPath, driveTime));
     }
 
 
     // find shortest path from each parking node to dest
     vector<pair<vector<T>, int> > walkingPaths;
-    for (auto &drivingPath : drivingPaths) {
-        T parkingNode = drivingPath.first.back();
-        restrictedDijkstra(g, parkingNode, avoidNodes, avoidSegments);
+    for (auto drivingPath : drivingPaths) {
+        T parkNode = drivingPath.first.back();
+        restrictedDijkstra(g, parkNode, avoidNodes, avoidSegments);
 
-        vector<T> walkingPath = {parkingNode}; // start from parking node
+        vector<T> walkingPath; // start from parking node
+        walkingPath.push_back(parkNode);
         int walkTime = 0;
         Vertex<T> *v = g->findVertex(dest);
 
@@ -109,8 +110,12 @@ pair<vector<T>,int> EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &or
         }
     }
 
+
+
+
 }
 
 
+
 // Add explicit instantiation
-template pair<vector<int>,int> EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&);
+template void EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&, pair<vector<int>,int>&, int&, pair<vector<int>,int>&, int&);
