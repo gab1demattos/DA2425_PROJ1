@@ -1,5 +1,6 @@
 #include "Menu.h"
 #include "IndependentRoutePlanning.h"
+#include "EnvironmentallyFriendlyRoutePlanning.h"
 
 #include <sstream>
 #include <fstream>
@@ -50,79 +51,28 @@ void optionBestRoute(Graph<T> *g) {
 // Explicit instantiation for the required type (e.g., int)
 template void optionBestRoute<int>(Graph<int> *g);
 
-template<class T>
+/*template<class T>
 void optionRestrictedRoute(Graph<T> *g) {
-    /*string mode;
-    int source, destination, includeNode;
-    vector<int> avoidNodes;
-    vector<pair<int, int>> avoidSegments;
-
-    cout << "Mode: ";
-    cin >> mode;
-    if (!isModeDriving(mode))
-        cout << "Invalid input." << endl;
-
-    cout << "Source : ";
-    cin >> source;
-
-    cout << "Destination : ";
-    cin >> destination;
-
-    cout << "Enter nodes separated by spaces, then press ENTER. Enter -1 to skip" << endl;
-    cout << "AvoidNodes: ";
-    string input;
-    cin.ignore();
-    getline(cin, input);
-    stringstream ss(input);
-    int node;
-    while (ss >> node) {
-        if (node == -1) break;
-        avoidNodes.push_back(node);
-    }
-
-    cout << "AvoidSegments: ";
-    // to do
-
-    cout << "IncludeNode : ";
-    cin >> includeNode;
-
-    restrictedRoute(g->findVertex(source), g->findVertex(destination), avoidNodes, avoidSegments, g->findVertex(includeNode));
-*/
-}
+}*/
 
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g) {
-    /*string mode;
+    string mode;
     int source, destination, maxWalkTime;
     vector<int> avoidNodes;
-    vector<pair<int, int>> avoidSegments;
+    vector<pair<int, int> > avoidSegments;
 
-    cout << "Mode: ";
-    cin >> mode;
-
-    cout << "Source : ";
-    cin >> source;
-
-    cout << "Destination : ";
-    cin >> destination;
-
-    cout << "MaxWalkTime : ";
-    cin >> maxWalkTime;
-
-    cout << "AvoidNodes: " << endl;
-    string input;
-    cin.ignore();
-    getline(cin, input);
-    stringstream ss(input);
-    int node;
-    while (ss >> node) {
-        if (node == -1) break;
-        avoidNodes.push_back(node);
+    // Get input values
+    if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
+        return; // Stop if input is invalid
     }
 
-    cout << "AvoidSegments: " << endl;
-    // to do
+    pair<vector<T>,int> solBestRoute = EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments);
 
-    environmentalRoute(g->findVertex(source), g->findVertex(destination), maxWalkTime, avoidNodes, avoidSegments);
-    */
+   // pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
+
+    //OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
 }
+
+template void optionEnvironmentalRoute<int>(Graph<int> *g);
+

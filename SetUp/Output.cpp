@@ -46,3 +46,25 @@ void OutputBestRoute(int source, int destination, const pair<vector<int>,int>& s
         cout << "(" << alternativeTime << ")" << endl;
     }
 }
+
+
+void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestRoute/*, const pair<vector<int>,int>& solALternativeRoute*/) {
+    vector<int> bestRoute = solBestRoute.first;
+    int totalCost = solBestRoute.second;
+
+    // Output the source and destination
+    cout << "Source:" << source << endl;
+    cout << "Destination:" << destination << endl;
+
+    // Output the best driving route
+    cout << "BestDrivingRoute:";
+    for (size_t i = 0; i < bestRoute.size(); ++i) {
+        cout << bestRoute[i];
+        if (i < bestRoute.size() - 1) {
+            cout << ",";
+        }
+    }
+    cout << "(" << totalCost << ")" << endl;
+
+
+}
