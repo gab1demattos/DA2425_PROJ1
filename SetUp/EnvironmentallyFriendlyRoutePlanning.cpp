@@ -58,11 +58,18 @@ void restrictedDijkstra(Graph<T> * g, const int &origin, const vector<T> &avoidN
 template <class T>
 void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int &dest, const int &maxWalkTime, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments, pair<vector<T>,T> &drivingRoute, T &parkingNode, pair<vector<T>,T> &walkingRoute, int &totalTime) {
 
+  	totalTime = INT_MAX;
+
     // identify all parking nodes
     vector<Vertex<T> *> parkingNodes;
     for (auto v : g->getVertexSet()) {
         if (v->isParkingAvailable() && v->getInfo() != origin && v->getInfo() != dest)
             parkingNodes.push_back(v);
+    }
+
+    if (parkingNodes.empty()) {
+        cout << "No available parking spots.\n";
+        return;
     }
 
     // find shortest path from origin to each parking node
@@ -106,12 +113,20 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
 
         if (walkTime <= maxWalkTime) {
             reverse(walkingPath.begin() + 1, walkingPath.end());
-            walkingPaths.push_back(make_pair(walkingPath, walkTime));
+			int total = drivingPath.second + walkTime;
+
+            if (total < totalTime || (total == totalTime && walkTime > walkingRoute.second)) {
+                totalTime = total;
+                drivingRoute = make_pair(drivingPath.first, drivingPath.second);
+                walkingRoute = make_pair(walkingPath, walkTime);
+                parkingNode = parkNode;
+            }
         }
     }
 
-
-
+    if (totalTime == INT_MAX) {
+        cout << "No valid route found within constraints.\n";
+    }
 
 }
 
@@ -119,3 +134,4 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
 
 // Add explicit instantiation
 template void EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&, pair<vector<int>,int>&, int&, pair<vector<int>,int>&, int&);
+

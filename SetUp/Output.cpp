@@ -12,6 +12,7 @@ using namespace std;
  * @param bestRoute A vector containing the nodes in the best route.
  * @param totalCost The total cost (e.g., distance or time) of the best route.
  */
+
 void OutputBestRoute(int source, int destination, const pair<vector<int>,int>& solBestRoute, const pair<vector<int>,int>& solALternativeRoute) {
     vector<int> bestRoute = solBestRoute.first;
     int totalCost = solBestRoute.second;
@@ -48,23 +49,38 @@ void OutputBestRoute(int source, int destination, const pair<vector<int>,int>& s
 }
 
 
-void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestRoute/*, const pair<vector<int>,int>& solALternativeRoute*/) {
-    vector<int> bestRoute = solBestRoute.first;
-    int totalCost = solBestRoute.second;
+
+void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime) {
+    vector<int> bestDrivingRoute = solBestDrivingRoute.first;
+    int drivingTime = solBestDrivingRoute.second;
+
+    vector<int> bestWalkingRoute = solBestWalkingRoute.first;
+    int walkingTime = solBestWalkingRoute.second;
 
     // Output the source and destination
     cout << "Source:" << source << endl;
     cout << "Destination:" << destination << endl;
 
-    // Output the best driving route
-    cout << "BestDrivingRoute:";
-    for (size_t i = 0; i < bestRoute.size(); ++i) {
-        cout << bestRoute[i];
-        if (i < bestRoute.size() - 1) {
+
+    cout << "DrivingRoute:";
+    for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
+        cout << bestDrivingRoute[i];
+        if (i < bestDrivingRoute.size() - 1) {
             cout << ",";
         }
     }
-    cout << "(" << totalCost << ")" << endl;
+    cout << "(" << drivingTime << ")" << endl;
 
+    cout << "ParkingNode:" << parkingNode << endl;
 
+    cout << "WalkingRoute:";
+    for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
+        cout << bestWalkingRoute[i];
+        if (i < bestWalkingRoute.size() - 1) {
+            cout << ",";
+        }
+    }
+    cout << "(" << walkingTime << ")" << endl;
+
+    cout << "TotalTime:" << totalTime << endl;
 }
