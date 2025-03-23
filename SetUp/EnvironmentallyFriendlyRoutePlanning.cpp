@@ -19,7 +19,7 @@ bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
 
 
 template <class T>
-void restrictedDijkstra(Graph<T> * g, const int &origin, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments) {
+void restrictedDijkstra(Graph<T> * g, const T &origin, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments) {
 
     // Initialize the vertices
     for(auto v : g->getVertexSet()) {
@@ -60,6 +60,16 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
 
   	totalTime = INT_MAX;
 
+    // ensure src and dest are not adj
+    auto src = g->findVertex(origin);
+    for (auto e : src->getAdj()) {
+        if (e->getOrig()->getInfo() == dest) {
+            cout << "Origin and destination are adjacent nodes." << endl;
+            totalTime = -1;    // means route is not possible bc nodes are adj
+            return;
+        }
+    }
+
     // identify all parking nodes
     vector<Vertex<T> *> parkingNodes;
     for (auto v : g->getVertexSet()) {
@@ -69,8 +79,10 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
 
     if (parkingNodes.empty()) {
         cout << "No available parking spots.\n";
+        totalTime = -2;    // means route is not possible bc there are no parking nodes
         return;
     }
+
 
     // find shortest path from origin to each parking node
     restrictedDijkstra(g, origin, avoidNodes, avoidSegments);
@@ -127,7 +139,7 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
     // no routes found
     if (totalTime == INT_MAX) {
         parkingNode = -1;
-        totalTime = -1;
+        totalTime = -3;    // means there are no routes possible with max walk time given
     }
 
 }

@@ -97,11 +97,17 @@ void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
 
     cout << "TotalTime:";
-    if (totalTime == -1) {
+    if (totalTime < 0) {
         cout << "" << endl;
-        cout << "Message: No possible route" << endl;
+        cout << "Message: ";
+        if (totalTime == -1) {
+            cout << "There are no possible routes because nodes are adj" << endl;
+        } else if (totalTime == -2) {
+            cout << "There are no parking spots available" << endl;
+        } else if (totalTime == -3) {
+            cout << "There are no possible routes with max. walking time given" << endl;
+        }
     } else {
-      // the message needs to be able to show what parameters have not been satisfied (need to change this)
         cout << totalTime << endl;
     }
 
