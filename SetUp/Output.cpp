@@ -63,24 +63,46 @@ void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
 
     cout << "DrivingRoute:";
-    for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
-        cout << bestDrivingRoute[i];
-        if (i < bestDrivingRoute.size() - 1) {
-            cout << ",";
+    if (!bestDrivingRoute.empty()) {
+        for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
+            cout << bestDrivingRoute[i];
+            if (i < bestDrivingRoute.size() - 1)
+                cout << ",";
         }
+        cout << "(" << drivingTime << ")" << endl;
+    } else {
+      cout << "none" << endl;
     }
-    cout << "(" << drivingTime << ")" << endl;
 
-    cout << "ParkingNode:" << parkingNode << endl;
+
+    cout << "ParkingNode:";
+    if (parkingNode == -1) {
+        cout << "none" << endl;
+    } else {
+        cout << parkingNode << endl;
+    }
+
 
     cout << "WalkingRoute:";
-    for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
-        cout << bestWalkingRoute[i];
-        if (i < bestWalkingRoute.size() - 1) {
-            cout << ",";
+    if (!bestWalkingRoute.empty()) {
+        for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
+            cout << bestWalkingRoute[i];
+            if (i < bestWalkingRoute.size() - 1)
+                cout << ",";
         }
+        cout << "(" << walkingTime << ")" << endl;
+    } else {
+      cout << "none" << endl;
     }
-    cout << "(" << walkingTime << ")" << endl;
 
-    cout << "TotalTime:" << totalTime << endl;
+
+    cout << "TotalTime:";
+    if (totalTime == -1) {
+        cout << "" << endl;
+        cout << "Message: No possible route" << endl;
+    } else {
+      // the message needs to be able to show what parameters have not been satisfied (need to change this)
+        cout << totalTime << endl;
+    }
+
 }
