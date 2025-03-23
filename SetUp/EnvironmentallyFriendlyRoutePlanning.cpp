@@ -148,4 +148,3 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
 
 // Add explicit instantiation
 template void EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&, pair<vector<int>,int>&, int&, pair<vector<int>,int>&, int&);
-
