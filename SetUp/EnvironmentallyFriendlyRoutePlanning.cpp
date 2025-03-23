@@ -124,8 +124,10 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
         }
     }
 
+    // no routes found
     if (totalTime == INT_MAX) {
-        cout << "No valid route found within constraints.\n";
+        parkingNode = -1;
+        totalTime = -1;
     }
 
 }
