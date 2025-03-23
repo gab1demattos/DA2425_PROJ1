@@ -7,6 +7,6 @@ template <class T>
 void restrictedDijkstra(Graph<T> * g, const int &origin);
 
 template <class T>
-pair<vector<T>,int> EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int &dest);
+void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int &dest, const int &maxWalkTime, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments, pair<vector<T>,T> &drivingRoute, T &parkingNode, pair<vector<T>,T> &walkingRoute, int &totalTime);
 
 #endif //ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H

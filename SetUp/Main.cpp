@@ -26,7 +26,7 @@ int main(int argc, char const *argv[]) {
             break;
         case 3:
             cout << "Finding driving-walking route..." << endl;
-            //optionEnvironmentalRoute(graph);
+            optionEnvironmentalRoute(&graph);
             break;
         case 4:
             cout << "Exiting..." << endl;

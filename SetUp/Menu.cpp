@@ -58,20 +58,19 @@ void optionRestrictedRoute(Graph<T> *g) {
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g) {
     string mode;
-    int source, destination, maxWalkTime;
+    int source, destination, maxWalkTime, parkingNode, totalTime;
     vector<int> avoidNodes;
     vector<pair<int, int> > avoidSegments;
+    pair<vector<int>,int> drivingRoute, walkingRoute;
 
     // Get input values
     if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         return; // Stop if input is invalid
     }
 
-    pair<vector<T>,int> solBestRoute = EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments);
+    EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments, drivingRoute, parkingNode, walkingRoute, totalTime);
 
-   // pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
-
-    //OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
+    OutputBestEnvironmentallyFriendlyRoute(source, destination, drivingRoute, walkingRoute, parkingNode, totalTime);
 }
 
 template void optionEnvironmentalRoute<int>(Graph<int> *g);
