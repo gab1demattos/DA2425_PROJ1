@@ -1,6 +1,7 @@
 #include "Menu.h"
 #include "IndependentRoutePlanning.h"
 #include "EnvironmentallyFriendlyRoutePlanning.h"
+#include "RestrictedRoutePlanning.h"
 
 #include <sstream>
 #include <fstream>
@@ -51,9 +52,6 @@ void optionBestRoute(Graph<T> *g) {
 // Explicit instantiation for the required type (e.g., int)
 template void optionBestRoute<int>(Graph<int> *g);
 
-/*template<class T>
-void optionRestrictedRoute(Graph<T> *g) {
-}*/
 
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g) {
@@ -75,3 +73,23 @@ void optionEnvironmentalRoute(Graph<T> *g) {
 
 template void optionEnvironmentalRoute<int>(Graph<int> *g);
 
+template<class T>
+void optionRestrictedRoute(Graph<T> *g){
+    string mode;
+    int source, destination;
+    vector<int> avoidNodes;
+    vector<pair<int, int> > avoidSegments;
+    int includeNode;
+    vector<T> route;
+    int totalTime;
+
+    // Get input values
+    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)){
+        return; // Stop if input is invalid
+    }
+
+    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
+    OutputRestrictedRoute(source, destination, route, totalTime);
+}
+
+template void optionRestrictedRoute<int>(Graph<int> *g);

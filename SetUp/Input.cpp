@@ -10,7 +10,7 @@ bool isModeDriving(const string& mode) {
 
 bool InputBestRoute(string & mode, int & source, int & destination) {
     // Read from file
-    ifstream inputFile("Input/inputBestRoute.txt");
+    ifstream inputFile("../Input/inputBestRoute.txt");
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
         return false;
@@ -83,7 +83,7 @@ bool isModeDrivingWalking(const string& mode) {
 
 bool InputEnvironmentalRoute(string & mode, int & source, int & destination, int & maxWalkTime, vector<int> & avoidNodes, vector<pair<int, int> > & avoidSegments) {
     // Read from file
-    ifstream inputFile("Input/inputEnvironmentalRoute.txt");
+    ifstream inputFile("../Input/inputEnvironmentalRoute.txt");
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
         return false;
@@ -115,4 +115,43 @@ bool InputEnvironmentalRoute(string & mode, int & source, int & destination, int
     }
 
     return true;
+}
+
+bool InputRestrictedRoute(string & mode, int & source, int & destination, vector<int> & avoidNodes, vector<pair<int, int> > & avoidSegments, int & includeNode) {
+    ifstream inputFile("../Input/inputRestrictedRoute.txt");
+    if (!inputFile.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return false;
+    }
+
+    string line;
+    while (getline(inputFile, line)) {
+        if (line.find("Mode:") != string::npos) {
+            mode = line.substr(line.find(':') + 1);
+        } else if (line.find("Source:") != string::npos) {
+            source = stoi(line.substr(line.find(':') + 1));
+        } else if (line.find("Destination:") != string::npos) {
+            destination = stoi(line.substr(line.find(':') + 1));
+        } else if (line.find("AvoidNodes:") != string::npos) {
+            string nodesStr = line.substr(line.find(':') + 1);
+            if (!nodesStr.empty()) parseNodesToAvoid(nodesStr, avoidNodes);
+        } else if (line.find("AvoidSegments:") != string::npos) {
+            string segmentsStr = line.substr(line.find(':') + 1);
+            if (!segmentsStr.empty()) parseSegmentsToAvoid(segmentsStr, avoidSegments);
+        } else if (line.find("IncludeNode:") != string::npos) {
+            string include = line.substr(line.find(':') + 1);
+            if (!include.empty()) {
+                includeNode = stoi(line.substr(line.find(':') + 1));
+            }
+        }
+    }
+    inputFile.close();
+
+    if (!isModeDriving(mode)) {
+        cout << "Invalid input." << endl;
+        return false;
+    }
+
+    return true;
+
 }
