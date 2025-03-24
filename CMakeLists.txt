@@ -14,11 +14,14 @@ add_executable(untitled
         SetUp/Main.cpp
         SetUp/Menu.h
         SetUp/Menu.cpp
-        SetUp/Routes.h
         SetUp/readCSV.cpp
         SetUp/readCSV.h
         SetUp/IndependentRoutePlanning.cpp
         SetUp/IndependentRoutePlanning.h
         SetUp/Output.cpp
         SetUp/Output.h
+        SetUp/RestrictedRoutePlanning.h
+        SetUp/EnvironmentallyFriendlyRoutePlanning.h
+        SetUp/RestrictedRoutePlanning.cpp
+        SetUp/EnvironmentallyFriendlyRoutePlanning.cpp
 )

@@ -84,3 +84,23 @@ void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
     cout << "TotalTime:" << totalTime << endl;
 }
+
+template <class T>
+void OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
+	// output the source and destination
+    cout << "Source:" << source << endl;
+    cout << "Destination:" << destination << endl;
+
+    cout << "RestrictedDrivingRoute:";
+
+    for (size_t i = 0; i < bestRestrictedRoute.size(); ++i) {
+        cout << bestRestrictedRoute[i];
+        if (i < bestRestrictedRoute.size() - 1) {
+            cout << ",";
+        }
+    }
+
+    cout << "(" << totalTime << ")" << endl;
+}
+
+template void OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
