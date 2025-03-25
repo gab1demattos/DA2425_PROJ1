@@ -96,25 +96,6 @@ void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNo
 
 template <class T>
 void RestrictedRoutePlanning(Graph<T> * g, const int &origin, const int &dest, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments, const T &includeNode, vector<T> &route, int &totalTime){
-    /*// run restricted Dijkstra to compute the shortest paths
-    restrictedDijkstra(g, origin, avoidNodes, avoidSegments, includeNode);
-
-    // find the destination vertex
-    Vertex<T>* destVertex = g->findVertex(dest);
-    if (destVertex == nullptr || destVertex->getDist() == INT_MAX) {
-        std::cout << "RestrictedDrivingRoute:none" << std::endl;
-        return;
-    }
-
-    // reconstruct the path and calculate total driving time
-    for (Vertex<T>* v = destVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
-        route.push_back(v->getInfo());
-        if (v->getPath() != nullptr) {
-            totalTime += v->getPath()->getDriving();
-        }
-    }
-
-    reverse(route.begin(), route.end());*/
 
     // First find path from origin to includeNode
     restrictedDijkstra(g, origin, avoidNodes, avoidSegments, includeNode);
