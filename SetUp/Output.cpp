@@ -82,5 +82,41 @@ void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
     }
     cout << "(" << walkingTime << ")" << endl;
 
-    cout << "TotalTime:" << totalTime << endl;
+    cout << "TotalTime:";
+
+    if (totalTime < 0) {
+        cout << "" << endl;
+        cout << "Message: No possible route" << endl;
+        cout << "Message: ";
+        if (totalTime == -1) {
+            cout << "There are no possible routes because nodes are adj" << endl;
+        } else if (totalTime == -2) {
+            cout << "There are no parking spots available" << endl;
+        } else if (totalTime == -3) {
+            cout << "There are no possible routes with max. walking time given" << endl;
+        }
+    } else {
+        cout << totalTime << endl;
+    }
+
 }
+
+template <class T>
+void OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
+    // output the source and destination
+    cout << "Source:" << source << endl;
+    cout << "Destination:" << destination << endl;
+
+    cout << "RestrictedDrivingRoute:";
+
+    for (size_t i = 0; i < bestRestrictedRoute.size(); ++i) {
+        cout << bestRestrictedRoute[i];
+        if (i < bestRestrictedRoute.size() - 1) {
+            cout << ",";
+        }
+    }
+
+    cout << "(" << totalTime << ")" << endl;
+}
+
+template void OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
