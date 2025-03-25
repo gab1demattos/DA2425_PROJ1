@@ -61,17 +61,44 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     vector<pair<int, int> > avoidSegments;
     pair<vector<int>,int> drivingRoute, walkingRoute;
 
-    // Get input values
     if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
-        return; // Stop if input is invalid
+        return;
     }
 
-    EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments, drivingRoute, parkingNode, walkingRoute, totalTime);
+    EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
+                                   drivingRoute, parkingNode, walkingRoute, totalTime);
 
-    OutputBestEnvironmentallyFriendlyRoute(source, destination, drivingRoute, walkingRoute, parkingNode, totalTime);
+    bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(source, destination,
+                                                              drivingRoute, walkingRoute,
+                                                              parkingNode, totalTime);
+
+    if (shouldShowMenu) {
+        int option = optionsMenu();
+        handleMenuOption(option, g); // You'll need to implement this
+    }
 }
 
 template void optionEnvironmentalRoute<int>(Graph<int> *g);
+
+template<class T>
+void handleMenuOption(int option, Graph<T> *g) {
+    switch (option) {
+        case 1:
+            optionBestRoute(g);
+        break;
+        case 2:
+            optionRestrictedRoute(g);
+        break;
+        case 3:
+            optionEnvironmentalRoute(g);
+        break;
+        case 4:
+            cout << "Exiting..." << endl;
+        break;
+        default:
+            break;
+    }
+}
 
 template<class T>
 void optionRestrictedRoute(Graph<T> *g){

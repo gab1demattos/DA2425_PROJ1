@@ -18,4 +18,7 @@ void optionRestrictedRoute(Graph<T> *g);
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g);
 
+template<class T>
+void handleMenuOption(int option, Graph<T> *g);
+
 #endif //MENU_H
