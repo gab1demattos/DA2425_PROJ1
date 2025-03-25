@@ -29,6 +29,9 @@ int main(int argc, char const *argv[]) {
             optionEnvironmentalRoute(&graph);
             break;
         case 4:
+            optionInputInfo(&graph);
+            break;
+        case 5:
             cout << "Exiting..." << endl;
         default:
             break;
