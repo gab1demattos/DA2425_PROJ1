@@ -1,6 +1,11 @@
 #include "Output.h"
+
+#include <chrono>
 #include <iostream>
+#include <thread>
 #include <vector>
+
+#include "Menu.h"
 
 using namespace std;
 
@@ -48,9 +53,28 @@ void OutputBestRoute(int source, int destination, const pair<vector<int>,int>& s
     }
 }
 
+template <class T>
+void OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
+    // output the source and destination
+    cout << "Source:" << source << endl;
+    cout << "Destination:" << destination << endl;
+
+    cout << "RestrictedDrivingRoute:";
+
+    for (size_t i = 0; i < bestRestrictedRoute.size(); ++i) {
+        cout << bestRestrictedRoute[i];
+        if (i < bestRestrictedRoute.size() - 1) {
+            cout << ",";
+        }
+    }
+
+    cout << "(" << totalTime << ")" << endl;
+}
+
+template void OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
 
 
-void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime) {
+bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime) {
     vector<int> bestDrivingRoute = solBestDrivingRoute.first;
     int drivingTime = solBestDrivingRoute.second;
 
@@ -94,29 +118,33 @@ void OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
             cout << "There are no parking spots available" << endl;
         } else if (totalTime == -3) {
             cout << "There are no possible routes with max. walking time given" << endl;
+
+            // NEW UX PROMPT
+            cout << "\nDo you want an approximate solution to your problem? [y/n] ";
+            char response;
+            cin >> response;
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
+
+            if (response == 'y' || response == 'Y') {
+                cout << "\nyey :P - to be implemented" << endl;
+            }
+            else {
+                cout << "\nOh :/. No worries though!" << endl;
+                cout << "Redirecting you to the menu in 3 seconds...";
+                cout.flush();
+
+                for (int i = 3; i > 0; --i) {
+                    this_thread::sleep_for(chrono::seconds(1));
+                    cout << " " << i << "...";
+                    cout.flush();
+                }
+                cout << endl << endl;
+                return true; // Signal that we should show menu again
+            }
+            return false;
+        } else {
+            cout << totalTime << endl;
+            return false;
         }
-    } else {
-        cout << totalTime << endl;
     }
-
 }
-
-template <class T>
-void OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
-    // output the source and destination
-    cout << "Source:" << source << endl;
-    cout << "Destination:" << destination << endl;
-
-    cout << "RestrictedDrivingRoute:";
-
-    for (size_t i = 0; i < bestRestrictedRoute.size(); ++i) {
-        cout << bestRestrictedRoute[i];
-        if (i < bestRestrictedRoute.size() - 1) {
-            cout << ",";
-        }
-    }
-
-    cout << "(" << totalTime << ")" << endl;
-}
-
-template void OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
