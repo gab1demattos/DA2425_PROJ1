@@ -46,12 +46,43 @@ void optionBestRoute(Graph<T> *g) {
 
     pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
-    OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
+    bool shouldShowMenu = OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
+
+    if (shouldShowMenu) {
+        int option = optionsMenu();
+        handleMenuOption(option, g);
+    }
 }
 
 // Explicit instantiation for the required type (e.g., int)
 template void optionBestRoute<int>(Graph<int> *g);
 
+
+template<class T>
+void optionRestrictedRoute(Graph<T> *g){
+    string mode;
+    int source, destination;
+    vector<int> avoidNodes;
+    vector<pair<int, int> > avoidSegments;
+    int includeNode;
+    vector<T> route;
+    int totalTime;
+
+    // Get input values
+    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)){
+        return; // Stop if input is invalid
+    }
+
+    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
+    bool shouldShowMenu = OutputRestrictedRoute(source, destination, route, totalTime);
+
+    if (shouldShowMenu) {
+        int option = optionsMenu();
+        handleMenuOption(option, g);
+    }
+}
+
+template void optionRestrictedRoute<int>(Graph<int> *g);
 
 template<class T>
 void optionEnvironmentalRoute(Graph<T>* g) {
@@ -60,7 +91,7 @@ void optionEnvironmentalRoute(Graph<T>* g) {
     vector<int> avoidNodes;
     vector<pair<int, int>> avoidSegments;
     pair<vector<int>,int> drivingRoute, walkingRoute;
-    vector<ApproximateSolution<int>> approximateSolutions; // Add this line
+    vector<ApproximateSolution<int>> approximateSolutions;
 
     if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         return;
@@ -69,12 +100,12 @@ void optionEnvironmentalRoute(Graph<T>* g) {
     // Update the function call to include approximateSolutions
     EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
                                    drivingRoute, parkingNode, walkingRoute, totalTime,
-                                   approximateSolutions); // Add this parameter
+                                   approximateSolutions);
 
     bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(source, destination,
                                                               drivingRoute, walkingRoute,
                                                               parkingNode, totalTime, maxWalkTime,
-                                                              approximateSolutions); // Add this parameter
+                                                              approximateSolutions);
 
     if (shouldShowMenu) {
         int option = optionsMenu();
@@ -103,24 +134,3 @@ void handleMenuOption(int option, Graph<T> *g) {
             break;
     }
 }
-
-template<class T>
-void optionRestrictedRoute(Graph<T> *g){
-    string mode;
-    int source, destination;
-    vector<int> avoidNodes;
-    vector<pair<int, int> > avoidSegments;
-    int includeNode;
-    vector<T> route;
-    int totalTime;
-
-    // Get input values
-    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)){
-        return; // Stop if input is invalid
-    }
-
-    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
-    OutputRestrictedRoute(source, destination, route, totalTime);
-}
-
-template void optionRestrictedRoute<int>(Graph<int> *g);
