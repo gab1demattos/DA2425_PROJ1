@@ -5,6 +5,8 @@
 #include <vector>
 #include <utility>
 #include <algorithm>
+#include <climits>
+#include <cstdint>
 
 template <class T>
 bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]

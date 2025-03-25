@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility> // for std::pair
 #include <algorithm>
+#include <climits>
 
 #include "Output.h"
 
