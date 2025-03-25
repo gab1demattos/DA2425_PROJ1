@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 
+#include "EnvironmentallyFriendlyRoutePlanning.h"
 #include "Menu.h"
 
 using namespace std;
@@ -73,8 +74,41 @@ void OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
 
 template void OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
 
+void OutputApproximateSolutions(int source, int destination,
+                              int maxWalkTime,
+                              const vector<ApproximateSolution<int>>& solutions) {
+    cout << "Source:" << source << endl;
+    cout << "Destination:" << destination << endl;
 
-bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime) {
+    for (size_t i = 0; i < solutions.size(); ++i) {
+        const auto& sol = solutions[i];
+        cout << "DrivingRoute" << i+1 << ":";
+        for (size_t j = 0; j < sol.drivingRoute.size(); ++j) {
+            cout << sol.drivingRoute[j];
+            if (j < sol.drivingRoute.size() - 1) cout << ",";
+        }
+        cout << "(" << sol.drivingTime << ")" << endl;
+
+        cout << "ParkingNode" << i+1 << ":" << sol.parkingNode << endl;
+
+        cout << "WalkingRoute" << i+1 << ":";
+        for (size_t j = 0; j < sol.walkingRoute.size(); ++j) {
+            cout << sol.walkingRoute[j];
+            if (j < sol.walkingRoute.size() - 1) cout << ",";
+        }
+        cout << "(" << sol.walkingTime << ")";
+        if (sol.walkingTime > maxWalkTime) {
+            cout << " [+" << (sol.walkingTime - maxWalkTime) << " over max]";
+        }
+        cout << endl;
+
+        cout << "TotalTime" << i+1 << ":" << sol.totalTime << endl;
+
+        if (i < solutions.size() - 1) cout << endl;
+    }
+}
+
+bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime, int maxWalkTime, const vector<ApproximateSolution<int>>& approximateSolutions) {
     vector<int> bestDrivingRoute = solBestDrivingRoute.first;
     int drivingTime = solBestDrivingRoute.second;
 
@@ -126,7 +160,12 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
 
             if (response == 'y' || response == 'Y') {
-                cout << "\nyey :P - to be implemented" << endl;
+                if (!approximateSolutions.empty()) {
+                    OutputApproximateSolutions(source, destination, maxWalkTime, approximateSolutions);
+                } else {
+                    cout << "No approximate solutions found." << endl;
+                }
+                return false;
             }
             else {
                 cout << "\nOh :/. No worries though!" << endl;
@@ -147,4 +186,7 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
             return false;
         }
     }
+    return false;
 }
+
+
