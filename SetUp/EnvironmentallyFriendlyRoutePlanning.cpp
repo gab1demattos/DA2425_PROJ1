@@ -57,7 +57,12 @@ void restrictedDijkstra(Graph<T> * g, const T &origin, const vector<T> &avoidNod
 }
 
 template <class T>
-void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int &dest, const int &maxWalkTime, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments, pair<vector<T>,T> &drivingRoute, T &parkingNode, pair<vector<T>,T> &walkingRoute, int &totalTime) {
+void EnvironmentallyFriendlyBestRoute(Graph<T>* g, const int& origin, const int& dest,
+                                    const int& maxWalkTime, const vector<T>& avoidNodes,
+                                    const vector<pair<T,T>>& avoidSegments,
+                                    pair<vector<T>,int>& drivingRoute, T& parkingNode,
+                                    pair<vector<T>,int>& walkingRoute, int& totalTime,
+                                    vector<ApproximateSolution<T>>& approximateSolutions) {
 
   	totalTime = INT_MAX;
 
@@ -140,12 +145,65 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> * g, const int &origin, const int
     // no routes found
     if (totalTime == INT_MAX) {
         parkingNode = -1;
-        totalTime = -3;    // means there are no routes possible with max walk time given
+        totalTime = -3;
+
+        // Call the new function to find approximate solutions
+        FindApproximateSolutions(g, drivingPaths, avoidNodes, avoidSegments, dest, approximateSolutions);
     }
 
 }
 
-
-
 // Add explicit instantiation
-template void EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&, pair<vector<int>,int>&, int&, pair<vector<int>,int>&, int&);
+template void EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&, pair<vector<int>,int>&, int&, pair<vector<int>,int>&, int&, vector<ApproximateSolution<int>>& );
+
+template <class T>
+void FindApproximateSolutions(Graph<T>* g, const vector<pair<vector<T>,int>>& drivingPaths,
+                            const vector<T>& avoidNodes, const vector<pair<T,T>>& avoidSegments,
+                            int destination, vector<ApproximateSolution<T>>& approximateSolutions) {
+    // Find all possible approximate solutions
+    vector<ApproximateSolution<T>> allApproximates;
+
+    for (const auto& drivingPath : drivingPaths) {
+        T parkNode = drivingPath.first.back();
+        restrictedDijkstra(g, parkNode, avoidNodes, avoidSegments);
+
+        vector<T> walkingPath;
+        walkingPath.push_back(parkNode);
+        int walkTime = 0;
+        Vertex<T>* v = g->findVertex(destination);
+
+        while (v && v->getPath() != nullptr) {
+            auto edge = v->getPath();
+            walkTime += edge->getWalking();
+            walkingPath.push_back(v->getInfo());
+            v = edge->getOrig();
+        }
+
+        reverse(walkingPath.begin() + 1, walkingPath.end());
+
+        ApproximateSolution<T> sol;
+        sol.drivingRoute = drivingPath.first;
+        sol.drivingTime = drivingPath.second;
+        sol.parkingNode = parkNode;
+        sol.walkingRoute = walkingPath;
+        sol.walkingTime = walkTime;
+        sol.totalTime = drivingPath.second + walkTime;
+
+        allApproximates.push_back(sol);
+    }
+
+    // Sort by total time, then by walking time
+    sort(allApproximates.begin(), allApproximates.end(),
+        [](const ApproximateSolution<T>& a, const ApproximateSolution<T>& b) {
+            if (a.totalTime != b.totalTime) return a.totalTime < b.totalTime;
+            return a.walkingTime < b.walkingTime;
+        });
+
+    // Take top 2 solutions
+    if (!allApproximates.empty()) {
+        approximateSolutions.push_back(allApproximates[0]);
+        if (allApproximates.size() > 1) {
+            approximateSolutions.push_back(allApproximates[1]);
+        }
+    }
+}

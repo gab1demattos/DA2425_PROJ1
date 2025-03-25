@@ -54,27 +54,31 @@ template void optionBestRoute<int>(Graph<int> *g);
 
 
 template<class T>
-void optionEnvironmentalRoute(Graph<T> *g) {
+void optionEnvironmentalRoute(Graph<T>* g) {
     string mode;
     int source, destination, maxWalkTime, parkingNode, totalTime;
     vector<int> avoidNodes;
-    vector<pair<int, int> > avoidSegments;
+    vector<pair<int, int>> avoidSegments;
     pair<vector<int>,int> drivingRoute, walkingRoute;
+    vector<ApproximateSolution<int>> approximateSolutions; // Add this line
 
     if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         return;
     }
 
+    // Update the function call to include approximateSolutions
     EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
-                                   drivingRoute, parkingNode, walkingRoute, totalTime);
+                                   drivingRoute, parkingNode, walkingRoute, totalTime,
+                                   approximateSolutions); // Add this parameter
 
     bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(source, destination,
                                                               drivingRoute, walkingRoute,
-                                                              parkingNode, totalTime);
+                                                              parkingNode, totalTime, maxWalkTime,
+                                                              approximateSolutions); // Add this parameter
 
     if (shouldShowMenu) {
         int option = optionsMenu();
-        handleMenuOption(option, g); // You'll need to implement this
+        handleMenuOption(option, g);
     }
 }
 
