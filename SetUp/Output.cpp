@@ -167,14 +167,9 @@ void OutputApproximateSolutions(int source, int destination,
             if (j < sol.walkingRoute.size() - 1) cout << ",";
         }
         cout << "(" << sol.walkingTime << ")";
-        if (sol.walkingTime > maxWalkTime) {
-            cout << " [+" << (sol.walkingTime - maxWalkTime) << " over max]";
-        }
         cout << endl;
 
         cout << "TotalTime" << i+1 << ":" << sol.totalTime << endl;
-
-        if (i < solutions.size() - 1) cout << endl;
     }
 }
 
@@ -247,7 +242,7 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
                     cout.flush();
                 }
                 cout << endl << endl;
-                return true; // Signal that we should show menu again
+                return true; // signal that we should show menu again
             }
             return false;
         } else {
