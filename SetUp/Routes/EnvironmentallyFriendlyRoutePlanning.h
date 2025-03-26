@@ -1,7 +1,7 @@
 #ifndef ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H
 #define ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H
 
-#include "Graph.h"\
+#include "../DataStructures/Graph.h"
 
 template <class T>
 struct ApproximateSolution {

@@ -5,8 +5,8 @@
 #include <thread>
 #include <vector>
 
-#include "EnvironmentallyFriendlyRoutePlanning.h"
-#include "Menu.h"
+#include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
+#include "../Menu/Menu.h"
 
 using namespace std;
 

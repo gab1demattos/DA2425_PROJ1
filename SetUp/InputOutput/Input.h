@@ -7,7 +7,7 @@
 #include <iostream>
 #include <regex>
 
-#include "Graph.h"
+#include "../DataStructures/Graph.h"
 
 using namespace std;
 

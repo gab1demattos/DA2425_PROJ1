@@ -4,7 +4,7 @@
 #include <limits.h>
 #include <sstream>
 #include <vector>
-#include "Graph.h"
+#include "../DataStructures/Graph.h"
 
 void readLocations(const std::string& filename, Graph<int>& graph) {
     std::ifstream file(filename);

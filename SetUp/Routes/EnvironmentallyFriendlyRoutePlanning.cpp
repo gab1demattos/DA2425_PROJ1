@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <climits>
 
-#include "Output.h"
+#include "../InputOutput/Output.h"
 
 template <class T>
 bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
