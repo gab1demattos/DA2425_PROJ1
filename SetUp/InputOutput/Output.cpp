@@ -144,9 +144,11 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
 
 template bool OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
 
-void OutputApproximateSolutions(int source, int destination,
+bool OutputApproximateSolutions(int source, int destination,
                               int maxWalkTime,
                               const vector<ApproximateSolution<int>>& solutions) {
+    bool showMenu = false;
+
     cout << "Source:" << source << endl;
     cout << "Destination:" << destination << endl;
 
@@ -171,9 +173,40 @@ void OutputApproximateSolutions(int source, int destination,
 
         cout << "TotalTime" << i+1 << ":" << sol.totalTime << endl;
     }
+
+    cout << endl << "Are you ready to go back to the menu? [y/n] ";
+    char response;
+    cin >> response;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
+
+    if (response == 'y' || response == 'Y') {
+        cout << "Redirecting you to the menu in 3 seconds...";
+        cout.flush();
+        for (int i = 3; i > 0; --i) {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << " " << i << "...";
+            cout.flush();
+        }
+        cout << endl << endl;
+        showMenu = true;
+    }
+    else {
+        cout << endl << "Ok! Goodbye!" << endl;
+        cout << "Exiting in... ";
+        cout.flush();
+        for (int i = 3; i > 0; --i) {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << " " << i << "...";
+            cout.flush();
+        }
+        cout << endl << endl;
+    }
+    return showMenu;
 }
 
 bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime, int maxWalkTime, const vector<ApproximateSolution<int>>& approximateSolutions) {
+    bool showMenu = false;
+
     vector<int> bestDrivingRoute = solBestDrivingRoute.first;
     int drivingTime = solBestDrivingRoute.second;
 
@@ -239,7 +272,7 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
             if (response == 'y' || response == 'Y') {
                 if (!approximateSolutions.empty()) {
-                    OutputApproximateSolutions(source, destination, maxWalkTime, approximateSolutions);
+                    showMenu = OutputApproximateSolutions(source, destination, maxWalkTime, approximateSolutions);
                 } else {
                     cout << "No approximate solutions found." << endl;
                 }
@@ -255,15 +288,13 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
                     cout.flush();
                 }
                 cout << endl << endl;
-                return true; // signal that we should show menu again
+                showMenu = true;
             }
-            return false;
         } else {
             cout << totalTime << endl;
-            return false;
         }
     }
-    return false;
+    return showMenu;
 }
 
 
