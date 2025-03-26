@@ -5,8 +5,7 @@
 #include <thread>
 #include <vector>
 
-#include "EnvironmentallyFriendlyRoutePlanning.h"
-#include "Menu.h"
+#include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 using namespace std;
 
@@ -15,18 +14,18 @@ using namespace std;
  * 
  * @param source The starting point of the route.
  * @param destination The destination point of the route.
- * @param bestRoute A vector containing the nodes in the best route.
- * @param totalCost The total cost (e.g., distance or time) of the best route.
+ * @param solBestRoute A pair containing a vector of the nodes in the best route and an integer that corresponds to the total time of the route.
+ * @param solAlternativeRoute A pair containing a vector of the nodes in the alternative route and an integer that corresponds to the total time of the route.
  */
-
-bool OutputBestRoute(int source, int destination, const pair<vector<int>,int>& solBestRoute, const pair<vector<int>,int>& solALternativeRoute) {
+bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &solBestRoute,
+                     const pair<vector<int>, int> &solAlternativeRoute) {
     bool showMenu = false;
 
     vector<int> bestRoute = solBestRoute.first;
     int totalCost = solBestRoute.second;
 
-    vector<int> alternativeRoute = solALternativeRoute.first;
-    int alternativeTime = solALternativeRoute.second;
+    vector<int> alternativeRoute = solAlternativeRoute.first;
+    int alternativeTime = solAlternativeRoute.second;
 
     // Output the source and destination
     cout << "Source:" << source << endl;
@@ -73,8 +72,7 @@ bool OutputBestRoute(int source, int destination, const pair<vector<int>,int>& s
         }
         cout << endl << endl;
         showMenu = true;
-    }
-    else {
+    } else {
         cout << endl << "Ok! Goodbye!" << endl;
         cout << "Exiting in... ";
         cout.flush();
@@ -89,7 +87,7 @@ bool OutputBestRoute(int source, int destination, const pair<vector<int>,int>& s
     return showMenu;
 }
 
-template <class T>
+template<class T>
 bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
     bool showMenu = false;
 
@@ -110,8 +108,7 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
 
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;
-
-    cout << "Are you ready to go back to the menu? [y/n] ";
+    cout << "Do you want to go back to the menu? [y/n] ";
     char response;
     cin >> response;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
@@ -126,8 +123,7 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
         }
         cout << endl << endl;
         showMenu = true;
-    }
-    else {
+    } else {
         cout << endl << "Ok! Goodbye!" << endl;
         cout << "Exiting in... ";
         cout.flush();
@@ -142,26 +138,29 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
     return showMenu;
 }
 
-template bool OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime);
+template bool OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute,
+                                         int totalTime);
 
-void OutputApproximateSolutions(int source, int destination,
-                              int maxWalkTime,
-                              const vector<ApproximateSolution<int>>& solutions) {
+bool OutputApproximateSolutions(int source, int destination,
+                                int maxWalkTime,
+                                const vector<ApproximateSolution<int> > &solutions) {
+    bool showMenu = false;
+
     cout << "Source:" << source << endl;
     cout << "Destination:" << destination << endl;
 
     for (size_t i = 0; i < solutions.size(); ++i) {
-        const auto& sol = solutions[i];
-        cout << "DrivingRoute" << i+1 << ":";
+        const auto &sol = solutions[i];
+        cout << "DrivingRoute" << i + 1 << ":";
         for (size_t j = 0; j < sol.drivingRoute.size(); ++j) {
             cout << sol.drivingRoute[j];
             if (j < sol.drivingRoute.size() - 1) cout << ",";
         }
         cout << "(" << sol.drivingTime << ")" << endl;
 
-        cout << "ParkingNode" << i+1 << ":" << sol.parkingNode << endl;
+        cout << "ParkingNode" << i + 1 << ":" << sol.parkingNode << endl;
 
-        cout << "WalkingRoute" << i+1 << ":";
+        cout << "WalkingRoute" << i + 1 << ":";
         for (size_t j = 0; j < sol.walkingRoute.size(); ++j) {
             cout << sol.walkingRoute[j];
             if (j < sol.walkingRoute.size() - 1) cout << ",";
@@ -169,11 +168,47 @@ void OutputApproximateSolutions(int source, int destination,
         cout << "(" << sol.walkingTime << ")";
         cout << endl;
 
-        cout << "TotalTime" << i+1 << ":" << sol.totalTime << endl;
+        cout << "TotalTime" << i + 1 << ":" << sol.totalTime << endl;
     }
+
+    cout << endl;
+    cout << "Hope the solution was to your liking!" << endl;
+    cout << "Do you want to go back to the menu? [y/n] ";
+    char response;
+    cin >> response;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
+
+    if (response == 'y' || response == 'Y') {
+        cout << "Redirecting you to the menu in 3 seconds...";
+        cout.flush();
+        for (int i = 3; i > 0; --i) {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << " " << i << "...";
+            cout.flush();
+        }
+        cout << endl << endl;
+        showMenu = true;
+    } else {
+        cout << endl << "Ok! Goodbye!" << endl;
+        cout << "Exiting in... ";
+        cout.flush();
+        for (int i = 3; i > 0; --i) {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << " " << i << "...";
+            cout.flush();
+        }
+        cout << endl << endl;
+    }
+    return showMenu;
 }
 
-bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const pair<vector<int>,int>& solBestDrivingRoute, const pair<vector<int>,int>& solBestWalkingRoute, const int &parkingNode, const int &totalTime, int maxWalkTime, const vector<ApproximateSolution<int>>& approximateSolutions) {
+bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
+                                            const pair<vector<int>, int> &solBestDrivingRoute,
+                                            const pair<vector<int>, int> &solBestWalkingRoute, const int &parkingNode,
+                                            const int &totalTime, int maxWalkTime,
+                                            const vector<ApproximateSolution<int> > &approximateSolutions) {
+    bool showMenu = false;
+
     vector<int> bestDrivingRoute = solBestDrivingRoute.first;
     int drivingTime = solBestDrivingRoute.second;
 
@@ -187,36 +222,36 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
     cout << "DrivingRoute:";
     if (bestDrivingRoute.empty()) {
-      cout << "None" << endl;
+        cout << "None" << endl;
     } else {
-	    for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
-    	    cout << bestDrivingRoute[i];
-        	if (i < bestDrivingRoute.size() - 1) {
-            	cout << ",";
-	        }
-    	}
-    	cout << "(" << drivingTime << ")" << endl;
+        for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
+            cout << bestDrivingRoute[i];
+            if (i < bestDrivingRoute.size() - 1) {
+                cout << ",";
+            }
+        }
+        cout << "(" << drivingTime << ")" << endl;
     }
 
     cout << "ParkingNode:";
     if (parkingNode == -1) {
-      cout << "None" << endl;
+        cout << "None" << endl;
     } else {
-      cout << parkingNode << endl;
+        cout << parkingNode << endl;
     }
 
 
     cout << "WalkingRoute:";
     if (bestWalkingRoute.empty()) {
-      cout << "None" << endl;
+        cout << "None" << endl;
     } else {
-	    for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
-    	    cout << bestWalkingRoute[i];
-        	if (i < bestWalkingRoute.size() - 1) {
-            	cout << ",";
-	        }
-    	}
-    	cout << "(" << walkingTime << ")" << endl;
+        for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
+            cout << bestWalkingRoute[i];
+            if (i < bestWalkingRoute.size() - 1) {
+                cout << ",";
+            }
+        }
+        cout << "(" << walkingTime << ")" << endl;
     }
 
     cout << "TotalTime:";
@@ -239,12 +274,11 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
             if (response == 'y' || response == 'Y') {
                 if (!approximateSolutions.empty()) {
-                    OutputApproximateSolutions(source, destination, maxWalkTime, approximateSolutions);
+                    showMenu = OutputApproximateSolutions(source, destination, maxWalkTime, approximateSolutions);
                 } else {
                     cout << "No approximate solutions found." << endl;
                 }
-            }
-            else {
+            } else {
                 cout << "\nOh :/. No worries though!" << endl;
                 cout << "Redirecting you to the menu in 3 seconds...";
                 cout.flush();
@@ -255,15 +289,41 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
                     cout.flush();
                 }
                 cout << endl << endl;
-                return true; // signal that we should show menu again
+                showMenu = true;
             }
-            return false;
+        }
+    } else {
+        cout << totalTime << endl;
+
+        cout << endl;
+        cout << "Hope the solution was to your liking!" << endl;
+        cout << "Do you want to go back to the menu? [y/n] ";
+        char response;
+        cin >> response;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
+
+        if (response == 'y' || response == 'Y') {
+            cout << "Redirecting you to the menu in 3 seconds...";
+            cout.flush();
+            for (int i = 3; i > 0; --i) {
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << " " << i << "...";
+                cout.flush();
+            }
+            cout << endl << endl;
+            showMenu = true;
         } else {
-            cout << totalTime << endl;
-            return false;
+            cout << endl << "Ok! Goodbye!" << endl;
+            cout << "Exiting in... ";
+            cout.flush();
+            for (int i = 3; i > 0; --i) {
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << " " << i << "...";
+                cout.flush();
+            }
+            cout << endl << endl;
         }
     }
-    return false;
+
+    return showMenu;
 }
-
-

@@ -1,12 +1,12 @@
 #include "readCSV.h"
 #include <iostream>
 #include <fstream>
-#include <limits.h>
+#include <climits>
 #include <sstream>
-#include <vector>
-#include "Graph.h"
 
-void readLocations(const std::string& filename, Graph<int>& graph) {
+#include "../DataStructures/Graph.h"
+
+void readLocations(const std::string &filename, Graph<int> &graph) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -31,8 +31,7 @@ void readLocations(const std::string& filename, Graph<int>& graph) {
 
         // add vertex to the graph
         graph.addVertex(id);
-        Vertex<int>* vertex = graph.findVertex(id);
-        if (vertex) {
+        if (Vertex<int> *vertex = graph.findVertex(id)) {
             vertex->setLocation(location);
             vertex->setCode(code);
             vertex->setParking(parking);
@@ -42,7 +41,7 @@ void readLocations(const std::string& filename, Graph<int>& graph) {
     file.close();
 }
 
-void readDistances(const std::string& filename, Graph<int>& graph) {
+void readDistances(const std::string &filename, Graph<int> &graph) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -66,8 +65,8 @@ void readDistances(const std::string& filename, Graph<int>& graph) {
         int walking = std::stoi(walkingStr);
 
         // find vertices by code
-        Vertex<int>* v1 = graph.findVertexByCode(loc1);
-        Vertex<int>* v2 = graph.findVertexByCode(loc2);
+        Vertex<int> *v1 = graph.findVertexByCode(loc1);
+        Vertex<int> *v2 = graph.findVertexByCode(loc2);
 
         if (v1 && v2) {
             // add bidirectional edge with driving and walking times

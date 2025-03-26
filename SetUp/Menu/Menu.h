@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 
-#include "Graph.h"
+#include "../DataStructures/Graph.h"
 using namespace std;
 
 int optionsMenu();

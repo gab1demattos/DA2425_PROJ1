@@ -1,9 +1,8 @@
-#include "Graph.h"
-#include "IndependentRoutePlanning.h"
-#include "Menu.h"
-#include "readCSV.h"
+#include "DataStructures/Graph.h"
+#include "Menu/Menu.h"
+#include "ReadData/readCSV.h"
 
-int main(int argc, char const *argv[]) {
+int main() {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
@@ -12,10 +11,7 @@ int main(int argc, char const *argv[]) {
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
 
-    // Print the graph for debugging
-    //printGraph(graph);
-
-    switch (int option = optionsMenu()) {
+    switch (optionsMenu()) {
         case 1:
             cout << "Finding best and alternative independent routes..." << endl << endl;
             optionBestRoute(&graph);
