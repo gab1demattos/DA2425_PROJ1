@@ -7,9 +7,11 @@
 
 #include "../InputOutput/Output.h"
 
-template <class T>
-bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
-    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
+template<class T>
+bool relax(Edge<T> *edge) {
+    // d[u] + w(u,v) < d[v]
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) {
+        // we have found a better way to reach v
         edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
         edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
         return true;
@@ -18,28 +20,26 @@ bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
 }
 
 
-template <class T>
-void dijkstra(Graph<T> * g, const int &origin) {
-
+template<class T>
+void dijkstra(Graph<T> *g, const int &origin) {
     // Initialize the vertices
-    for(auto v : g->getVertexSet()) {
+    for (auto v: g->getVertexSet()) {
         v->setDist(INF);
         v->setPath(nullptr);
     }
     auto s = g->findVertex(origin);
     s->setDist(0);
 
-    MutablePriorityQueue<Vertex<T>> q;
+    MutablePriorityQueue<Vertex<T> > q;
     q.insert(s);
-    while( ! q.empty() ) {
+    while (!q.empty()) {
         auto v = q.extractMin();
-        for(auto e : v->getAdj()) {
+        for (auto e: v->getAdj()) {
             auto oldDist = e->getDest()->getDist();
             if (relax(e)) {
                 if (oldDist == INF) {
                     q.insert(e->getDest());
-                }
-                else {
+                } else {
                     q.decreaseKey(e->getDest());
                 }
             }
@@ -47,13 +47,14 @@ void dijkstra(Graph<T> * g, const int &origin) {
     }
 }
 
-template <class T>
-pair<vector<T>,int> BestRoute(Graph<T> * g, const int &origin, const int &dest) {
+template<class T>
+pair<vector<T>, int> BestRoute(Graph<T> *g, const int &origin, const int &dest) {
     dijkstra(g, origin);
 
     std::vector<T> res;
     auto v = g->findVertex(dest);
-    if (v == nullptr || v->getDist() == INF) { // missing or disconnected
+    if (v == nullptr || v->getDist() == INF) {
+        // missing or disconnected
         return make_pair(res, 0);
     }
 
@@ -76,10 +77,11 @@ pair<vector<T>,int> BestRoute(Graph<T> * g, const int &origin, const int &dest) 
 }
 
 // Add explicit instantiation
-template pair<vector<int>,int> BestRoute<int>(Graph<int>*, const int&, const int&);
+template pair<vector<int>, int> BestRoute<int>(Graph<int> *, const int &, const int &);
 
-template <class T>
-pair<vector<int>,int> AlternativeRoute(Graph<T>* g, const pair<vector<int>,int>& primaryRoute, int source, int destination) {
+template<class T>
+pair<vector<int>, int> AlternativeRoute(Graph<T> *g, const pair<vector<int>, int> &primaryRoute, int source,
+                                        int destination) {
     // Create a copy of the graph to avoid modifying the original
     Graph<T> modifiedGraph = *g;
 
@@ -94,7 +96,7 @@ pair<vector<int>,int> AlternativeRoute(Graph<T>* g, const pair<vector<int>,int>&
     }
 
     // Find the alternative route on the modified graph
-    pair<vector<int>,int> alternativeRoute = BestRoute(&modifiedGraph, source, destination);
+    pair<vector<int>, int> alternativeRoute = BestRoute(&modifiedGraph, source, destination);
 
     if (alternativeRoute.first.empty() || alternativeRoute.second < primaryRoute.second) {
         // No valid alternative route exists
@@ -105,4 +107,4 @@ pair<vector<int>,int> AlternativeRoute(Graph<T>* g, const pair<vector<int>,int>&
 }
 
 // Add explicit instantiation
-template pair<vector<int>,int> AlternativeRoute<int>(Graph<int>*, const pair<vector<int>,int>& , int, int);
+template pair<vector<int>, int> AlternativeRoute<int>(Graph<int> *, const pair<vector<int>, int> &, int, int);

@@ -1,14 +1,14 @@
 #include "Input.h"
 #include <sstream>
 
-bool isModeDriving(const string& mode) {
+bool isModeDriving(const string &mode) {
     string res;
-    for (const char c : mode)
+    for (const char c: mode)
         res += static_cast<char>(tolower(c));
     return res == "driving";
 }
 
-bool InputBestRoute(string & mode, int & source, int & destination) {
+bool InputBestRoute(string &mode, int &source, int &destination) {
     // Read from file
     ifstream inputFile("../Input/inputBestRoute.txt");
     if (!inputFile.is_open()) {
@@ -43,13 +43,13 @@ bool parseNodesToAvoid(const string &input, vector<int> &output) {
         try {
             output.push_back(stoi(token));
         } catch (exception &e) {
-            return false;  // Invalid integer format
+            return false; // Invalid integer format
         }
     }
     return true;
 }
 
-bool parseSegmentsToAvoid(const string &input, vector<pair<int, int>> &output) {
+bool parseSegmentsToAvoid(const string &input, vector<pair<int, int> > &output) {
     stringstream ss(input);
     string token;
 
@@ -65,21 +65,22 @@ bool parseSegmentsToAvoid(const string &input, vector<pair<int, int>> &output) {
             try {
                 output.emplace_back(stoi(first), stoi(second));
             } catch (exception &e) {
-                return false;  // Invalid number
+                return false; // Invalid number
             }
         }
     }
     return true;
 }
 
-bool isModeDrivingWalking(const string& mode) {
+bool isModeDrivingWalking(const string &mode) {
     string res;
-    for (const char c : mode)
+    for (const char c: mode)
         res += static_cast<char>(tolower(c));
     return res == "driving-walking";
 }
 
-bool InputEnvironmentalRoute(string & mode, int & source, int & destination, int & maxWalkTime, vector<int> & avoidNodes, vector<pair<int, int> > & avoidSegments) {
+bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
+                             vector<pair<int, int> > &avoidSegments) {
     // Read from file
     ifstream inputFile("../Input/inputEnvironmentalRoute.txt");
     if (!inputFile.is_open()) {
@@ -115,7 +116,8 @@ bool InputEnvironmentalRoute(string & mode, int & source, int & destination, int
     return true;
 }
 
-bool InputRestrictedRoute(string & mode, int & source, int & destination, vector<int> & avoidNodes, vector<pair<int, int> > & avoidSegments, int & includeNode) {
+bool InputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
+                          vector<pair<int, int> > &avoidSegments, int &includeNode) {
     ifstream inputFile("../Input/inputRestrictedRoute.txt");
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
@@ -151,5 +153,4 @@ bool InputRestrictedRoute(string & mode, int & source, int & destination, vector
     }
 
     return true;
-
 }
