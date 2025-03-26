@@ -7,9 +7,11 @@
 #include <climits>
 #include <cstdint>
 
-template <class T>
-bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
-    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
+template<class T>
+bool relax(Edge<T> *edge) {
+    // d[u] + w(u,v) < d[v]
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) {
+        // we have found a better way to reach v
         edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
         edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
         return true;
@@ -18,29 +20,29 @@ bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
 }
 
 
-template <class T>
+template<class T>
 void initializeVertices(Graph<T> *g) {
-    for (auto v : g->getVertexSet()) {
+    for (auto v: g->getVertexSet()) {
         v->setDist(INT_MAX);
         v->setPath(nullptr);
         v->setVisited(false);
     }
 }
 
-template <class T>
-void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, const vector<pair<T, T>> &avoidSegments) {
-    MutablePriorityQueue<Vertex<T>> q;
+template<class T>
+void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, const vector<pair<T, T> > &avoidSegments) {
+    MutablePriorityQueue<Vertex<T> > q;
     q.insert(start);
 
     while (!q.empty()) {
         auto v = q.extractMin();
-        for (auto e : v->getAdj()) {
+        for (auto e: v->getAdj()) {
             // skip restricted nodes
             if (std::find(avoidNodes.begin(), avoidNodes.end(), e->getDest()->getInfo()) != avoidNodes.end())
                 continue;
             // skip restricted segments
             if (std::find(avoidSegments.begin(), avoidSegments.end(),
-                std::make_pair(e->getOrig()->getInfo(), e->getDest()->getInfo())) != avoidSegments.end()) {
+                          std::make_pair(e->getOrig()->getInfo(), e->getDest()->getInfo())) != avoidSegments.end()) {
                 continue;
             }
             auto oldDist = e->getDest()->getDist();
@@ -55,8 +57,9 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
     }
 }
 
-template <class T>
-void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNodes, const vector<pair<T, T>> &avoidSegments, const T &includeNode) {
+template<class T>
+void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNodes,
+                        const vector<pair<T, T> > &avoidSegments, const T &includeNode) {
     // check if includeNode exists in the graph
     auto includeVertex = g->findVertex(includeNode);
     bool includeNodeExists = (includeVertex != nullptr);
@@ -95,12 +98,13 @@ void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNo
     }
 }
 
-template <class T>
-void RestrictedRoutePlanning(Graph<T> * g, const int &origin, const int &dest, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments, const T &includeNode, vector<T> &route, int &totalTime){
-
+template<class T>
+void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, const vector<T> &avoidNodes,
+                             const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
+                             int &totalTime) {
     // First find path from origin to includeNode
     restrictedDijkstra(g, origin, avoidNodes, avoidSegments, includeNode);
-    Vertex<T>* includeVertex = g->findVertex(includeNode);
+    Vertex<T> *includeVertex = g->findVertex(includeNode);
     if (includeVertex == nullptr || includeVertex->getDist() == INT8_MAX) {
         std::cout << "RestrictedDrivingRoute:None" << std::endl;
         return;
@@ -109,7 +113,7 @@ void RestrictedRoutePlanning(Graph<T> * g, const int &origin, const int &dest, c
     // Reconstruct first part of path (origin to includeNode)
     vector<T> firstPart;
     int firstPartTime = 0;
-    for (Vertex<T>* v = includeVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
+    for (Vertex<T> *v = includeVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
         firstPart.push_back(v->getInfo());
         if (v->getPath() != nullptr) {
             firstPartTime += v->getPath()->getDriving();
@@ -118,7 +122,7 @@ void RestrictedRoutePlanning(Graph<T> * g, const int &origin, const int &dest, c
 
     // Then find path from includeNode to destination
     restrictedDijkstra(g, includeNode, avoidNodes, avoidSegments, dest);
-    Vertex<T>* destVertex = g->findVertex(dest);
+    Vertex<T> *destVertex = g->findVertex(dest);
     if (destVertex == nullptr || destVertex->getDist() == INT_MAX) {
         std::cout << "RestrictedDrivingRoute:None" << std::endl;
         return;
@@ -127,7 +131,9 @@ void RestrictedRoutePlanning(Graph<T> * g, const int &origin, const int &dest, c
     // Reconstruct second part of path (includeNode to destination)
     vector<T> secondPart;
     int secondPartTime = 0;
-    for (Vertex<T>* v = destVertex; v != nullptr && v->getInfo() != includeNode; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
+    for (Vertex<T> *v = destVertex; v != nullptr && v->getInfo() != includeNode; v = v->getPath()
+             ? v->getPath()->getOrig()
+             : nullptr) {
         secondPart.push_back(v->getInfo());
         if (v->getPath() != nullptr) {
             secondPartTime += v->getPath()->getDriving();
@@ -146,4 +152,6 @@ void RestrictedRoutePlanning(Graph<T> * g, const int &origin, const int &dest, c
     totalTime += firstPartTime + secondPartTime;
 }
 
-template void RestrictedRoutePlanning<int>(Graph<int> * g, const int &origin, const int &dest, const vector<int> &avoidNodes, const vector<pair<int,int> > &avoidSegments, const int &includeNode, std::vector<int> &route, int &totalTime);
+template void RestrictedRoutePlanning<int>(Graph<int> *g, const int &origin, const int &dest,
+                                           const vector<int> &avoidNodes, const vector<pair<int, int> > &avoidSegments,
+                                           const int &includeNode, std::vector<int> &route, int &totalTime);

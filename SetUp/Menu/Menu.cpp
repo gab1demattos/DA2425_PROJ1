@@ -57,9 +57,9 @@ void optionBestRoute(Graph<T> *g) {
         return; // Stop if input is invalid
     }
 
-    pair<vector<T>,int> solBestRoute = BestRoute(g,source, destination);
+    pair<vector<T>, int> solBestRoute = BestRoute(g, source, destination);
 
-    pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
+    pair<vector<T>, int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
     if (OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute)) {
         int option = optionsMenu();
@@ -72,7 +72,7 @@ template void optionBestRoute<int>(Graph<int> *g);
 
 
 template<class T>
-void optionRestrictedRoute(Graph<T> *g){
+void optionRestrictedRoute(Graph<T> *g) {
     string mode;
     int source, destination;
     vector<int> avoidNodes;
@@ -82,7 +82,7 @@ void optionRestrictedRoute(Graph<T> *g){
     int totalTime;
 
     // Get input values
-    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)){
+    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
         return; // Stop if input is invalid
     }
 
@@ -97,13 +97,13 @@ void optionRestrictedRoute(Graph<T> *g){
 template void optionRestrictedRoute<int>(Graph<int> *g);
 
 template<class T>
-void optionEnvironmentalRoute(Graph<T>* g) {
+void optionEnvironmentalRoute(Graph<T> *g) {
     string mode;
     int source, destination, maxWalkTime, parkingNode, totalTime;
     vector<int> avoidNodes;
-    vector<pair<int, int>> avoidSegments;
-    pair<vector<int>,int> drivingRoute, walkingRoute;
-    vector<ApproximateSolution<int>> approximateSolutions;
+    vector<pair<int, int> > avoidSegments;
+    pair<vector<int>, int> drivingRoute, walkingRoute;
+    vector<ApproximateSolution<int> > approximateSolutions;
 
     if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         return;
@@ -111,13 +111,13 @@ void optionEnvironmentalRoute(Graph<T>* g) {
 
     // Update the function call to include approximateSolutions
     EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
-                                   drivingRoute, parkingNode, walkingRoute, totalTime,
-                                   approximateSolutions);
+                                     drivingRoute, parkingNode, walkingRoute, totalTime,
+                                     approximateSolutions);
 
     bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(source, destination,
-                                                              drivingRoute, walkingRoute,
-                                                              parkingNode, totalTime, maxWalkTime,
-                                                              approximateSolutions);
+                                                                 drivingRoute, walkingRoute,
+                                                                 parkingNode, totalTime, maxWalkTime,
+                                                                 approximateSolutions);
 
     if (shouldShowMenu) {
         int option = optionsMenu();
@@ -163,7 +163,8 @@ void optionInputInfo(Graph<int> *g) {
 
 
     cout << endl << "NOTES:\n";
-    cout << "- Please put the input in the 'Input' folder of the project before running. If it isn't to your linking go change it now!\n";
+    cout <<
+            "- Please put the input in the 'Input' folder of the project before running. If it isn't to your linking go change it now!\n";
     cout << "  The input files have their name correspond to the option you will choose so be aware of that." << endl;
     cout << "- For empty optional fields, leave them blank\n";
     cout << "=============================================\n";
@@ -185,8 +186,7 @@ void optionInputInfo(Graph<int> *g) {
 
         int option = optionsMenu();
         handleMenuOption(option, g);
-    }
-    else {
+    } else {
         cout << endl << "Ok! Goodbye!" << endl;
         cout << "Exiting in... ";
         cout.flush();
@@ -205,19 +205,19 @@ void handleMenuOption(int option, Graph<T> *g) {
     switch (option) {
         case 1:
             optionBestRoute(g);
-        break;
+            break;
         case 2:
             optionRestrictedRoute(g);
-        break;
+            break;
         case 3:
             optionEnvironmentalRoute(g);
-        break;
+            break;
         case 4:
             optionInputInfo(g);
             break;
         case 5:
             cout << "Exiting..." << endl;
-        break;
+            break;
         default:
             break;
     }
