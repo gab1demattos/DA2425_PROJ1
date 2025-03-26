@@ -156,6 +156,46 @@ void EnvironmentallyFriendlyBestRoute(Graph<T>* g, const int& origin, const int&
 // Add explicit instantiation
 template void EnvironmentallyFriendlyBestRoute<int>(Graph<int>*, const int&, const int&, const int&, const vector<int>&, const vector<pair<int,int> >&, pair<vector<int>,int>&, int&, pair<vector<int>,int>&, int&, vector<ApproximateSolution<int>>& );
 
+// New function for walking paths
+template <class T>
+bool relaxWalking(Edge<T> *edge) {
+    if (edge->getOrig()->getDist() + edge->getWalking() < edge->getDest()->getDist()) {
+        edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getWalking());
+        edge->getDest()->setPath(edge);
+        return true;
+    }
+    return false;
+}
+
+template <class T>
+void restrictedDijkstraWalking(Graph<T> * g, const T &origin, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments) {
+    for(auto v : g->getVertexSet()) {
+        v->setDist(INF);
+        v->setPath(nullptr);
+    }
+    auto s = g->findVertex(origin);
+    s->setDist(0);
+
+    MutablePriorityQueue<Vertex<T>> q;
+    q.insert(s);
+    while(!q.empty()) {
+        auto v = q.extractMin();
+        for(auto e : v->getAdj()) {
+            if (find(avoidNodes.begin(), avoidNodes.end(), e->getDest()->getInfo()) != avoidNodes.end())
+                continue;
+            if (find(avoidSegments.begin(), avoidSegments.end(), make_pair(e->getOrig()->getInfo(), e->getDest()->getInfo())) != avoidSegments.end())
+                continue;
+            auto oldDist = e->getDest()->getDist();
+            if (relaxWalking(e)) {
+                if (oldDist == INF)
+                    q.insert(e->getDest());
+                else
+                    q.decreaseKey(e->getDest());
+            }
+        }
+    }
+}
+
 template <class T>
 void FindApproximateSolutions(Graph<T>* g, const vector<pair<vector<T>,int>>& drivingPaths,
                             const vector<T>& avoidNodes, const vector<pair<T,T>>& avoidSegments,
@@ -165,7 +205,7 @@ void FindApproximateSolutions(Graph<T>* g, const vector<pair<vector<T>,int>>& dr
 
     for (const auto& drivingPath : drivingPaths) {
         T parkNode = drivingPath.first.back();
-        restrictedDijkstra(g, parkNode, avoidNodes, avoidSegments);
+        restrictedDijkstraWalking(g, parkNode, avoidNodes, avoidSegments);
 
         vector<T> walkingPath;
         walkingPath.push_back(parkNode);
