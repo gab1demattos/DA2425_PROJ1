@@ -36,4 +36,3 @@ void UFDS::linkSets(unsigned int i, unsigned int j) {
         }
     }
 }
-
