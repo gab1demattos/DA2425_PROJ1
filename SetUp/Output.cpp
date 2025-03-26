@@ -186,30 +186,43 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
 
 
     cout << "DrivingRoute:";
-    for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
-        cout << bestDrivingRoute[i];
-        if (i < bestDrivingRoute.size() - 1) {
-            cout << ",";
-        }
+    if (bestDrivingRoute.empty()) {
+      cout << "None" << endl;
+    } else {
+	    for (size_t i = 0; i < bestDrivingRoute.size(); ++i) {
+    	    cout << bestDrivingRoute[i];
+        	if (i < bestDrivingRoute.size() - 1) {
+            	cout << ",";
+	        }
+    	}
+    	cout << "(" << drivingTime << ")" << endl;
     }
-    cout << "(" << drivingTime << ")" << endl;
 
-    cout << "ParkingNode:" << parkingNode << endl;
+    cout << "ParkingNode:";
+    if (parkingNode == -1) {
+      cout << "None" << endl;
+    } else {
+      cout << parkingNode << endl;
+    }
+
 
     cout << "WalkingRoute:";
-    for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
-        cout << bestWalkingRoute[i];
-        if (i < bestWalkingRoute.size() - 1) {
-            cout << ",";
-        }
+    if (bestWalkingRoute.empty()) {
+      cout << "None" << endl;
+    } else {
+	    for (size_t i = 0; i < bestWalkingRoute.size(); ++i) {
+    	    cout << bestWalkingRoute[i];
+        	if (i < bestWalkingRoute.size() - 1) {
+            	cout << ",";
+	        }
+    	}
+    	cout << "(" << walkingTime << ")" << endl;
     }
-    cout << "(" << walkingTime << ")" << endl;
 
     cout << "TotalTime:";
 
     if (totalTime < 0) {
         cout << "" << endl;
-        cout << "Message: No possible route" << endl;
         cout << "Message: ";
         if (totalTime == -1) {
             cout << "There are no possible routes because nodes are adj" << endl;
