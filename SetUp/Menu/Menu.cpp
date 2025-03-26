@@ -6,7 +6,6 @@
 #include "../Routes/RestrictedRoutePlanning.h"
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
-#include <sstream>
 #include <fstream>
 #include <thread>
 
@@ -62,9 +61,7 @@ void optionBestRoute(Graph<T> *g) {
 
     pair<vector<T>,int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
-    bool shouldShowMenu = OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute);
-
-    if (shouldShowMenu) {
+    if (OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute)) {
         int option = optionsMenu();
         handleMenuOption(option, g);
     }
@@ -90,9 +87,8 @@ void optionRestrictedRoute(Graph<T> *g){
     }
 
     RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
-    bool shouldShowMenu = OutputRestrictedRoute(source, destination, route, totalTime);
 
-    if (shouldShowMenu) {
+    if (OutputRestrictedRoute(source, destination, route, totalTime)) {
         int option = optionsMenu();
         handleMenuOption(option, g);
     }

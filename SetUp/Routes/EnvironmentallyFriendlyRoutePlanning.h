@@ -14,9 +14,6 @@ struct ApproximateSolution {
 };
 
 template <class T>
-void restrictedDijkstra(Graph<T> * g, const int &origin);
-
-template <class T>
 void FindApproximateSolutions(Graph<T>* g, const vector<pair<vector<T>,int>>& drivingPaths,
                             const vector<T>& avoidNodes, const vector<pair<T,T>>& avoidSegments,
                             int destination, vector<ApproximateSolution<T>>& approximateSolutions);
