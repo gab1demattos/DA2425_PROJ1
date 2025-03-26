@@ -2,20 +2,20 @@
 
 #include <chrono>
 
-#include "IndependentRoutePlanning.h"
-#include "EnvironmentallyFriendlyRoutePlanning.h"
-#include "RestrictedRoutePlanning.h"
+#include "../Routes/IndependentRoutePlanning.h"
+#include "../Routes/RestrictedRoutePlanning.h"
+#include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 #include <sstream>
 #include <fstream>
 #include <thread>
 
-#include "Input.h"
-#include "Output.h"
+#include "../InputOutput/Input.h"
+#include "../InputOutput/Output.h"
 
 
 int optionsMenu() {
-    cout << "Hello user!" << endl;
+    cout << endl << "Hello user!" << endl;
     cout << "Welcome to the Route Planning Tool!" << endl << endl;
 
     cout << "If you have doubts about the input format, feel free to check the Input Info section." << endl;

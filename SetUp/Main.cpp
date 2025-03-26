@@ -1,7 +1,7 @@
-#include "Graph.h"
-#include "IndependentRoutePlanning.h"
-#include "Menu.h"
-#include "readCSV.h"
+#include "DataStructures/Graph.h"
+#include "Routes/IndependentRoutePlanning.h"
+#include "Menu/Menu.h"
+#include "ReadData/readCSV.h"
 
 int main(int argc, char const *argv[]) {
     Graph<int> graph;

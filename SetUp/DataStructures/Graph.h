@@ -7,7 +7,7 @@
 #include <queue>
 #include <limits>
 #include <algorithm>
-#include "../SetUp/MutablePriorityQueue.h" // not needed for now
+#include "MutablePriorityQueue.h" // not needed for now
 
 #include <string>
 using namespace std;

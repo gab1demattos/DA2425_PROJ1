@@ -2,7 +2,7 @@
 #define READCSV_H
 
 #include <string>
-#include "Graph.h"
+#include "../DataStructures/Graph.h"
 
 void readLocations(const std::string& filename, Graph<int>& graph);
 

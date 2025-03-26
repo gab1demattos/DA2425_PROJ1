@@ -2,7 +2,7 @@
 #define OUTPUT_H
 #include <vector>
 
-#include "EnvironmentallyFriendlyRoutePlanning.h"
+#include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 bool OutputBestRoute(int source, int destination, const std::pair<std::vector<int>,int>& solBestRoute, const std::pair<std::vector<int>,int>& solALternativeRoute);
 

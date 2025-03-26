@@ -1,6 +1,6 @@
 #ifndef RESTRICTEDROUTEPLANNING_H
 #define RESTRICTEDROUTEPLANNING_H
-#include "Graph.h"
+#include "../DataStructures/Graph.h"
 
 template <class T>
 void restrictedDijkstra(Graph<T> * g, const int &origin, const int &includeNode, const vector<T> &avoidNodes, const vector<pair<T,T> > &avoidSegments);
