@@ -1,12 +1,10 @@
 #include "EnvironmentallyFriendlyRoutePlanning.h"
-#include <queue>
 #include <limits>
 #include <vector>
-#include <utility> // for std::pair
+#include <utility>
 #include <algorithm>
 #include <climits>
 
-#include "../InputOutput/Output.h"
 
 template <class T>
 bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
@@ -90,7 +88,7 @@ void EnvironmentallyFriendlyBestRoute(Graph<T>* g, const int& origin, const int&
     }
 
 
-    // find shortest path from origin to each parking node
+    // find the shortest path from origin to each parking node
     restrictedDijkstra(g, origin, avoidNodes, avoidSegments);
     vector<pair<vector<T>, int> > drivingPaths;
     for (auto v : parkingNodes) {
@@ -111,7 +109,7 @@ void EnvironmentallyFriendlyBestRoute(Graph<T>* g, const int& origin, const int&
     }
 
 
-    // find shortest path from each parking node to dest
+    // find the shortest path from each parking node to dest
     vector<pair<vector<T>, int> > walkingPaths;
     for (auto drivingPath : drivingPaths) {
         T parkNode = drivingPath.first.back();

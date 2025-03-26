@@ -147,7 +147,6 @@ public:
 
     //new!!
     Vertex<T> *findVertexByCode(const string &code) const;
-    void printGraph(const Graph<T>& graph);
 
     /*
      *  Adds a vertex with a given content or info (in) to a graph (this).
@@ -489,9 +488,7 @@ Vertex<T> * Graph<T>::findVertex(const T &in) const {
     return nullptr;
 }
 
-
 // new!!
-
 template <class T>
 Vertex<T> * Graph<T>::findVertexByCode(const string &code) const {
     for (auto v : vertexSet)
@@ -499,32 +496,6 @@ Vertex<T> * Graph<T>::findVertexByCode(const string &code) const {
             return v;
     return nullptr;
 }
-
-template <class T>
-void printGraph(const Graph<T>& graph) {
-    std::cout << "Vertices:" << std::endl;
-    for (auto vertex : graph.getVertexSet()) {
-        std::cout << "ID: " << vertex->getInfo()
-                  << ", Code: " << vertex->getCode()
-                  << ", Parking: " << (vertex->isParkingAvailable() ? "Yes" : "No")
-                  << std::endl;
-    }
-
-    std::cout << "Edges:" << std::endl;
-    for (auto vertex : graph.getVertexSet()) {
-        for (auto edge : vertex->getAdj()) {
-            std::cout << "From: " << edge->getOrig()->getCode()
-                      << " (" << edge->getOrig()->getInfo() << ")"
-                      << " -> To: " << edge->getDest()->getCode()
-                      << " (" << edge->getDest()->getInfo() << ")"
-                      << ", Driving: " << edge->getDriving()
-                      << ", Walking: " << edge->getWalking()
-                      << std::endl;
-        }
-    }
-}
-//
-
 
 /*
  * Finds the index of the vertex with a given content.

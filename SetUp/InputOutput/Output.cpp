@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
-#include "../Menu/Menu.h"
 
 using namespace std;
 
@@ -15,18 +14,17 @@ using namespace std;
  * 
  * @param source The starting point of the route.
  * @param destination The destination point of the route.
- * @param bestRoute A vector containing the nodes in the best route.
- * @param totalCost The total cost (e.g., distance or time) of the best route.
+ * @param solBestRoute A pair containing a vector of the nodes in the best route and an integer that corresponds to the total time of the route.
+ * @param solAlternativeRoute A pair containing a vector of the nodes in the alternative route and an integer that corresponds to the total time of the route.
  */
-
-bool OutputBestRoute(int source, int destination, const pair<vector<int>,int>& solBestRoute, const pair<vector<int>,int>& solALternativeRoute) {
+bool OutputBestRoute(int source, int destination, const pair<vector<int>,int>& solBestRoute, const pair<vector<int>,int>& solAlternativeRoute) {
     bool showMenu = false;
 
     vector<int> bestRoute = solBestRoute.first;
     int totalCost = solBestRoute.second;
 
-    vector<int> alternativeRoute = solALternativeRoute.first;
-    int alternativeTime = solALternativeRoute.second;
+    vector<int> alternativeRoute = solAlternativeRoute.first;
+    int alternativeTime = solAlternativeRoute.second;
 
     // Output the source and destination
     cout << "Source:" << source << endl;
@@ -110,8 +108,7 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
 
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;
-
-    cout << "Are you ready to go back to the menu? [y/n] ";
+    cout << "Do you want to go back to the menu? [y/n] ";
     char response;
     cin >> response;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
@@ -174,7 +171,9 @@ bool OutputApproximateSolutions(int source, int destination,
         cout << "TotalTime" << i+1 << ":" << sol.totalTime << endl;
     }
 
-    cout << endl << "Are you ready to go back to the menu? [y/n] ";
+    cout << endl;
+    cout << "Hope the solution was to your liking!" << endl;
+    cout << "Do you want to go back to the menu? [y/n] ";
     char response;
     cin >> response;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
@@ -290,10 +289,42 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination, const p
                 cout << endl << endl;
                 showMenu = true;
             }
-        } else {
-            cout << totalTime << endl;
         }
     }
+    else {
+        cout << totalTime << endl;
+
+        cout << endl;
+        cout << "Hope the solution was to your liking!" << endl;
+        cout << "Do you want to go back to the menu? [y/n] ";
+        char response;
+        cin >> response;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
+
+        if (response == 'y' || response == 'Y') {
+            cout << "Redirecting you to the menu in 3 seconds...";
+            cout.flush();
+            for (int i = 3; i > 0; --i) {
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << " " << i << "...";
+                cout.flush();
+            }
+            cout << endl << endl;
+            showMenu = true;
+        }
+        else {
+            cout << endl << "Ok! Goodbye!" << endl;
+            cout << "Exiting in... ";
+            cout.flush();
+            for (int i = 3; i > 0; --i) {
+                this_thread::sleep_for(chrono::seconds(1));
+                cout << " " << i << "...";
+                cout.flush();
+            }
+            cout << endl << endl;
+        }
+    }
+
     return showMenu;
 }
 

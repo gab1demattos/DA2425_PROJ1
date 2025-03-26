@@ -36,8 +36,6 @@ bool InputBestRoute(string & mode, int & source, int & destination) {
     return true;
 }
 
-
-
 bool parseNodesToAvoid(const string &input, vector<int> &output) {
     stringstream ss(input);
     string token;
@@ -65,7 +63,7 @@ bool parseSegmentsToAvoid(const string &input, vector<pair<int, int>> &output) {
 
         if (getline(pairStream, first, ',') && getline(pairStream, second, ',')) {
             try {
-                output.push_back({stoi(first), stoi(second)});
+                output.emplace_back(stoi(first), stoi(second));
             } catch (exception &e) {
                 return false;  // Invalid number
             }

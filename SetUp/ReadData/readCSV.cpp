@@ -1,9 +1,9 @@
 #include "readCSV.h"
 #include <iostream>
 #include <fstream>
-#include <limits.h>
+#include <climits>
 #include <sstream>
-#include <vector>
+
 #include "../DataStructures/Graph.h"
 
 void readLocations(const std::string& filename, Graph<int>& graph) {
@@ -31,8 +31,7 @@ void readLocations(const std::string& filename, Graph<int>& graph) {
 
         // add vertex to the graph
         graph.addVertex(id);
-        Vertex<int>* vertex = graph.findVertex(id);
-        if (vertex) {
+        if (Vertex<int>* vertex = graph.findVertex(id)) {
             vertex->setLocation(location);
             vertex->setCode(code);
             vertex->setParking(parking);
