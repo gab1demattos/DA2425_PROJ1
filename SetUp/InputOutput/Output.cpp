@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 
+#include "Visualizer.h"
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 using namespace std;
@@ -17,7 +18,7 @@ using namespace std;
  * @param solBestRoute A pair containing a vector of the nodes in the best route and an integer that corresponds to the total time of the route.
  * @param solAlternativeRoute A pair containing a vector of the nodes in the alternative route and an integer that corresponds to the total time of the route.
  */
-bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &solBestRoute,
+bool OutputBestRoute(Graph<int> *graph, int source, int destination, const pair<vector<int>, int> &solBestRoute,
                      const pair<vector<int>, int> &solAlternativeRoute) {
     bool showMenu = false;
 
@@ -53,6 +54,8 @@ bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &
         }
         cout << "(" << alternativeTime << ")" << endl;
     }
+
+    Visualizer::visualizeComparison(graph, bestRoute, totalCost, alternativeRoute, alternativeTime);
 
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;

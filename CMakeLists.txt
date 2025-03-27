@@ -24,4 +24,6 @@ add_executable(untitled
         SetUp/Routes/EnvironmentallyFriendlyRoutePlanning.h
         SetUp/Routes/RestrictedRoutePlanning.cpp
         SetUp/Routes/EnvironmentallyFriendlyRoutePlanning.cpp
+        SetUp/InputOutput/Visualizer.cpp
+        SetUp/InputOutput/Visualizer.h
 )
