@@ -114,7 +114,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
                                      drivingRoute, parkingNode, walkingRoute, totalTime,
                                      approximateSolutions);
 
-    bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(source, destination,
+    bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(g, source, destination,
                                                                  drivingRoute, walkingRoute,
                                                                  parkingNode, totalTime, maxWalkTime,
                                                                  approximateSolutions);
