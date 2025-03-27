@@ -61,7 +61,7 @@ void optionBestRoute(Graph<T> *g) {
 
     pair<vector<T>, int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
-    if (OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute)) {
+    if (OutputBestRoute(g, source, destination, solBestRoute, solAlternativeRoute)) {
         int option = optionsMenu();
         handleMenuOption(option, g);
     }
