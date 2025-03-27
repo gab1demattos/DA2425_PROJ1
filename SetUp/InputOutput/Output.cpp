@@ -5,6 +5,7 @@
 #include <thread>
 #include <vector>
 
+#include "Visualizer.h"
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 using namespace std;
@@ -17,7 +18,7 @@ using namespace std;
  * @param solBestRoute A pair containing a vector of the nodes in the best route and an integer that corresponds to the total time of the route.
  * @param solAlternativeRoute A pair containing a vector of the nodes in the alternative route and an integer that corresponds to the total time of the route.
  */
-bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &solBestRoute,
+bool OutputBestRoute(Graph<int> *graph, int source, int destination, const pair<vector<int>, int> &solBestRoute,
                      const pair<vector<int>, int> &solAlternativeRoute) {
     bool showMenu = false;
 
@@ -54,6 +55,8 @@ bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &
         cout << "(" << alternativeTime << ")" << endl;
     }
 
+    Visualizer::visualizeComparison(graph, bestRoute, totalCost, alternativeRoute, alternativeTime);
+
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;
 
@@ -88,7 +91,9 @@ bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &
 }
 
 template<class T>
-bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
+bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<T> bestRestrictedRoute, int totalTime,
+                           const vector<T> &avoidNodes,
+                           const vector<pair<T, T> > &avoidSegments) {
     bool showMenu = false;
 
     // output the source and destination
@@ -105,6 +110,8 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
     }
 
     cout << "(" << totalTime << ")" << endl;
+
+    Visualizer::visualizeRestrictedRoute(graph, bestRestrictedRoute, totalTime, avoidNodes, avoidSegments);
 
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;
@@ -138,15 +145,17 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
     return showMenu;
 }
 
-template bool OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute,
-                                         int totalTime);
+template bool OutputRestrictedRoute<int>(Graph<int> *graph, int source, int destination,
+                                         vector<int> bestRestrictedRoute, int totalTime,
+                                         const vector<int> &avoidNodes,
+                                         const vector<pair<int, int> > &avoidSegments);
 
-bool OutputApproximateSolutions(int source, int destination,
+bool OutputApproximateSolutions(Graph<int> *graph, int source, int destination,
                                 int maxWalkTime,
                                 const vector<ApproximateSolution<int> > &solutions) {
     bool showMenu = false;
 
-    cout << "Source:" << source << endl;
+    cout << endl << "Source:" << source << endl;
     cout << "Destination:" << destination << endl;
 
     for (size_t i = 0; i < solutions.size(); ++i) {
@@ -171,6 +180,8 @@ bool OutputApproximateSolutions(int source, int destination,
         cout << "TotalTime" << i + 1 << ":" << sol.totalTime << endl;
     }
 
+    Visualizer::visualizeApproximateSolutions(graph, solutions);
+
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;
     cout << "Do you want to go back to the menu? [y/n] ";
@@ -202,7 +213,7 @@ bool OutputApproximateSolutions(int source, int destination,
     return showMenu;
 }
 
-bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
+bool OutputBestEnvironmentallyFriendlyRoute(Graph<int> *graph, int source, int destination,
                                             const pair<vector<int>, int> &solBestDrivingRoute,
                                             const pair<vector<int>, int> &solBestWalkingRoute, const int &parkingNode,
                                             const int &totalTime, int maxWalkTime,
@@ -274,7 +285,8 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
 
             if (response == 'y' || response == 'Y') {
                 if (!approximateSolutions.empty()) {
-                    showMenu = OutputApproximateSolutions(source, destination, maxWalkTime, approximateSolutions);
+                    showMenu = OutputApproximateSolutions(graph, source, destination, maxWalkTime,
+                                                          approximateSolutions);
                 } else {
                     cout << "No approximate solutions found." << endl;
                 }
@@ -294,6 +306,14 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
         }
     } else {
         cout << totalTime << endl;
+
+        Visualizer::visualizeEcoRoute(graph,
+                                      solBestDrivingRoute.first,
+                                      solBestDrivingRoute.second,
+                                      parkingNode,
+                                      solBestWalkingRoute.first,
+                                      solBestWalkingRoute.second,
+                                      totalTime);
 
         cout << endl;
         cout << "Hope the solution was to your liking!" << endl;
