@@ -12,6 +12,12 @@ public:
     static void visualizeComparison(Graph<int> *graph,
                                     const std::vector<int> &bestRoute, int bestCost,
                                     const std::vector<int> &altRoute, int altCost);
+
+    static void visualizeRestrictedRoute(Graph<int> *graph,
+                                         const vector<int> &route,
+                                         int totalTime,
+                                         const vector<int> &avoidedNodes,
+                                         const vector<pair<int, int> > &avoidedSegments);
 };
 
 #endif

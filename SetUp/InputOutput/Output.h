@@ -15,7 +15,9 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
                                             const vector<ApproximateSolution<int> > &approximateSolutions);
 
 template<class T>
-bool OutputRestrictedRoute(int source, int destination, std::vector<T> bestRestrictedRoute, int totalTime);
+bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<T> bestRestrictedRoute, int totalTime,
+                           const vector<T> &avoidNodes,
+                           const vector<pair<T, T> > &avoidSegments);
 
 
 #endif

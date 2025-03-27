@@ -88,7 +88,7 @@ void optionRestrictedRoute(Graph<T> *g) {
 
     RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
 
-    if (OutputRestrictedRoute(source, destination, route, totalTime)) {
+    if (OutputRestrictedRoute(g, source, destination, route, totalTime, avoidNodes, avoidSegments)) {
         int option = optionsMenu();
         handleMenuOption(option, g);
     }
