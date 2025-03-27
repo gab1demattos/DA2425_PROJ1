@@ -91,7 +91,9 @@ bool OutputBestRoute(Graph<int> *graph, int source, int destination, const pair<
 }
 
 template<class T>
-bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
+bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<T> bestRestrictedRoute, int totalTime,
+                           const vector<T> &avoidNodes,
+                           const vector<pair<T, T> > &avoidSegments) {
     bool showMenu = false;
 
     // output the source and destination
@@ -108,6 +110,8 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
     }
 
     cout << "(" << totalTime << ")" << endl;
+
+    Visualizer::visualizeRestrictedRoute(graph, bestRestrictedRoute, totalTime, avoidNodes, avoidSegments);
 
     cout << endl;
     cout << "Hope the solution was to your liking!" << endl;
@@ -141,8 +145,10 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
     return showMenu;
 }
 
-template bool OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute,
-                                         int totalTime);
+template bool OutputRestrictedRoute<int>(Graph<int> *graph, int source, int destination,
+                                         vector<int> bestRestrictedRoute, int totalTime,
+                                         const vector<int> &avoidNodes,
+                                         const vector<pair<int, int> > &avoidSegments);
 
 bool OutputApproximateSolutions(int source, int destination,
                                 int maxWalkTime,
