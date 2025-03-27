@@ -130,3 +130,74 @@ void Visualizer::visualizeRestrictedRoute(Graph<int> *graph,
     }
     cout << "\n  Total time: " << totalTime << " minutes (with restrictions)\n";
 }
+
+void Visualizer::visualizeEcoRoute(Graph<int> *graph,
+                                   const vector<int> &drivingRoute,
+                                   int drivingTime,
+                                   int parkingNode,
+                                   const vector<int> &walkingRoute,
+                                   int walkingTime,
+                                   int totalTime) {
+    cout << "\n  Eco-Friendly Route:\n";
+    cout << "  ------------------\n";
+
+    // Driving portion
+    cout << "  DRIVING (" << drivingTime << " min):\n";
+    for (size_t i = 0; i < drivingRoute.size(); i++) {
+        Vertex<int> *v = graph->findVertex(drivingRoute[i]);
+        cout << "  [" << drivingRoute[i] << "] " << v->getLocation();
+        if (i != drivingRoute.size() - 1) {
+            // Get driving time to next node
+            int time = 0;
+            for (auto e: v->getAdj()) {
+                if (e->getDest()->getInfo() == drivingRoute[i + 1]) {
+                    time = e->getDriving();
+                    break;
+                }
+            }
+            cout << "\n    |\n    ↓ " << time << " min\n";
+        }
+    }
+
+    // Parking node
+    Vertex<int> *park = graph->findVertex(parkingNode);
+    cout << "\n  PARK at [" << parkingNode << "] " << park->getLocation();
+
+    // Walking portion
+    cout << "\n\n  WALKING (" << walkingTime << " min):\n";
+    for (size_t i = 0; i < walkingRoute.size(); i++) {
+        Vertex<int> *v = graph->findVertex(walkingRoute[i]);
+        cout << "  [" << walkingRoute[i] << "] " << v->getLocation();
+        if (i != walkingRoute.size() - 1) {
+            // Get walking time to next node
+            int time = 0;
+            for (auto e: v->getAdj()) {
+                if (e->getDest()->getInfo() == walkingRoute[i + 1]) {
+                    time = e->getWalking();
+                    break;
+                }
+            }
+            cout << "\n    |\n    ↓ " << time << " min\n";
+        }
+    }
+
+    cout << "\n  TOTAL TIME: " << totalTime << " minutes\n";
+}
+
+void Visualizer::visualizeApproximateSolutions(Graph<int> *graph,
+                                               const vector<ApproximateSolution<int> > &solutions) {
+    cout << "\n  Alternative Options:\n";
+    cout << "  -------------------\n";
+
+    for (size_t i = 0; i < solutions.size(); i++) {
+        cout << "  OPTION " << i + 1 << ":\n";
+        visualizeEcoRoute(graph,
+                          solutions[i].drivingRoute,
+                          solutions[i].drivingTime,
+                          solutions[i].parkingNode,
+                          solutions[i].walkingRoute,
+                          solutions[i].walkingTime,
+                          solutions[i].totalTime);
+        cout << endl;
+    }
+}

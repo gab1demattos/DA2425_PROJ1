@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "../DataStructures/Graph.h"
+#include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 class Visualizer {
 public:
@@ -18,6 +19,17 @@ public:
                                          int totalTime,
                                          const vector<int> &avoidedNodes,
                                          const vector<pair<int, int> > &avoidedSegments);
+
+    static void visualizeEcoRoute(Graph<int> *graph,
+                                  const vector<int> &drivingRoute,
+                                  int drivingTime,
+                                  int parkingNode,
+                                  const vector<int> &walkingRoute,
+                                  int walkingTime,
+                                  int totalTime);
+
+    static void visualizeApproximateSolutions(Graph<int> *graph,
+                                              const vector<ApproximateSolution<int> > &solutions);
 };
 
 #endif
