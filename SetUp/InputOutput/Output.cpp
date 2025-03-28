@@ -10,12 +10,18 @@
 using namespace std;
 
 /**
- * Outputs the best driving route in the specified format.
- * 
- * @param source The starting point of the route.
- * @param destination The destination point of the route.
- * @param solBestRoute A pair containing a vector of the nodes in the best route and an integer that corresponds to the total time of the route.
- * @param solAlternativeRoute A pair containing a vector of the nodes in the alternative route and an integer that corresponds to the total time of the route.
+ * @brief Outputs the best route solution with alternative option
+ * @param source Source node ID
+ * @param destination Destination node ID
+ * @param solBestRoute Best route solution (path and total time)
+ * @param solAlternativeRoute Alternative route solution (path and time)
+ * @return true if user wants to return to menu, false to exit
+ *
+ * @note Output format:
+ * Source:<id>
+ * Destination:<id>
+ * BestDrivingRoute:<path>(<time>)
+ * AlternativeRoute:<path>(<time>) or "None"
  */
 bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &solBestRoute,
                      const pair<vector<int>, int> &solAlternativeRoute) {
@@ -87,6 +93,20 @@ bool OutputBestRoute(int source, int destination, const pair<vector<int>, int> &
     return showMenu;
 }
 
+/**
+ * @brief Outputs a restricted route solution
+ * @tparam T Node ID type (typically int)
+ * @param source Source node ID
+ * @param destination Destination node ID
+ * @param bestRestrictedRoute Vector of nodes in the restricted route
+ * @param totalTime Total time of the restricted route
+ * @return true if user wants to return to menu, false to exit
+ *
+ * @note Output format:
+ * Source:<id>
+ * Destination:<id>
+ * RestrictedDrivingRoute:<path>(<time>)
+ */
 template<class T>
 bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime) {
     bool showMenu = false;
@@ -141,6 +161,20 @@ bool OutputRestrictedRoute(int source, int destination, vector<T> bestRestricted
 template bool OutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute,
                                          int totalTime);
 
+/**
+ * @brief Outputs approximate solutions when no exact route is found
+ * @param source Source node ID
+ * @param destination Destination node ID
+ * @param maxWalkTime Maximum walking time specified by user
+ * @param solutions Vector of approximate solutions
+ * @return true if user wants to return to menu, false to exit
+ *
+ * @note Output format for each solution:
+ * DrivingRoute<X>:<path>(<time>)
+ * ParkingNode<X>:<id>
+ * WalkingRoute<X>:<path>(<time>)
+ * TotalTime<X>:<time>
+ */
 bool OutputApproximateSolutions(int source, int destination,
                                 int maxWalkTime,
                                 const vector<ApproximateSolution<int> > &solutions) {
@@ -202,6 +236,27 @@ bool OutputApproximateSolutions(int source, int destination,
     return showMenu;
 }
 
+/**
+ * @brief Outputs the best environmentally friendly route solution
+ * @param source Source node ID
+ * @param destination Destination node ID
+ * @param solBestDrivingRoute Best driving route (path and time)
+ * @param solBestWalkingRoute Best walking route (path and time)
+ * @param parkingNode ID of parking node used
+ * @param totalTime Total combined time
+ * @param maxWalkTime Maximum walking time specified
+ * @param approximateSolutions Vector of approximate solutions (used if no exact solution)
+ * @return true if user wants to return to menu, false to exit
+ *
+ * @note Output format:
+ * Source:<id>
+ * Destination:<id>
+ * DrivingRoute:<path>(<time>) or "None"
+ * ParkingNode:<id> or "None"
+ * WalkingRoute:<path>(<time>) or "None"
+ * TotalTime:<time> or ""
+ * Message: <error message> (if no solution)
+ */
 bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
                                             const pair<vector<int>, int> &solBestDrivingRoute,
                                             const pair<vector<int>, int> &solBestWalkingRoute, const int &parkingNode,
