@@ -3,6 +3,16 @@
 
 #include "../DataStructures/Graph.h"
 
+/**
+ * @struct ApproximateSolution
+ * @brief Stores alternative route information
+ * @var drivingRoute Path of driving segment
+ * @var drivingTime Driving time in minutes
+ * @var parkingNode Parking node ID
+ * @var walkingRoute Path of walking segment
+ * @var walkingTime Walking time in minutes
+ * @var totalTime Combined total time
+ */
 template<class T>
 struct ApproximateSolution {
     vector<T> drivingRoute;
