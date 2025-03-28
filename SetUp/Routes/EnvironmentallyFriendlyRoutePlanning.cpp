@@ -1,23 +1,10 @@
 #include "EnvironmentallyFriendlyRoutePlanning.h"
+#include "IndependentRoutePlanning.h"
 #include <limits>
 #include <vector>
 #include <utility>
 #include <algorithm>
 #include <climits>
-
-
-template<class T>
-bool relax(Edge<T> *edge) {
-    // d[u] + w(u,v) < d[v]
-    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) {
-        // we have found a better way to reach v
-        edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
-        edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
-        return true;
-    }
-    return false;
-}
-
 
 template<class T>
 void restrictedDijkstra(Graph<T> *g, const T &origin, const vector<T> &avoidNodes,

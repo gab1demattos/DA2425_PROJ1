@@ -13,4 +13,7 @@ template<class T>
 pair<vector<int>, int> AlternativeRoute(Graph<T> *g, const pair<vector<int>, int> &primaryRoute, int source,
                                         int destination);
 
+template<class T>
+bool relax(Edge<T> *edge);
+
 #endif //INDEPENDENTROUTEPLANNING_H
