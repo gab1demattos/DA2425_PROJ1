@@ -5,13 +5,30 @@
 
 #include "RestrictedRoutePlanning.h"
 #include "../DataStructures/Graph.h"
-#include "IndependentRoutePlanning.h"
 #include <vector>
 #include <utility>
 #include <algorithm>
 #include <climits>
 #include <cstdint>
 
+/**
+ * @brief Relaxes an edge during Dijkstra's algorithm
+ * @tparam T Node ID type (typically int)
+ * @param edge Edge to relax
+ * @return true if relaxation occurred (shorter path found), false otherwise
+ *
+ * @details Updates the destination vertex's distance if a shorter path is found
+ * through this edge. Uses driving times for edge weights.
+ */
+template <class T>
+bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
+        edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
+        edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
+        return true;
+    }
+    return false;
+}
 /**
  * @brief Helper function that initializes all vertices for Dijkstra's algorithm
  * @tparam T Node ID type (typically int)
