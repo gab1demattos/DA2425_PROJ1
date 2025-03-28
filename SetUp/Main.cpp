@@ -2,6 +2,25 @@
 #include "Menu/Menu.h"
 #include "ReadData/readCSV.h"
 
+/**
+ * @brief Main program execution
+ * @return int Exit status (0 for success)
+ *
+ * @details Program flow:
+ * 1. Initializes graph with Porto location data
+ * 2. Presents menu options
+ * 3. Executes selected routing algorithm
+ *
+ * @note Data files required:
+ * - ../Data/PortoLocations.csv
+ * - ../Data/PortoDistances.csv
+ *
+ * @see Graph
+ * @see optionsMenu()
+ * @see optionBestRoute()
+ * @see optionRestrictedRoute()
+ * @see optionEnvironmentalRoute()
+ */
 int main() {
     Graph<int> graph;
 
