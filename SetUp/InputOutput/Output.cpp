@@ -1,23 +1,42 @@
 #include "Output.h"
-
 #include <chrono>
 #include <iostream>
 #include <thread>
-#include <vector>
-
 #include "Visualizer.h"
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
 using namespace std;
 
-/**
- * Outputs the best driving route in the specified format.
- * 
- * @param source The starting point of the route.
- * @param destination The destination point of the route.
- * @param solBestRoute A pair containing a vector of the nodes in the best route and an integer that corresponds to the total time of the route.
- * @param solAlternativeRoute A pair containing a vector of the nodes in the alternative route and an integer that corresponds to the total time of the route.
- */
+void BackToMenu (bool &showMenu) {
+    cout << "Hope the solution was to your liking!" << endl;
+    cout << "Do you want to go back to the menu? [y/n] ";
+    char response;
+    cin >> response;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
+
+    if (response == 'y' || response == 'Y') {
+        cout << "Redirecting you to the menu in 3 seconds...";
+        cout.flush();
+        for (int i = 3; i > 0; --i) {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << " " << i << "...";
+            cout.flush();
+        }
+        cout << endl << endl;
+        showMenu = true;
+    } else {
+        cout << endl << "Ok! Goodbye!" << endl;
+        cout << "Exiting in... ";
+        cout.flush();
+        for (int i = 3; i > 0; --i) {
+            this_thread::sleep_for(chrono::seconds(1));
+            cout << " " << i << "...";
+            cout.flush();
+        }
+        cout << endl << endl;
+    }
+}
+
 bool OutputBestRoute(Graph<int> *graph, int source, int destination, const pair<vector<int>, int> &solBestRoute,
                      const pair<vector<int>, int> &solAlternativeRoute) {
     bool showMenu = false;
@@ -58,34 +77,8 @@ bool OutputBestRoute(Graph<int> *graph, int source, int destination, const pair<
     Visualizer::visualizeComparison(graph, bestRoute, totalCost, alternativeRoute, alternativeTime);
 
     cout << endl;
-    cout << "Hope the solution was to your liking!" << endl;
 
-    cout << "Are you ready to go back to the menu? [y/n] ";
-    char response;
-    cin >> response;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
-
-    if (response == 'y' || response == 'Y') {
-        cout << "Redirecting you to the menu in 3 seconds...";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
-        showMenu = true;
-    } else {
-        cout << endl << "Ok! Goodbye!" << endl;
-        cout << "Exiting in... ";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
-    }
+    BackToMenu(showMenu);
 
     return showMenu;
 }
@@ -114,33 +107,8 @@ bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<
     Visualizer::visualizeRestrictedRoute(graph, bestRestrictedRoute, totalTime, avoidNodes, avoidSegments);
 
     cout << endl;
-    cout << "Hope the solution was to your liking!" << endl;
-    cout << "Do you want to go back to the menu? [y/n] ";
-    char response;
-    cin >> response;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
 
-    if (response == 'y' || response == 'Y') {
-        cout << "Redirecting you to the menu in 3 seconds...";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
-        showMenu = true;
-    } else {
-        cout << endl << "Ok! Goodbye!" << endl;
-        cout << "Exiting in... ";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
-    }
+    BackToMenu(showMenu);
 
     return showMenu;
 }
@@ -150,9 +118,9 @@ template bool OutputRestrictedRoute<int>(Graph<int> *graph, int source, int dest
                                          const vector<int> &avoidNodes,
                                          const vector<pair<int, int> > &avoidSegments);
 
+
 bool OutputApproximateSolutions(Graph<int> *graph, int source, int destination,
-                                int maxWalkTime,
-                                const vector<ApproximateSolution<int> > &solutions) {
+                                int maxWalkTime, const vector<ApproximateSolution<int> > &solutions) {
     bool showMenu = false;
 
     cout << endl << "Source:" << source << endl;
@@ -183,33 +151,9 @@ bool OutputApproximateSolutions(Graph<int> *graph, int source, int destination,
     Visualizer::visualizeApproximateSolutions(graph, solutions);
 
     cout << endl;
-    cout << "Hope the solution was to your liking!" << endl;
-    cout << "Do you want to go back to the menu? [y/n] ";
-    char response;
-    cin >> response;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
 
-    if (response == 'y' || response == 'Y') {
-        cout << "Redirecting you to the menu in 3 seconds...";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
-        showMenu = true;
-    } else {
-        cout << endl << "Ok! Goodbye!" << endl;
-        cout << "Exiting in... ";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
-    }
+    BackToMenu(showMenu);
+
     return showMenu;
 }
 
@@ -316,34 +260,10 @@ bool OutputBestEnvironmentallyFriendlyRoute(Graph<int> *graph, int source, int d
                                       totalTime);
 
         cout << endl;
-        cout << "Hope the solution was to your liking!" << endl;
-        cout << "Do you want to go back to the menu? [y/n] ";
-        char response;
-        cin >> response;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
 
-        if (response == 'y' || response == 'Y') {
-            cout << "Redirecting you to the menu in 3 seconds...";
-            cout.flush();
-            for (int i = 3; i > 0; --i) {
-                this_thread::sleep_for(chrono::seconds(1));
-                cout << " " << i << "...";
-                cout.flush();
-            }
-            cout << endl << endl;
-            showMenu = true;
-        } else {
-            cout << endl << "Ok! Goodbye!" << endl;
-            cout << "Exiting in... ";
-            cout.flush();
-            for (int i = 3; i > 0; --i) {
-                this_thread::sleep_for(chrono::seconds(1));
-                cout << " " << i << "...";
-                cout.flush();
-            }
-            cout << endl << endl;
-        }
+        BackToMenu(showMenu);
     }
 
     return showMenu;
 }
+

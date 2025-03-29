@@ -19,12 +19,11 @@ bool relax(Edge<T> *edge) {
     return false;
 }
 
-
 template<class T>
 void dijkstra(Graph<T> *g, const int &origin) {
     // Initialize the vertices
     for (auto v: g->getVertexSet()) {
-        v->setDist(INF);
+        v->setDist(INT_MAX);
         v->setPath(nullptr);
     }
     auto s = g->findVertex(origin);
@@ -37,7 +36,7 @@ void dijkstra(Graph<T> *g, const int &origin) {
         for (auto e: v->getAdj()) {
             auto oldDist = e->getDest()->getDist();
             if (relax(e)) {
-                if (oldDist == INF) {
+                if (oldDist == INT_MAX) {
                     q.insert(e->getDest());
                 } else {
                     q.decreaseKey(e->getDest());
@@ -53,7 +52,7 @@ pair<vector<T>, int> BestRoute(Graph<T> *g, const int &origin, const int &dest) 
 
     std::vector<T> res;
     auto v = g->findVertex(dest);
-    if (v == nullptr || v->getDist() == INF) {
+    if (v == nullptr || v->getDist() == INT_MAX) {
         // missing or disconnected
         return make_pair(res, 0);
     }

@@ -1,12 +1,25 @@
+/**
+* @file Input.cpp
+ * @brief Input handling functions for route planning system
+ */
+
 #include "Input.h"
 #include <sstream>
 
+/**
+ * @brief Helper function that checks if the given mode is "driving".
+ * 
+ * @param mode The mode string to check.
+ * @return true If the mode is "driving".
+ * @return false Otherwise.
+ */
 bool isModeDriving(const string &mode) {
     string res;
     for (const char c: mode)
         res += static_cast<char>(tolower(c));
     return res == "driving";
 }
+
 
 bool InputBestRoute(string &mode, int &source, int &destination) {
     // Read from file
@@ -36,6 +49,13 @@ bool InputBestRoute(string &mode, int &source, int &destination) {
     return true;
 }
 
+/**
+ * @brief Helper function that parses a comma-separated string of node IDs to avoid
+ * @param input Comma-separated string of node IDs
+ * @param[out] output Vector to store parsed node IDs
+ * @return true if parsing succeeded
+ * @return false if invalid integer format encountered
+ */
 bool parseNodesToAvoid(const string &input, vector<int> &output) {
     stringstream ss(input);
     string token;
@@ -49,6 +69,13 @@ bool parseNodesToAvoid(const string &input, vector<int> &output) {
     return true;
 }
 
+/**
+ * @brief Helper function that parses segments to avoid in format (x,y),(a,b)
+ * @param input String containing segment pairs
+ * @param[out] output Vector to store parsed segment pairs
+ * @return true if parsing succeeded
+ * @return false if invalid format encountered
+ */
 bool parseSegmentsToAvoid(const string &input, vector<pair<int, int> > &output) {
     stringstream ss(input);
     string token;
@@ -72,12 +99,19 @@ bool parseSegmentsToAvoid(const string &input, vector<pair<int, int> > &output) 
     return true;
 }
 
+/**
+ * @brief Helper function that checks if mode is "driving-walking" (case insensitive)
+ * @param mode Transportation mode string to check
+ * @return true if mode is "driving-walking"
+ * @return false otherwise
+ */
 bool isModeDrivingWalking(const string &mode) {
     string res;
     for (const char c: mode)
         res += static_cast<char>(tolower(c));
     return res == "driving-walking";
 }
+
 
 bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
                              vector<pair<int, int> > &avoidSegments) {
@@ -115,6 +149,7 @@ bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &m
 
     return true;
 }
+
 
 bool InputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
                           vector<pair<int, int> > &avoidSegments, int &includeNode) {

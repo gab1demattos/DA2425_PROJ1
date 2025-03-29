@@ -12,15 +12,14 @@
 #include "../InputOutput/Input.h"
 #include "../InputOutput/Output.h"
 
-
 int optionsMenu() {
     cout << endl << "Hello user!" << endl;
     cout << "Welcome to the Route Planning Tool!" << endl << endl;
 
     cout << "If you have doubts about the input format, feel free to check the Input Info section." << endl;
-    cout << endl << "Here are the options..." << endl;
+    cout << endl << "Here are the options..." << endl << endl;
     cout.flush();
-    for (int i = 4; i > 0; --i) {
+    for (int i = 2; i > 0; --i) {
         this_thread::sleep_for(chrono::seconds(1));
         cout.flush();
     }
@@ -46,6 +45,7 @@ int optionsMenu() {
     } while (i > 5);
     return i;
 }
+
 
 template<class T>
 void optionBestRoute(Graph<T> *g) {
@@ -96,6 +96,7 @@ void optionRestrictedRoute(Graph<T> *g) {
 
 template void optionRestrictedRoute<int>(Graph<int> *g);
 
+
 template<class T>
 void optionEnvironmentalRoute(Graph<T> *g) {
     string mode;
@@ -127,6 +128,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
 
 template void optionEnvironmentalRoute<int>(Graph<int> *g);
 
+
 void optionInputInfo(Graph<int> *g) {
     cout << endl << "=============================================\n";
     cout << "       ROUTE PLANNER - INPUT INFO        \n";
@@ -137,10 +139,6 @@ void optionInputInfo(Graph<int> *g) {
     cout << "   Mode: driving\n";
     cout << "   Source: <node_number>\n";
     cout << "   Destination: <node_number>\n";
-    cout << "   Example:\n";
-    cout << "   Mode: driving\n";
-    cout << "   Source: 3\n";
-    cout << "   Destination: 8\n\n";
 
     cout << endl << "2. RESTRICTED ROUTE PLANNING\n";
     cout << endl;
@@ -164,9 +162,9 @@ void optionInputInfo(Graph<int> *g) {
 
     cout << endl << "NOTES:\n";
     cout <<
-            "- Please put the input in the 'Input' folder of the project before running. If it isn't to your linking go change it now!\n";
+            "- Please put the input in the 'Input' folder of the project before running. If it isn't to your liking go change it now!\n";
     cout << "  The input files have their name correspond to the option you will choose so be aware of that." << endl;
-    cout << "- For empty optional fields, leave them blank\n";
+    cout << "- For empty optional fields, leave them blank.\n";
     cout << "=============================================\n";
 
     cout << "Are you ready to go back to the menu? [y/n] ";
