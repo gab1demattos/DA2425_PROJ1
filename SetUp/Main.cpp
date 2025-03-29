@@ -1,3 +1,27 @@
+/**
+* \mainpage Route Planning Tool - Design of Algorithms
+ *
+ * This project uses Dijkstra's Algorithm in order to find the best route from a given source node
+ * to a given destination node. Supports three routing modes with graph restrictions and
+ * environmental constraints.
+ *
+ * Key Features
+ * 1. Independent Route Planning - Classic shortest-path (time-based).
+ * 2. Restricted Route Planning - Calculates shortest path taking in account segments and nodes to avoid,
+ * as well as nodes to include in the route.
+ * 3. Environmentally-Friendly Route Planning - Hybrid driving/walking route where the user can choose the
+ * maximum time they are willing to walk after parking.
+ *
+ * Usage
+ * 1. Load graph data from `PortoLocations.csv` and `PortoDistances.csv`.
+ * 2. Select a routing mode via the interactive menu.
+ * 3. Input source/destination nodes and constraints (if applicable).
+ * 4. View the computed path and total time.
+ *
+ * @author Francisca Portugal, Gabriela de Mattos, Maria Luiza Vieira
+ * @date 29/03/2025
+ */
+
 #include "DataStructures/Graph.h"
 #include "Menu/Menu.h"
 #include "ReadData/readCSV.h"
@@ -7,16 +31,16 @@
  * @return int Exit status (0 for success)
  *
  * @details Program flow:
- * 1. Initializes graph with Porto location data
- * 2. Presents menu options
- * 3. Executes selected routing algorithm
+ * 1. Loads graph data from CSV files
+ * 2. Displays interactive menu
+ * 3. Processes user-selected routing algorithm
  *
- * @note Data files required:
+ * @note Required data files:
  * - ../Data/PortoLocations.csv
  * - ../Data/PortoDistances.csv
  *
- * @see Graph
- * @see optionsMenu()
+ * @see Graph for underlying data structure
+ * @see optionsMenu() for UI logic
  * @see optionBestRoute()
  * @see optionRestrictedRoute()
  * @see optionEnvironmentalRoute()
