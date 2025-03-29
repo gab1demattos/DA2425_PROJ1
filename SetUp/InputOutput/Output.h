@@ -24,7 +24,7 @@
  * AlternativeRoute:<path>(<time>) or "None"
  */
 bool OutputBestRoute(int source, int destination, const std::pair<std::vector<int>, int> &solBestRoute,
-                     const std::pair<std::vector<int>, int> &solALternativeRoute);
+                     const std::pair<std::vector<int>, int> &solAlternativeRoute);
 
 /**
  * @brief Outputs the best environmentally friendly route solution
