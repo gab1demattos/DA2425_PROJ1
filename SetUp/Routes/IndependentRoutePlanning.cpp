@@ -1,6 +1,6 @@
 #include "IndependentRoutePlanning.h"
 
-#include <limits>
+#include <climits>
 #include <vector>
 #include <utility>
 #include <algorithm>
@@ -81,11 +81,24 @@ template pair<vector<int>, int> BestRoute<int>(Graph<int> *, const int &, const 
 template<class T>
 pair<vector<int>, int> AlternativeRoute(Graph<T> *g, const pair<vector<int>, int> &primaryRoute, int source,
                                         int destination) {
+    // If primary route is empty or invalid, return empty alternative
+    if (primaryRoute.first.empty() || primaryRoute.second == 0) {
+        return make_pair(vector<int>(), 0);
+    }
+
     // Create a new graph with the same nodes
     Graph<T> modifiedGraph;
     for (auto v: g->getVertexSet()) {
         modifiedGraph.addVertex(v->getInfo());
+        // Copy node attributes
+        auto newVertex = modifiedGraph.findVertex(v->getInfo());
+        if (newVertex != nullptr) {
+            newVertex->setLocation(v->getLocation());
+            newVertex->setCode(v->getCode());
+            newVertex->setParking(v->isParkingAvailable());
+        }
     }
+
     // Copy all edges except those in the primary route
     for (auto v: g->getVertexSet()) {
         for (auto e: v->getAdj()) {
@@ -104,11 +117,13 @@ pair<vector<int>, int> AlternativeRoute(Graph<T> *g, const pair<vector<int>, int
         }
     }
 
+    // Find alternative route
     pair<vector<int>, int> alternativeRoute = BestRoute(&modifiedGraph, source, destination);
 
-    if (alternativeRoute.first.empty() || alternativeRoute.second < primaryRoute.second) {
-        // No valid alternative route exists
-        alternativeRoute.first.clear(); // Mark as invalid
+    // Check if alternative route is valid
+    if (alternativeRoute.first.empty() || alternativeRoute.second <= primaryRoute.second) {
+        // No valid alternative route exists or it's not longer than primary
+        return make_pair(vector<int>(), 0);
     }
 
     return alternativeRoute;
