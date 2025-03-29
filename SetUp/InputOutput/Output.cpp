@@ -1,8 +1,3 @@
-/**
-* @file Output.cpp
- * @brief Output handling functions for route planning system results
- */
-
 #include "Output.h"
 #include <chrono>
 #include <iostream>
