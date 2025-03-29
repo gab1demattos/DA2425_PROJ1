@@ -13,7 +13,7 @@
  * maximum time they are willing to walk after parking.
  *
  * Usage
- * 1. Load graph data from `PortoLocations.csv` and `PortoDistances.csv`.
+ * 1. Load graph data from `Locations.csv` and `Distances.csv`.
  * 2. Select a routing mode via the interactive menu.
  * 3. Input source/destination nodes and constraints (if applicable).
  * 4. View the computed path and total time.
