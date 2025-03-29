@@ -81,20 +81,29 @@ template pair<vector<int>, int> BestRoute<int>(Graph<int> *, const int &, const 
 template<class T>
 pair<vector<int>, int> AlternativeRoute(Graph<T> *g, const pair<vector<int>, int> &primaryRoute, int source,
                                         int destination) {
-    // Create a copy of the graph to avoid modifying the original
-    Graph<T> modifiedGraph = *g;
-
-    // Remove intermediate nodes of the primary route (except source and destination)
-    for (size_t i = 1; i < primaryRoute.first.size() - 1; ++i) {
-        modifiedGraph.removeVertex(primaryRoute.first[i]);
+    // Create a new graph with the same nodes
+    Graph<T> modifiedGraph;
+    for (auto v: g->getVertexSet()) {
+        modifiedGraph.addVertex(v->getInfo());
+    }
+    // Copy all edges except those in the primary route
+    for (auto v: g->getVertexSet()) {
+        for (auto e: v->getAdj()) {
+            bool inPrimary = false;
+            for (size_t i = 0; i < primaryRoute.first.size() - 1; ++i) {
+                if (v->getInfo() == primaryRoute.first[i] &&
+                    e->getDest()->getInfo() == primaryRoute.first[i + 1]) {
+                    inPrimary = true;
+                    break;
+                }
+            }
+            if (!inPrimary) {
+                modifiedGraph.addEdge(v->getInfo(), e->getDest()->getInfo(),
+                                      e->getDriving(), e->getWalking());
+            }
+        }
     }
 
-    // Remove intermediate segments of the primary route
-    for (size_t i = 0; i < primaryRoute.first.size() - 1; ++i) {
-        modifiedGraph.removeEdge(primaryRoute.first[i], primaryRoute.first[i + 1]);
-    }
-
-    // Find the alternative route on the modified graph
     pair<vector<int>, int> alternativeRoute = BestRoute(&modifiedGraph, source, destination);
 
     if (alternativeRoute.first.empty() || alternativeRoute.second < primaryRoute.second) {

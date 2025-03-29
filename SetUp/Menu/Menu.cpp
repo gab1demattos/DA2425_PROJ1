@@ -61,7 +61,7 @@ void optionBestRoute(Graph<T> *g) {
 
     pair<vector<T>, int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
 
-    if (OutputBestRoute(source, destination, solBestRoute, solAlternativeRoute)) {
+    if (OutputBestRoute(g, source, destination, solBestRoute, solAlternativeRoute)) {
         int option = optionsMenu();
         handleMenuOption(option, g);
     }
@@ -88,7 +88,7 @@ void optionRestrictedRoute(Graph<T> *g) {
 
     RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
 
-    if (OutputRestrictedRoute(source, destination, route, totalTime)) {
+    if (OutputRestrictedRoute(g, source, destination, route, totalTime, avoidNodes, avoidSegments)) {
         int option = optionsMenu();
         handleMenuOption(option, g);
     }
@@ -115,7 +115,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
                                      drivingRoute, parkingNode, walkingRoute, totalTime,
                                      approximateSolutions);
 
-    bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(source, destination,
+    bool shouldShowMenu = OutputBestEnvironmentallyFriendlyRoute(g, source, destination,
                                                                  drivingRoute, walkingRoute,
                                                                  parkingNode, totalTime, maxWalkTime,
                                                                  approximateSolutions);
