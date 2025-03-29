@@ -25,6 +25,8 @@
 #include "DataStructures/Graph.h"
 #include "Menu/Menu.h"
 #include "ReadData/readCSV.h"
+#include "InputOutput/BatchMode.h"
+#include <iostream>
 
 /**
  * @brief Main program execution
@@ -45,7 +47,7 @@
  * @see optionRestrictedRoute()
  * @see optionEnvironmentalRoute()
  */
-int main() {
+int main(int argc, char* argv[]) {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
@@ -54,6 +56,20 @@ int main() {
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
 
+    // Check for batch mode arguments
+    if (argc == 3) {
+        std::string inputFile = argv[1];
+        std::string outputFile = argv[2];
+        
+        if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
+            std::cout << "Batch mode processing completed successfully." << std::endl;
+        } else {
+            std::cerr << "Batch mode processing failed." << std::endl;
+        }
+        return 0;
+    }
+
+    // Interactive menu mode
     switch (optionsMenu()) {
         case 1:
             cout << "Finding best and alternative independent routes..." << endl << endl;
