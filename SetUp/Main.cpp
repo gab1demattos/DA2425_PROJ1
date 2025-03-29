@@ -34,8 +34,8 @@
  *
  * @details Program flow:
  * 1. Loads graph data from CSV files
- * 2. Displays interactive menu
- * 3. Processes user-selected routing algorithm
+ * 2. If command line arguments are provided, use batch mode
+ * 3. Otherwise, show interactive menu
  *
  * @note Required data files:
  * - ../Data/PortoLocations.csv
@@ -47,7 +47,7 @@
  * @see optionRestrictedRoute()
  * @see optionEnvironmentalRoute()
  */
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
@@ -56,11 +56,11 @@ int main(int argc, char* argv[]) {
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
 
-    // Check for batch mode arguments
+    // If command line arguments are provided, use batch mode
     if (argc == 3) {
         std::string inputFile = argv[1];
         std::string outputFile = argv[2];
-        
+
         if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
             std::cout << "Batch mode processing completed successfully." << std::endl;
         } else {
@@ -72,22 +72,23 @@ int main(int argc, char* argv[]) {
     // Interactive menu mode
     switch (optionsMenu()) {
         case 1:
-            cout << "Finding best and alternative independent routes..." << endl << endl;
+            std::cout << "Finding best and alternative independent routes..." << std::endl << std::endl;
             optionBestRoute(&graph);
             break;
         case 2:
-            cout << "Finding route based on the given restrictions..." << endl;
+            std::cout << "Finding route based on the given restrictions..." << std::endl;
             optionRestrictedRoute(&graph);
             break;
         case 3:
-            cout << "Finding driving-walking route..." << endl;
+            std::cout << "Finding driving-walking route..." << std::endl;
             optionEnvironmentalRoute(&graph);
             break;
         case 4:
             optionInputInfo(&graph);
             break;
         case 5:
-            cout << "Exiting..." << endl;
+            std::cout << "Exiting..." << std::endl;
+            return 0;
         default:
             break;
     }
