@@ -9,6 +9,7 @@
 #include <vector>
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 
+
 /**
  * @brief Outputs the best route solution with alternative option
  * @param source Source node ID
@@ -47,7 +48,7 @@ bool OutputBestRoute(int source, int destination, const std::pair<std::vector<in
  * TotalTime:<time> or ""
  * Message: <error message> (if no solution)
  */
-bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
+bool OutputBestEnvironmentallyFriendlyRoute(Graph<int> *graph, int source, int destination,
                                             const std::pair<std::vector<int>, int> &solBestDrivingRoute,
                                             const std::pair<std::vector<int>, int> &solBestWalkingRoute,
                                             const int &parkingNode, const int &totalTime, int maxWalkTime,
@@ -68,7 +69,9 @@ bool OutputBestEnvironmentallyFriendlyRoute(int source, int destination,
  * RestrictedDrivingRoute:<path>(<time>)
  */
 template<class T>
-bool OutputRestrictedRoute(int source, int destination, std::vector<T> bestRestrictedRoute, int totalTime);
+bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<T> bestRestrictedRoute, int totalTime,
+                           const vector<T> &avoidNodes,
+                           const vector<pair<T, T> > &avoidSegments);
 
 /**
  * @brief Outputs approximate solutions when no exact route is found
