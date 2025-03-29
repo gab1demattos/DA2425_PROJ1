@@ -1,3 +1,8 @@
+/**
+* @file EnvironmentallyFriendlyRoutePlanning.cpp
+ * @brief Environmentally friendly route planning with driving and walking segments
+ */
+
 #include "EnvironmentallyFriendlyRoutePlanning.h"
 #include <limits>
 #include <vector>
@@ -5,12 +10,18 @@
 #include <algorithm>
 #include <climits>
 
-
-template<class T>
-bool relax(Edge<T> *edge) {
-    // d[u] + w(u,v) < d[v]
-    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) {
-        // we have found a better way to reach v
+/**
+ * @brief Relaxes an edge during Dijkstra's algorithm
+ * @tparam T Node ID type (typically int)
+ * @param edge Edge to relax
+ * @return true if relaxation occurred (shorter path found), false otherwise
+ *
+ * @details Updates the destination vertex's distance if a shorter path is found
+ * through this edge. Uses driving times for edge weights.
+ */
+template <class T>
+bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
         edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
         edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
         return true;
@@ -18,13 +29,12 @@ bool relax(Edge<T> *edge) {
     return false;
 }
 
-
 template<class T>
 void restrictedDijkstra(Graph<T> *g, const T &origin, const vector<T> &avoidNodes,
                         const vector<pair<T, T> > &avoidSegments) {
     // Initialize the vertices
     for (auto v: g->getVertexSet()) {
-        v->setDist(INF);
+        v->setDist(INT_MAX);
         v->setPath(nullptr);
     }
     auto s = g->findVertex(origin);
@@ -45,7 +55,7 @@ void restrictedDijkstra(Graph<T> *g, const T &origin, const vector<T> &avoidNode
             }
             auto oldDist = e->getDest()->getDist();
             if (relax(e)) {
-                if (oldDist == INF) {
+                if (oldDist == INT_MAX) {
                     q.insert(e->getDest());
                 } else {
                     q.decreaseKey(e->getDest());
@@ -156,7 +166,14 @@ template void EnvironmentallyFriendlyBestRoute<int>(Graph<int> *, const int &, c
                                                     pair<vector<int>, int> &, int &, pair<vector<int>, int> &, int &,
                                                     vector<ApproximateSolution<int> > &);
 
-// New function for walking paths
+/**
+ * @brief Relax function for walking path Dijkstra
+ * @tparam T Node ID type (typically int)
+ * @param edge Edge to relax
+ * @return true if relaxation occurred, false otherwise
+ *
+ * @note Uses walking times instead of driving times
+ */
 template<class T>
 bool relaxWalking(Edge<T> *edge) {
     if (edge->getOrig()->getDist() + edge->getWalking() < edge->getDest()->getDist()) {
@@ -171,7 +188,7 @@ template<class T>
 void restrictedDijkstraWalking(Graph<T> *g, const T &origin, const vector<T> &avoidNodes,
                                const vector<pair<T, T> > &avoidSegments) {
     for (auto v: g->getVertexSet()) {
-        v->setDist(INF);
+        v->setDist(INT_MAX);
         v->setPath(nullptr);
     }
     auto s = g->findVertex(origin);
@@ -189,7 +206,7 @@ void restrictedDijkstraWalking(Graph<T> *g, const T &origin, const vector<T> &av
                 continue;
             auto oldDist = e->getDest()->getDist();
             if (relaxWalking(e)) {
-                if (oldDist == INF)
+                if (oldDist == INT_MAX)
                     q.insert(e->getDest());
                 else
                     q.decreaseKey(e->getDest());
@@ -197,6 +214,7 @@ void restrictedDijkstraWalking(Graph<T> *g, const T &origin, const vector<T> &av
         }
     }
 }
+
 
 template<class T>
 void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &drivingPaths,
