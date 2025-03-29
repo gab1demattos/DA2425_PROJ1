@@ -19,7 +19,7 @@ using namespace std;
  * 1. Best Route and Alternative Independent Route
  * 2. Restricted Route Planning
  * 3. Environmentally-Friendly Route Planning
- * 4. Input Info
+ * 4. Info
  * 5. Exit
  */
 int optionsMenu();
@@ -69,16 +69,21 @@ template<class T>
 void optionEnvironmentalRoute(Graph<T> *g);
 
 /**
- * @brief Displays input format information to the user
+ * @brief Displays comprehensive information about the program
  * @param g Pointer to the graph object (for maintaining context)
  *
- * @note Shows detailed format requirements for:
- * - Best Route input
- * - Restricted Route input
- * - Environmentally Friendly Route input
- * Includes notes about optional fields and file locations
+ * @details Shows two main sections:
+ * 1. Input Info: Detailed format requirements for all routing options
+ * 2. Batch Mode Info: Command-line usage and program execution modes
+ *
+ * @note Includes information about:
+ * - Input file formats and requirements
+ * - Optional fields and parameters
+ * - File locations and organization
+ * - Program execution modes (interactive and batch)
+ * - Command-line usage examples
  */
-void optionInputInfo(Graph<int> *g);
+void optionInfo(Graph<int> *g);
 
 /**
  * @brief Routes execution to the appropriate menu option handler
@@ -90,7 +95,7 @@ void optionInputInfo(Graph<int> *g);
  * 1 → optionBestRoute()
  * 2 → optionRestrictedRoute()
  * 3 → optionEnvironmentalRoute()
- * 4 → optionInputInfo()
+ * 4 → optionInfo()
  * 5 → Exits program
  */
 template<class T>

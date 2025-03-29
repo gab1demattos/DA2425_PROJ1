@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
             optionEnvironmentalRoute(&graph);
             break;
         case 4:
-            optionInputInfo(&graph);
+            optionInfo(&graph);
             break;
         case 5:
             std::cout << "Exiting..." << std::endl;

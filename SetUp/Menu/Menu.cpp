@@ -16,7 +16,7 @@ int optionsMenu() {
     cout << endl << "Hello user!" << endl;
     cout << "Welcome to the Route Planning Tool!" << endl << endl;
 
-    cout << "If you have doubts about the input format, feel free to check the Input Info section." << endl;
+    cout << "If you have doubts about the input format, feel free to check the Info section." << endl;
     cout << endl << "Here are the options..." << endl << endl;
     cout.flush();
     for (int i = 2; i > 0; --i) {
@@ -35,7 +35,7 @@ int optionsMenu() {
         cout << "1: Best Route and Alternative Independent Route " << endl;
         cout << "2: Restricted Route Planning " << endl;
         cout << "3: Environmentally-Friendly Route Planning" << endl;
-        cout << "4: Input Info ! " << endl;
+        cout << "4: Info ! " << endl;
         cout << "5: Exit" << endl;
         cout << "Option: ";
         cin >> i;
@@ -129,7 +129,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
 template void optionEnvironmentalRoute<int>(Graph<int> *g);
 
 
-void optionInputInfo(Graph<int> *g) {
+void optionInfo(Graph<int> *g) {
     cout << endl << "=============================================\n";
     cout << "       ROUTE PLANNER - INPUT INFO        \n";
     cout << "=============================================\n\n";
@@ -149,7 +149,6 @@ void optionInputInfo(Graph<int> *g) {
     cout << "   AvoidSegments: <comma_separated_pairs> e.g., (3,2),(7,8) (optional)\n";
     cout << "   IncludeNode: <node_number> (optional)\n";
 
-
     cout << endl << "3. ENVIRONMENTALLY-FRIENDLY ROUTE PLANNING (DRIVING + WALKING)\n";
     cout << endl;
     cout << "   Mode: driving-walking\n";
@@ -159,13 +158,29 @@ void optionInputInfo(Graph<int> *g) {
     cout << "   AvoidNodes: <comma_separated_node_numbers> (optional)\n";
     cout << "   AvoidSegments: <comma_separated_pairs> (optional)\n";
 
-
     cout << endl << "NOTES:\n";
     cout <<
             "- Please put the input in the 'Input' folder of the project before running. If it isn't to your liking go change it now!\n";
     cout << "  The input files have their name correspond to the option you will choose so be aware of that." << endl;
     cout << "- For empty optional fields, leave them blank.\n";
-    cout << "=============================================\n";
+    cout << "=============================================\n\n";
+
+    cout << "======================" << endl;
+    cout << "BATCH MODE INFO" << endl;
+    cout << "======================" << endl << endl;
+    cout << "Usage:\n";
+    cout << "1. Interactive Menu Mode:\n";
+    cout << "   ./route_planner\n\n";
+    cout << "2. Batch Mode:\n";
+    cout << "   ./route_planner input.txt output.txt\n\n";
+    cout << "Example:\n";
+    cout << "   ./route_planner Input/input.txt Output/output.txt\n\n";
+    cout << "Notes:\n";
+    cout << "- Batch mode processes input file and writes results to output file\n";
+    cout << "- Input file should be in the Input folder\n";
+    cout << "- Output will be written to the specified output file\n";
+    cout << "- Program exits after processing in batch mode\n";
+    cout << "======================" << endl;
 
     cout << "Are you ready to go back to the menu? [y/n] ";
     char response;
@@ -211,7 +226,7 @@ void handleMenuOption(int option, Graph<T> *g) {
             optionEnvironmentalRoute(g);
             break;
         case 4:
-            optionInputInfo(g);
+            optionInfo(g);
             break;
         case 5:
             cout << "Exiting..." << endl;
