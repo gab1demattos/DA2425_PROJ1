@@ -12,6 +12,7 @@
 
 /**
  * @brief Outputs the best route solution with alternative option
+ * @param graph Pointer to the graph object
  * @param source Source node ID
  * @param destination Destination node ID
  * @param solBestRoute Best route solution (path and total time)
@@ -24,11 +25,12 @@
  * BestDrivingRoute:<path>(<time>)
  * AlternativeRoute:<path>(<time>) or "None"
  */
-bool OutputBestRoute(int source, int destination, const std::pair<std::vector<int>, int> &solBestRoute,
+bool OutputBestRoute(Graph<int> *graph, int source, int destination, const std::pair<std::vector<int>, int> &solBestRoute,
                      const std::pair<std::vector<int>, int> &solAlternativeRoute);
 
 /**
  * @brief Outputs the best environmentally friendly route solution
+ * @param graph Pointer to the graph object
  * @param source Source node ID
  * @param destination Destination node ID
  * @param solBestDrivingRoute Best driving route (path and time)
@@ -57,10 +59,13 @@ bool OutputBestEnvironmentallyFriendlyRoute(Graph<int> *graph, int source, int d
 /**
  * @brief Outputs a restricted route solution
  * @tparam T Node ID type (typically int)
+ * @param graph Pointer to the graph object
  * @param source Source node ID
  * @param destination Destination node ID
  * @param bestRestrictedRoute Vector of nodes in the restricted route
  * @param totalTime Total time of the restricted route
+ * @param avoidNodes Vector of nodes to avoid
+ * @param avoidSegments Vector of segments to avoid
  * @return true if user wants to return to menu, false to exit
  *
  * @note Output format:
@@ -75,6 +80,7 @@ bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<
 
 /**
  * @brief Outputs approximate solutions when no exact route is found
+ * @param graph Pointer to graph object
  * @param source Source node ID
  * @param destination Destination node ID
  * @param maxWalkTime Maximum walking time specified by user
@@ -87,7 +93,7 @@ bool OutputRestrictedRoute(Graph<T> *graph, int source, int destination, vector<
  * WalkingRoute<X>:<path>(<time>)
  * TotalTime<X>:<time>
  */
-bool OutputApproximateSolutions(int source, int destination,
+bool OutputApproximateSolutions(Graph<int> *graph, int source, int destination,
                                 int maxWalkTime,
                                 const vector<ApproximateSolution<int> > &solutions);
 
