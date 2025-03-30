@@ -25,6 +25,9 @@
 #include "DataStructures/Graph.h"
 #include "Menu/Menu.h"
 #include "ReadData/readCSV.h"
+#include "InputOutput/BatchMode.h"
+#include <iostream>
+#include "InputOutput/BatchInput.h"
 
 /**
  * @brief Main program execution
@@ -32,8 +35,8 @@
  *
  * @details Program flow:
  * 1. Loads graph data from CSV files
- * 2. Displays interactive menu
- * 3. Processes user-selected routing algorithm
+ * 2. If command line arguments are provided, use batch mode
+ * 3. Otherwise, show interactive menu
  *
  * @note Required data files:
  * - ../Data/PortoLocations.csv
@@ -45,7 +48,7 @@
  * @see optionRestrictedRoute()
  * @see optionEnvironmentalRoute()
  */
-int main() {
+int main(int argc, char *argv[]) {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
@@ -53,25 +56,49 @@ int main() {
 
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
+    std::string inputFile = argv[1];
+    if (argc == 3) {
+        std::string outputFile = argv[2];
+        runBatchMode(inputFile, outputFile, &graph);
+        std::cout << "Batch mode processing completed successfully." << std::endl;
+        return 0;
+    }
 
+
+
+    // If command line arguments are provided, use batch mode
+    // if (argc == 3) {
+    //     //std::string inputFile = argv[1];
+    //     std::string outputFile = argv[2];
+    //
+    //     if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
+    //         std::cout << "Batch mode processing completed successfully." << std::endl;
+    //     } else {
+    //         std::cerr << "Batch mode processing failed." << std::endl;
+    //     }
+    //     return 0;
+    // }
+
+    // Interactive menu mode
     switch (optionsMenu()) {
         case 1:
-            cout << "Finding best and alternative independent routes..." << endl << endl;
-            optionBestRoute(&graph);
+            std::cout << "Finding best and alternative independent routes..." << std::endl << std::endl;
+            optionBestRoute(&graph, inputFile);
             break;
         case 2:
-            cout << "Finding route based on the given restrictions..." << endl;
-            optionRestrictedRoute(&graph);
+            std::cout << "Finding route based on the given restrictions..." << std::endl;
+            optionRestrictedRoute(&graph, inputFile);
             break;
         case 3:
-            cout << "Finding driving-walking route..." << endl;
-            optionEnvironmentalRoute(&graph);
+            std::cout << "Finding driving-walking route..." << std::endl;
+            optionEnvironmentalRoute(&graph, inputFile);
             break;
         case 4:
-            optionInputInfo(&graph);
+            optionInfo(&graph, inputFile);
             break;
         case 5:
-            cout << "Exiting..." << endl;
+            std::cout << "Exiting..." << std::endl;
+            return 0;
         default:
             break;
     }
