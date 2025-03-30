@@ -75,7 +75,7 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
         }
     }
 }
-
+/*
 template<class T>
 void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNodes,
                         const vector<pair<T, T> > &avoidSegments, const T &includeNode) {
@@ -116,11 +116,13 @@ void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNo
         }
     }
 }
-
+*/
 template<class T>
 void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, const vector<T> &avoidNodes,
                            const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
-                           int &totalTime) {
+                           int &totalTime, bool &flag) {
+
+    flag = true;
     // Determine if we have a valid includeNode (not 32760)
     const T INVALID_NODE = INT_MAX; // Or whatever your magic number is
     bool hasIncludeNode = (includeNode != INVALID_NODE && g->findVertex(includeNode) != nullptr);
@@ -130,7 +132,8 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
         initializeVertices(g);
         auto startVertex = g->findVertex(origin);
         if (!startVertex) {
-            std::cout << "RestrictedDrivingRoute:None" << std::endl;
+            //std::cout << "RestrictedDrivingRoute:None" << std::endl;
+            flag = false;
             return;
         }
         startVertex->setDist(0);
@@ -139,7 +142,8 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
 
         Vertex<T> *destVertex = g->findVertex(dest);
         if (!destVertex || destVertex->getDist() == INT_MAX) {
-            std::cout << "RestrictedDrivingRoute:None" << std::endl;
+            flag = false;
+            //std::cout << "RestrictedDrivingRoute:None" << std::endl;
             return;
         }
 
@@ -153,44 +157,48 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
             }
         }
     } else {
-        // CASE 2: Valid include node specified - original two-phase approach
-        restrictedDijkstra(g, origin, avoidNodes, avoidSegments, includeNode);
+        // CASE 2: With include node - two-phase approach
+        route.clear();
+        totalTime = 0;
+
+        // Phase 1: Origin → IncludeNode
+        initializeVertices(g);
+        auto startVertex = g->findVertex(origin);
+        startVertex->setDist(0);
+        runDijkstra(g, startVertex, avoidNodes, avoidSegments);
+
         Vertex<T> *includeVertex = g->findVertex(includeNode);
         if (!includeVertex || includeVertex->getDist() == INT_MAX) {
-            std::cout << "RestrictedDrivingRoute:None" << std::endl;
+            flag = false;
             return;
         }
 
-        // Reconstruct first part (origin → includeNode)
+        // Reconstruct first part of path
         vector<T> firstPart;
-        int firstPartTime = 0;
+        int firstPartTime = includeVertex->getDist();
         for (Vertex<T> *v = includeVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
             firstPart.push_back(v->getInfo());
-            if (v->getPath() != nullptr) {
-                firstPartTime += v->getPath()->getDriving();
-            }
         }
 
-        // Find path (includeNode → destination)
-        restrictedDijkstra(g, includeNode, avoidNodes, avoidSegments, dest);
+        // Phase 2: IncludeNode → Destination
+        initializeVertices(g);
+        includeVertex->setDist(0);
+        runDijkstra(g, includeVertex, avoidNodes, avoidSegments);
+
         Vertex<T> *destVertex = g->findVertex(dest);
         if (!destVertex || destVertex->getDist() == INT_MAX) {
-            std::cout << "RestrictedDrivingRoute:None" << std::endl;
+            flag = false;
             return;
         }
 
-        // Reconstruct second part (includeNode → destination)
+        // Reconstruct second part of path
         vector<T> secondPart;
-        int secondPartTime = 0;
+        int secondPartTime = destVertex->getDist();
         for (Vertex<T> *v = destVertex; v != nullptr && v->getInfo() != includeNode; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
             secondPart.push_back(v->getInfo());
-            if (v->getPath() != nullptr) {
-                secondPartTime += v->getPath()->getDriving();
-            }
         }
 
-        // Combine paths
-        route.clear();
+        // Combine paths (reverse first part since we built it backwards)
         route.insert(route.end(), firstPart.rbegin(), firstPart.rend());
         route.insert(route.end(), secondPart.rbegin(), secondPart.rend());
 
@@ -205,4 +213,4 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
 
 template void RestrictedRoutePlanning<int>(Graph<int> *g, const int &origin, const int &dest,
                                            const vector<int> &avoidNodes, const vector<pair<int, int> > &avoidSegments,
-                                           const int &includeNode, std::vector<int> &route, int &totalTime);
+                                           const int &includeNode, std::vector<int> &route, int &totalTime, bool &flag);
