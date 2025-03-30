@@ -13,8 +13,8 @@
  * @tparam T Node ID type (typically int)
  * @param g Graph object
  * @param start Starting vertex
- * @param avoidNodes List of nodes to avoid
- * @param avoidSegments List of segments (node pairs) to avoid
+ * @param avoidNodes Vector of nodes to avoid
+ * @param avoidSegments Vector of segments (node pairs) to avoid
  *
  * @details Runs Dijkstra's algorithm to find shortest paths while:
  * 1. Skipping nodes in avoidNodes list
@@ -34,8 +34,8 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
  * @param g Graph object
  * @param origin Source node ID
  * @param dest Destination node ID
- * @param avoidNodes List of nodes to avoid
- * @param avoidSegments List of segments to avoid
+ * @param avoidNodes Vector of nodes to avoid
+ * @param avoidSegments Vector of segments to avoid
  * @param includeNode Node that must be included in route (INT_MAX if not required)
  * @param[out] route Resulting path as vector of node IDs (empty if no valid route found)
  * @param[out] totalTime Total driving time in seconds (0 if no valid route)

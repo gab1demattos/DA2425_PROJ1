@@ -1,10 +1,10 @@
-#ifndef OUTPUT_H
-#define OUTPUT_H
-
 /**
 * @file Output.h
  * @brief Output handling functions for route planning system results
  */
+
+#ifndef OUTPUT_H
+#define OUTPUT_H
 
 #include <vector>
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
