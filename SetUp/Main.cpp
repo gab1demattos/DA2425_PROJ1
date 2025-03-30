@@ -71,11 +71,11 @@ int main(int argc, char *argv[]) {
             optionBestRoute(&graph);
             break;
         case 2:
-            std::cout << "Finding route based on the given restrictions..." << std::endl;
+            std::cout << "Finding route based on the given restrictions..." << std::endl << std::endl;
             optionRestrictedRoute(&graph);
             break;
         case 3:
-            std::cout << "Finding driving-walking route..." << std::endl;
+            std::cout << "Finding environmentally-friendly route..." << std::endl << std::endl;
             optionEnvironmentalRoute(&graph);
             break;
         case 4:
