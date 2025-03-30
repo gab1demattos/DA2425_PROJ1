@@ -27,6 +27,7 @@
 #include "ReadData/readCSV.h"
 #include "InputOutput/BatchMode.h"
 #include <iostream>
+#include "InputOutput/BatchInput.h"
 
 /**
  * @brief Main program execution
@@ -56,9 +57,13 @@ int main(int argc, char *argv[]) {
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
 
+    std::string inputFile = argv[1];
+    fileToSingleLine(inputFile, &graph);
+
+
     // If command line arguments are provided, use batch mode
     if (argc == 3) {
-        std::string inputFile = argv[1];
+        //std::string inputFile = argv[1];
         std::string outputFile = argv[2];
 
         if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
@@ -73,15 +78,15 @@ int main(int argc, char *argv[]) {
     switch (optionsMenu()) {
         case 1:
             std::cout << "Finding best and alternative independent routes..." << std::endl << std::endl;
-            optionBestRoute(&graph);
+            optionBestRoute(&graph, inputFile);
             break;
         case 2:
             std::cout << "Finding route based on the given restrictions..." << std::endl;
-            optionRestrictedRoute(&graph);
+            optionRestrictedRoute(&graph, inputFile);
             break;
         case 3:
             std::cout << "Finding driving-walking route..." << std::endl;
-            optionEnvironmentalRoute(&graph);
+            optionEnvironmentalRoute(&graph, inputFile);
             break;
         case 4:
             optionInfo(&graph);

@@ -2,6 +2,7 @@
 #include "../Routes/IndependentRoutePlanning.h"
 #include "../Routes/RestrictedRoutePlanning.h"
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
+#include "Input.h"
 #include <iostream>
 #include <sstream>
 #include <regex>
@@ -29,8 +30,90 @@ bool BatchMode::processBatchMode(Graph<int>& graph, const std::string& inputFile
 
     bool success = false;
     if (mode == "driving") {
-        std::cout << "Processing best route mode..." << std::endl;
-        success = processBestRoute(graph, inFile, outFile);
+        std::cout << "Detected best route..." << std::endl;
+        int source, destination;
+        std::vector<int> avoidNodes;
+        std::vector<std::pair<int, int>> avoidSegments;
+        int includeNode = -1;
+
+        // Read source and destination
+        std::getline(inFile, line);
+        source = std::stoi(line.substr(line.find(':') + 1));
+        std::getline(inFile, line);
+        destination = std::stoi(line.substr(line.find(':') + 1));
+
+        // Check if there are avoid nodes
+        std::getline(inFile, line);
+        if (line.find("AvoidNodes:") != std::string::npos) {
+            // If we found avoid nodes, process as restricted route
+            std::cout << "Found avoid nodes, processing as restricted route..." << std::endl;
+            std::string nodes = line.substr(line.find(':') + 1);
+            parseNodesToAvoid(nodes, avoidNodes);
+
+            // Read avoid segments if present
+            std::getline(inFile, line);
+            if (line.find("AvoidSegments:") != std::string::npos) {
+                std::string segments = line.substr(line.find(':') + 1);
+                parseSegmentsToAvoid(segments, avoidSegments);
+            }
+
+            // Read include node if present
+            std::getline(inFile, line);
+            if (line.find("IncludeNode:") != std::string::npos) {
+                includeNode = std::stoi(line.substr(line.find(':') + 1));
+            }
+
+            // Process restricted route
+            std::vector<int> restrictedRoute;
+            int totalTime;
+            RestrictedRoutePlanning(&graph, source, destination, avoidNodes, avoidSegments, includeNode, restrictedRoute, totalTime);
+
+            // Format output
+            std::stringstream ss;
+            ss << "Source:" << source << "\n";
+            ss << "Destination:" << destination << "\n";
+            ss << "RestrictedDrivingRoute:";
+            if (!restrictedRoute.empty()) {
+                for (const auto& node : restrictedRoute) {
+                    ss << node << ",";
+                }
+                ss.seekp(-1, std::ios_base::end);
+                ss << "(" << totalTime << ")\n";
+            } else {
+                ss << "None\n";
+            }
+            outFile << ss.str();
+        } else {
+            // Process normal best route
+            std::cout << "Processing normal best route..." << std::endl;
+            auto bestRoute = BestRoute(&graph, source, destination);
+            auto altRoute = AlternativeRoute(&graph, bestRoute, source, destination);
+
+            // Format output
+            std::stringstream ss;
+            ss << "Source:" << source << "\n";
+            ss << "Destination:" << destination << "\n";
+            ss << "BestDrivingRoute:";
+            for (const auto& node : bestRoute.first) {
+                ss << node << ",";
+            }
+            ss.seekp(-1, std::ios_base::end);
+            ss << "(" << bestRoute.second << ")\n";
+            ss << "AlternativeRoute:";
+            if (!altRoute.first.empty()) {
+                for (const auto& node : altRoute.first) {
+                    ss << node << ",";
+                }
+                ss.seekp(-1, std::ios_base::end);
+                ss << "(" << altRoute.second << ")\n";
+            } else {
+                ss << "None\n";
+            }
+            outFile << ss.str();
+        }
+        success = true;
+        
+
     } else if (mode == "driving-walking") {
         std::cout << "Processing environmental route mode..." << std::endl;
         success = processEnvironmentalRoute(graph, inFile, outFile);
@@ -78,22 +161,9 @@ void BatchMode::writeOutput(const std::string& outputFile, const std::string& re
     }
 }
 
-bool BatchMode::processBestRoute(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile) {
+bool BatchMode::processBestRouteWithSourceDest(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile, int source, int destination) {
     std::cout << "Processing best route..." << std::endl;
-    
-    std::string line;
-    int source, destination;
-
-    // Read source
-    std::getline(inFile, line);
-    std::cout << "Source line: " << line << std::endl;
-    source = std::stoi(line.substr(line.find(':') + 1));
     std::cout << "Source: " << source << std::endl;
-
-    // Read destination
-    std::getline(inFile, line);
-    std::cout << "Destination line: " << line << std::endl;
-    destination = std::stoi(line.substr(line.find(':') + 1));
     std::cout << "Destination: " << destination << std::endl;
 
     // Process route and get results
@@ -132,17 +202,11 @@ bool BatchMode::processBestRoute(Graph<int>& graph, std::ifstream& inFile, std::
     return true;
 }
 
-bool BatchMode::processRestrictedRoute(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile) {
+bool BatchMode::processRestrictedRouteWithSourceDest(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile, int source, int destination) {
     std::string line;
-    int source, destination, includeNode;
+    int includeNode = -1;
     std::vector<int> avoidNodes;
     std::vector<std::pair<int, int>> avoidSegments;
-
-    // Read source and destination
-    std::getline(inFile, line);
-    source = std::stoi(line.substr(line.find(':') + 1));
-    std::getline(inFile, line);
-    destination = std::stoi(line.substr(line.find(':') + 1));
 
     // Read avoid nodes if present
     std::getline(inFile, line);
@@ -171,7 +235,9 @@ bool BatchMode::processRestrictedRoute(Graph<int>& graph, std::ifstream& inFile,
 
     // Read include node
     std::getline(inFile, line);
-    includeNode = std::stoi(line.substr(line.find(':') + 1));
+    if (line.find("IncludeNode:") != std::string::npos) {
+        includeNode = std::stoi(line.substr(line.find(':') + 1));
+    }
 
     // Process route and get results
     std::vector<int> restrictedRoute;

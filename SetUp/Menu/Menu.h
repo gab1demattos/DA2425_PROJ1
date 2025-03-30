@@ -28,6 +28,7 @@ int optionsMenu();
  * @brief Handles the Best Route planning option
  * @tparam T Node ID type (typically int)
  * @param g Pointer to the graph object
+ * @param file
  *
  * @details Flow:
  * 1. Gets input using InputBestRoute()
@@ -37,12 +38,13 @@ int optionsMenu();
  * 5. Returns to menu if requested
  */
 template<class T>
-void optionBestRoute(Graph<T> *g);
+void optionBestRoute(Graph<T> *g, const string& file);
 
 /**
  * @brief Handles the Restricted Route planning option
  * @tparam T Node ID type (typically int)
  * @param g Pointer to the graph object
+ * @param file
  *
  * @details Flow:
  * 1. Gets input using InputRestrictedRoute()
@@ -51,12 +53,13 @@ void optionBestRoute(Graph<T> *g);
  * 4. Returns to menu if requested
  */
 template<class T>
-void optionRestrictedRoute(Graph<T> *g);
+void optionRestrictedRoute(Graph<T> *g, const string& file);
 
 /**
  * @brief Handles the Environmentally Friendly Route planning option
  * @tparam T Node ID type (typically int)
  * @param g Pointer to the graph object
+ * @param file
  *
  * @details Flow:
  * 1. Gets input using InputEnvironmentalRoute()
@@ -66,7 +69,7 @@ void optionRestrictedRoute(Graph<T> *g);
  * 5. Returns to menu if requested
  */
 template<class T>
-void optionEnvironmentalRoute(Graph<T> *g);
+void optionEnvironmentalRoute(Graph<T> *g, const string& file);
 
 /**
  * @brief Displays comprehensive information about the program
