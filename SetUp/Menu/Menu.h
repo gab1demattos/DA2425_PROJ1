@@ -38,7 +38,7 @@ int optionsMenu();
  * 5. Returns to menu if requested
  */
 template<class T>
-void optionBestRoute(Graph<T> *g, const string& file);
+void optionBestRoute(Graph<T> *g);
 
 /**
  * @brief Handles the Restricted Route planning option
@@ -53,7 +53,7 @@ void optionBestRoute(Graph<T> *g, const string& file);
  * 4. Returns to menu if requested
  */
 template<class T>
-void optionRestrictedRoute(Graph<T> *g, const string& file);
+void optionRestrictedRoute(Graph<T> *g);
 
 /**
  * @brief Handles the Environmentally Friendly Route planning option
@@ -69,7 +69,7 @@ void optionRestrictedRoute(Graph<T> *g, const string& file);
  * 5. Returns to menu if requested
  */
 template<class T>
-void optionEnvironmentalRoute(Graph<T> *g, const string& file);
+void optionEnvironmentalRoute(Graph<T> *g);
 
 /**
  * @brief Displays comprehensive information about the program
@@ -87,7 +87,7 @@ void optionEnvironmentalRoute(Graph<T> *g, const string& file);
  * - Program execution modes (interactive and batch)
  * - Command-line usage examples
  */
-void optionInfo(Graph<int> *g, const string& file);
+void optionInfo(Graph<int> *g);
 
 /**
  * @brief Routes execution to the appropriate menu option handler
@@ -103,6 +103,6 @@ void optionInfo(Graph<int> *g, const string& file);
  * 5 → Exits program
  */
 template<class T>
-void handleMenuOption(int option, Graph<T> *g, const string& file);
+void handleMenuOption(int option, Graph<T> *g);
 
 #endif //MENU_H
