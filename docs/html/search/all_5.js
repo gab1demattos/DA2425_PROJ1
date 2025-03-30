@@ -1,5 +1,0 @@
-var searchData=
-[
-  ['filetosingleline_0',['fileToSingleLine',['../_batch_input_8h.html#ae68bf0b1b639decc604a696ec79b4ffb',1,'BatchInput.cpp']]],
-  ['findapproximatesolutions_1',['FindApproximateSolutions',['../_environmentally_friendly_route_planning_8cpp.html#af93d91691bb673550d9f43a278eb02d8',1,'FindApproximateSolutions(Graph&lt; T &gt; *g, const vector&lt; pair&lt; vector&lt; T &gt;, int &gt; &gt; &amp;approxWalkingpaths, const vector&lt; T &gt; &amp;avoidNodes, const vector&lt; pair&lt; T, T &gt; &gt; &amp;avoidSegments, int destination, int origin, vector&lt; ApproximateSolution&lt; T &gt; &gt; &amp;approximateSolutions):&#160;EnvironmentallyFriendlyRoutePlanning.cpp'],['../_environmentally_friendly_route_planning_8h.html#af93d91691bb673550d9f43a278eb02d8',1,'FindApproximateSolutions(Graph&lt; T &gt; *g, const vector&lt; pair&lt; vector&lt; T &gt;, int &gt; &gt; &amp;approxWalkingpaths, const vector&lt; T &gt; &amp;avoidNodes, const vector&lt; pair&lt; T, T &gt; &gt; &amp;avoidSegments, int destination, int origin, vector&lt; ApproximateSolution&lt; T &gt; &gt; &amp;approximateSolutions):&#160;EnvironmentallyFriendlyRoutePlanning.cpp']]]
-];
