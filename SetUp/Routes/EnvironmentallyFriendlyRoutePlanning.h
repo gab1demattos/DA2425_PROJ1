@@ -1,10 +1,10 @@
-#ifndef ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H
-#define ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H
-
 /**
 * @file EnvironmentallyFriendlyRoutePlanning.h
  * @brief Environmentally friendly route planning with driving and walking segments
  */
+
+#ifndef ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H
+#define ENVIRONMENTALLYFRIENDLYROUTEPLANNING_H
 
 #include "../DataStructures/Graph.h"
 
@@ -55,8 +55,8 @@ void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &
  * @param origin Starting node ID
  * @param dest Destination node ID
  * @param maxWalkTime Maximum allowed walking time in minutes
- * @param avoidNodes List of nodes to avoid
- * @param avoidSegments List of segments (node pairs) to avoid
+ * @param avoidNodes Vector of nodes to avoid
+ * @param avoidSegments Vector of segments (node pairs) to avoid
  * @param[out] drivingRoute Resulting driving route (path and time)
  * @param[out] parkingNode Parking node ID used
  * @param[out] walkingRoute Resulting walking route (path and time)
@@ -81,8 +81,8 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
  * @tparam T Node ID type (typically int)
  * @param g Graph object
  * @param origin Starting node ID
- * @param avoidNodes List of nodes to avoid
- * @param avoidSegments List of segments (node pairs) to avoid
+ * @param avoidNodes Vector of nodes to avoid
+ * @param avoidSegments Vector of segments (node pairs) to avoid
  *
  * @details Finds shortest paths while avoiding specified nodes and segments.
  * Uses driving times for edge weights.
@@ -96,8 +96,8 @@ void restrictedDijkstra(Graph<T> *g, const T &origin, const vector<T> &avoidNode
  * @tparam T Node ID type (typically int)
  * @param g Graph object
  * @param origin Starting node ID
- * @param avoidNodes List of nodes to avoid
- * @param avoidSegments List of segments (node pairs) to avoid
+ * @param avoidNodes Vector of nodes to avoid
+ * @param avoidSegments Vector of segments (node pairs) to avoid
  *
  * @details Finds shortest walking paths while avoiding specified nodes/segments
  */

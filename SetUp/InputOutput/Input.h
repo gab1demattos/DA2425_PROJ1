@@ -16,7 +16,7 @@ using namespace std;
 
 /**
  * @brief Reads input for basic route planning (driving mode only)
- * @param file
+ * @param file Path to file where the input is
  * @param[out] mode Transportation mode (will be checked if it is "driving")
  * @param[out] source Source node ID
  * @param[out] destination Destination node ID
@@ -32,7 +32,7 @@ bool InputBestRoute(const string &file, string &mode, int &source, int &destinat
 
 /**
  * @brief Reads input for environmentally friendly route planning
- * @param file
+ * @param file Path to file where the input is
  * @param[out] mode Transportation mode (checked if it is "driving-walking")
  * @param[out] source Source node ID
  * @param[out] destination Destination node ID
@@ -55,7 +55,7 @@ bool InputEnvironmentalRoute(const string &file, string &mode, int &source, int 
 
 /**
  * @brief Reads input for restricted route planning with included nodes
- * @param file
+ * @param file Path to file where the input is
  * @param[out] mode Transportation mode (set to "driving")
  * @param[out] source Source node ID
  * @param[out] destination Destination node ID
