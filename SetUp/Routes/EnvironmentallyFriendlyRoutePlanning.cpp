@@ -96,7 +96,6 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
         totalTime = -2; // means route is not possible bc there are no parking nodes
         return;
     }
-    //////
 
     // Find all possible walking routes from dest to a parking node within maxTotalTime
     vector<pair<vector<T>, int> > validWalkingPaths;
@@ -143,17 +142,26 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
             validDrivingPaths.push_back(make_pair(drivingPath, driveTime));
             int total = driveTime + walkPath.second;
 
-            if (total < totalTime || (total == totalTime && walkPath.second > walkingTime)) {
-                totalTime = total;
-                drivingRoute = make_pair(drivingPath, driveTime);
-                walkingRoute = walkPath;
-                walkingTime = walkPath.second;
-                parkingNode = parkNode;
+            int visitedTwice = false;
+            for (auto nd1 : drivingPath) {
+                for (auto nd2 : walkPath.first) {
+                    if (nd1 == nd2 && nd1 != walkPath.first.front())
+                      visitedTwice = true;
+                }
             }
+
+            if (!visitedTwice) {
+                if (total < totalTime || (total == totalTime && walkPath.second > walkingTime)) {
+                    totalTime = total;
+                    drivingRoute = make_pair(drivingPath, driveTime);
+                    walkingRoute = walkPath;
+                    walkingTime = walkPath.second;
+                    parkingNode = parkNode;
+                }
+            }
+
         }
     }
-
-    /////
 
     // no routes found
     if (totalTime == INT_MAX) {
@@ -161,7 +169,7 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
         totalTime = -3;
 
         // Call the new function to find approximate solutions
-        //FindApproximateSolutions(g, drivingPaths, avoidNodes, avoidSegments, dest, approximateSolutions);
+        //FindApproximateSolutions(g, validDrivingPaths, avoidNodes, avoidSegments, dest, approximateSolutions);
     }
 }
 
