@@ -43,9 +43,9 @@ struct ApproximateSolution {
  * 2. Walking time (ascending)
  */
 template<class T>
-void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &drivingPaths,
+void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &approxWalkingpaths,
                               const vector<T> &avoidNodes, const vector<pair<T, T> > &avoidSegments,
-                              int destination, vector<ApproximateSolution<T> > &approximateSolutions);
+                              int destination, int origin, vector<ApproximateSolution<T> > &approximateSolutions);
 
 /**
  * @brief Finds the best environmentally friendly route (driving + walking)
