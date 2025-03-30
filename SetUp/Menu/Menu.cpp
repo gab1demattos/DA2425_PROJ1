@@ -80,13 +80,14 @@ void optionRestrictedRoute(Graph<T> *g, const string& file) {
     int includeNode;
     vector<T> route;
     int totalTime;
+    bool flag;
 
     // Get input values
     if (!InputRestrictedRoute(file, mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
         return; // Stop if input is invalid
     }
 
-    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
+    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime, flag);
 
     if (OutputRestrictedRoute(g, source, destination, route, totalTime, avoidNodes, avoidSegments)) {
         int option = optionsMenu();

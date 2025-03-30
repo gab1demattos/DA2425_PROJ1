@@ -53,6 +53,7 @@ void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNo
  * @param includeNode Node that must be included in route
  * @param[out] route Resulting path (empty if none found)
  * @param[out] totalTime Total driving time (0 if no route)
+ * @param flag
  *
  * @details Combines two path segments:
  * 1. origin → includeNode
@@ -65,6 +66,6 @@ void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNo
 template<class T>
 void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, const vector<T> &avoidNodes,
                              const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
-                             int &totalTime);
+                             int &totalTime, bool &flag);
 
 #endif //RESTRICTEDROUTEPLANNING_H

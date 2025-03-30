@@ -47,6 +47,7 @@ void runBatchMode(const std::string& infile, const std::string& outfile, Graph<T
     std::pair<std::vector<int>, int> drivingRoute, walkingRoute;
     std::vector<ApproximateSolution<int> > approximateSolutions;
     T parkingNode;
+    bool flag;
 
     std::string line = fileToSingleLine(infile);
     if (line.find("driving-walking") != std::string::npos) {
@@ -57,14 +58,15 @@ void runBatchMode(const std::string& infile, const std::string& outfile, Graph<T
         EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
                                        drivingRoute, parkingNode, walkingRoute, totalTime,
                                        approximateSolutions);
+        BatchOutputEnvironmentallyFriendlyRoute(source, destination, drivingRoute, walkingRoute, parkingNode, totalTime, maxWalkTime, approximateSolutions, outfile);
     }
     else {
         if (line.find("AvoidNodes") != std::string::npos) {
             if (!InputRestrictedRoute(infile, mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
                 return;
             }
-            RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
-            BatchOutputRestrictedRoute(source, destination, route, totalTime, outfile);
+            RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime, flag);
+            BatchOutputRestrictedRoute(source, destination, route, totalTime, flag, outfile);
         }
         else {
             if (!InputBestRoute(infile, mode, source, destination)) {
