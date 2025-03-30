@@ -1,3 +1,7 @@
+/**
+* @file InteractiveInput.cpp
+ * @brief Interactive menu input handling functions
+ */
 #include "InteractiveInput.h"
 #include <iostream>
 #include <sstream>
@@ -6,6 +10,18 @@
 #include "../DataStructures/Graph.h"
 using namespace std;
 
+
+/**
+ * @brief Validates and parses source and destination node inputs
+ * @param[out] source Reference to store the parsed source node ID
+ * @param[out] destination Reference to store the parsed destination node ID
+ * @param[in,out] line String used for input storage and processing
+ * @param[in] g Pointer to the graph containing the nodes and edges
+ * @return true if both inputs are valid integers, false otherwise
+ * @details Prompts user for source and destination nodes, validates they are
+ *          positive integers, and stores the parsed values in the output parameters.
+ *          Clears and reuses the line string for both inputs.
+ */
 bool checkSourceDest(int &source, int &destination, string line, Graph<int> *g) {
     cout << "Enter Source: ";
     getline(cin, line);
@@ -37,6 +53,16 @@ bool checkSourceDest(int &source, int &destination, string line, Graph<int> *g) 
     return true;
 }
 
+
+/**
+ * @brief Validates and parses node IDs to avoid
+ * @param[out] avoidNodes Reference to vector that will store parsed node IDs
+ * @param[in,out] line String used for input storage and processing
+ * @param[in] g Pointer to the graph containing the nodes and edges
+ * @return true if input format is valid or empty, false otherwise
+ * @details Prompts user for space-separated node IDs, validates the format,
+ *          and stores parsed integers in the output vector. Accepts empty input.
+ */
 bool parseNodes(vector<int> &avoidNodes, string line, Graph<int> *g) {
     cout << "Enter Avoid Nodes (separated by spaces): ";
     getline(cin, line);
@@ -62,7 +88,18 @@ bool parseNodes(vector<int> &avoidNodes, string line, Graph<int> *g) {
     return true;
 }
 
+
+/**
+ * @brief Validates and parses segments to avoid
+ * @param[out] avoidSegments Reference to vector that will store parsed segment pairs
+ * @param[in,out] line String used for input storage and processing
+ * @param[in] g Pointer to the graph containing the nodes and edges
+ * @return true if input format is valid or empty, false otherwise
+ * @details Prompts user for segment pairs in format "x,y z,w", validates the format,
+ *          and stores parsed pairs in the output vector. Accepts empty input.
+ */
 bool parseSegments(vector<pair<int, int> > &avoidSegments, string line, Graph<int> *g) {
+
     cout << "Enter Avoid Segments (comma inside pairs, space between pairs): ";
     getline(cin, line);
 
