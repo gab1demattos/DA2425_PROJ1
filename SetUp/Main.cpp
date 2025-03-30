@@ -25,7 +25,6 @@
 #include "DataStructures/Graph.h"
 #include "Menu/Menu.h"
 #include "ReadData/readCSV.h"
-#include "InputOutput/BatchMode.h"
 #include <iostream>
 #include "InputOutput/BatchInput.h"
 
@@ -64,37 +63,22 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-
-
-    // If command line arguments are provided, use batch mode
-    // if (argc == 3) {
-    //     //std::string inputFile = argv[1];
-    //     std::string outputFile = argv[2];
-    //
-    //     if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
-    //         std::cout << "Batch mode processing completed successfully." << std::endl;
-    //     } else {
-    //         std::cerr << "Batch mode processing failed." << std::endl;
-    //     }
-    //     return 0;
-    // }
-
     // Interactive menu mode
     switch (optionsMenu()) {
         case 1:
             std::cout << "Finding best and alternative independent routes..." << std::endl << std::endl;
-            optionBestRoute(&graph, inputFile);
+            optionBestRoute(&graph);
             break;
         case 2:
             std::cout << "Finding route based on the given restrictions..." << std::endl;
-            optionRestrictedRoute(&graph, inputFile);
+            optionRestrictedRoute(&graph);
             break;
         case 3:
             std::cout << "Finding driving-walking route..." << std::endl;
-            optionEnvironmentalRoute(&graph, inputFile);
+            optionEnvironmentalRoute(&graph);
             break;
         case 4:
-            optionInfo(&graph, inputFile);
+            optionInfo(&graph);
             break;
         case 5:
             std::cout << "Exiting..." << std::endl;
