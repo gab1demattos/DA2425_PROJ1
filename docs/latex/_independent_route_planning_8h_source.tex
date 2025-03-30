@@ -1,0 +1,26 @@
+\doxysection{Independent\+Route\+Planning.\+h}
+\hypertarget{_independent_route_planning_8h_source}{}\label{_independent_route_planning_8h_source}\index{SetUp/Routes/IndependentRoutePlanning.h@{SetUp/Routes/IndependentRoutePlanning.h}}
+\mbox{\hyperlink{_independent_route_planning_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ INDEPENDENTROUTEPLANNING\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ INDEPENDENTROUTEPLANNING\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}../DataStructures/Graph.h"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_independent_route_planning_8h_a3c215088bae907676c3b18a40ef7bc03}{dijkstra}}(Graph<T>\ *g,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&origin);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00037\ pair<vector<T>,\ \textcolor{keywordtype}{int}>\ \mbox{\hyperlink{_independent_route_planning_8h_aee0a51446b93164435474096fc6148e4}{BestRoute}}(Graph<T>\ *g,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&origin,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&dest);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00058\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00059\ pair<vector<int>,\ \textcolor{keywordtype}{int}>\ \mbox{\hyperlink{_independent_route_planning_8h_a7e1ac0a0e26ff500eb88cce149158e45}{AlternativeRoute}}(Graph<T>\ *g,\ \textcolor{keyword}{const}\ pair<vector<int>,\ \textcolor{keywordtype}{int}>\ \&primaryRoute,\ \textcolor{keywordtype}{int}\ source,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ destination);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_independent_route_planning_8h_a24fffa37658bb0541fa3bf02d207321d}{relax}}(Edge<T>\ *edge);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//INDEPENDENTROUTEPLANNING\_H}}
+
+\end{DoxyCode}

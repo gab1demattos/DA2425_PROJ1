@@ -1,0 +1,218 @@
+\doxysection{Set\+Up/\+Input\+Output/\+Input.cpp File Reference}
+\hypertarget{_input_8cpp}{}\label{_input_8cpp}\index{SetUp/InputOutput/Input.cpp@{SetUp/InputOutput/Input.cpp}}
+
+
+Input handling functions for route planning system.  
+
+
+{\ttfamily \#include "{}Input.\+h"{}}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_input_8cpp_a7f2135e9ec94336f0d1eccbd7265defa}{is\+Mode\+Driving}} (const string \&mode)
+\begin{DoxyCompactList}\small\item\em Helper function that checks if the given mode is "{}driving"{}. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_input_8cpp_acf6ada9e9c0f934d81f7f9eb8941afc3}{Input\+Best\+Route}} (const string \&file, string \&mode, int \&source, int \&destination)
+\begin{DoxyCompactList}\small\item\em Reads input for basic route planning (driving mode only) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_input_8cpp_aefd52f25d14e7b9cab452baa855187e2}{parse\+Nodes\+To\+Avoid}} (const string \&input, vector$<$ int $>$ \&output)
+\begin{DoxyCompactList}\small\item\em Helper function that parses a comma-\/separated string of node IDs to avoid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_input_8cpp_a1c3bdd7dcd8a1244236e3dce3abeb7c4}{parse\+Segments\+To\+Avoid}} (const string \&input, vector$<$ pair$<$ int, int $>$ $>$ \&output)
+\begin{DoxyCompactList}\small\item\em Helper function that parses segments to avoid in format (x,y),(a,b) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_input_8cpp_a8f9ac7d3c7adb962e28f1998e0b59f9c}{is\+Mode\+Driving\+Walking}} (const string \&mode)
+\begin{DoxyCompactList}\small\item\em Helper function that checks if mode is "{}driving-\/walking"{} (case insensitive) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_input_8cpp_a1edd44abeadb0ef483d8c135ef649e70}{Input\+Environmental\+Route}} (const string \&file, string \&mode, int \&source, int \&destination, int \&max\+Walk\+Time, vector$<$ int $>$ \&avoid\+Nodes, vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments)
+\begin{DoxyCompactList}\small\item\em Reads input for environmentally friendly route planning. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_input_8cpp_a5a7799d716796e9cdb9dee634927a4bc}{Input\+Restricted\+Route}} (const string \&file, string \&mode, int \&source, int \&destination, vector$<$ int $>$ \&avoid\+Nodes, vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, int \&include\+Node)
+\begin{DoxyCompactList}\small\item\em Reads input for restricted route planning with included nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Input handling functions for route planning system. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_input_8cpp_acf6ada9e9c0f934d81f7f9eb8941afc3}\index{Input.cpp@{Input.cpp}!InputBestRoute@{InputBestRoute}}
+\index{InputBestRoute@{InputBestRoute}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{InputBestRoute()}{InputBestRoute()}}
+{\footnotesize\ttfamily \label{_input_8cpp_acf6ada9e9c0f934d81f7f9eb8941afc3} 
+bool Input\+Best\+Route (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{}\end{DoxyParamCaption})}
+
+
+
+Reads input for basic route planning (driving mode only) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Path to file where the input is \\
+\hline
+\mbox{\texttt{ out}}  & {\em mode} & Transportation mode (will be checked if it is "{}driving"{}) \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if input was read successfully 
+
+false if file couldn\textquotesingle{}t be opened or input was invalid
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Expects input file in format\+: Mode\+:driving Source\+:$<$int$>$ Destination\+:$<$int$>$ 
+\end{DoxyNote}
+\Hypertarget{_input_8cpp_a1edd44abeadb0ef483d8c135ef649e70}\index{Input.cpp@{Input.cpp}!InputEnvironmentalRoute@{InputEnvironmentalRoute}}
+\index{InputEnvironmentalRoute@{InputEnvironmentalRoute}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{InputEnvironmentalRoute()}{InputEnvironmentalRoute()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a1edd44abeadb0ef483d8c135ef649e70} 
+bool Input\+Environmental\+Route (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{int \&}]{max\+Walk\+Time}{, }\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{}\end{DoxyParamCaption})}
+
+
+
+Reads input for environmentally friendly route planning. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Path to file where the input is \\
+\hline
+\mbox{\texttt{ out}}  & {\em mode} & Transportation mode (checked if it is "{}driving-\/walking"{}) \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em max\+Walk\+Time} & Maximum allowed walking time \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Vector of segments to avoid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if input was read successfully 
+
+false if file couldn\textquotesingle{}t be opened or input was invalid
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Expects input file in format\+: Mode\+:driving-\/walking Source\+:$<$int$>$ Destination\+:$<$int$>$ Max\+Walk\+Time\+:$<$int$>$ Avoid\+Nodes\+:$<$int$>$,$<$int$>$,... Avoid\+Segments\+:(int,int),(int,int),... 
+\end{DoxyNote}
+\Hypertarget{_input_8cpp_a5a7799d716796e9cdb9dee634927a4bc}\index{Input.cpp@{Input.cpp}!InputRestrictedRoute@{InputRestrictedRoute}}
+\index{InputRestrictedRoute@{InputRestrictedRoute}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{InputRestrictedRoute()}{InputRestrictedRoute()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a5a7799d716796e9cdb9dee634927a4bc} 
+bool Input\+Restricted\+Route (\begin{DoxyParamCaption}\item[{const string \&}]{file}{, }\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{, }\item[{int \&}]{include\+Node}{}\end{DoxyParamCaption})}
+
+
+
+Reads input for restricted route planning with included nodes. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em file} & Path to file where the input is \\
+\hline
+\mbox{\texttt{ out}}  & {\em mode} & Transportation mode (set to "{}driving"{}) \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Vector of segments to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em include\+Node} & Node that must be included in route \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if input was read successfully 
+
+false if file couldn\textquotesingle{}t be opened or input was invalid
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Expects input file in format\+: Mode\+:driving Source\+:$<$int$>$ Destination\+:$<$int$>$ Avoid\+Nodes\+:$<$int$>$,$<$int$>$,... Avoid\+Segments\+:(int,int),(int,int),... Include\+Node\+:$<$int$>$ 
+\end{DoxyNote}
+\Hypertarget{_input_8cpp_a7f2135e9ec94336f0d1eccbd7265defa}\index{Input.cpp@{Input.cpp}!isModeDriving@{isModeDriving}}
+\index{isModeDriving@{isModeDriving}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{isModeDriving()}{isModeDriving()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a7f2135e9ec94336f0d1eccbd7265defa} 
+bool is\+Mode\+Driving (\begin{DoxyParamCaption}\item[{const string \&}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Helper function that checks if the given mode is "{}driving"{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & The mode string to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true If the mode is "{}driving"{}. 
+
+false Otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_input_8cpp_a8f9ac7d3c7adb962e28f1998e0b59f9c}\index{Input.cpp@{Input.cpp}!isModeDrivingWalking@{isModeDrivingWalking}}
+\index{isModeDrivingWalking@{isModeDrivingWalking}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{isModeDrivingWalking()}{isModeDrivingWalking()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a8f9ac7d3c7adb962e28f1998e0b59f9c} 
+bool is\+Mode\+Driving\+Walking (\begin{DoxyParamCaption}\item[{const string \&}]{mode}{}\end{DoxyParamCaption})}
+
+
+
+Helper function that checks if mode is "{}driving-\/walking"{} (case insensitive) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & Transportation mode string to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if mode is "{}driving-\/walking"{} 
+
+false otherwise 
+\end{DoxyReturn}
+\Hypertarget{_input_8cpp_aefd52f25d14e7b9cab452baa855187e2}\index{Input.cpp@{Input.cpp}!parseNodesToAvoid@{parseNodesToAvoid}}
+\index{parseNodesToAvoid@{parseNodesToAvoid}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{parseNodesToAvoid()}{parseNodesToAvoid()}}
+{\footnotesize\ttfamily \label{_input_8cpp_aefd52f25d14e7b9cab452baa855187e2} 
+bool parse\+Nodes\+To\+Avoid (\begin{DoxyParamCaption}\item[{const string \&}]{input}{, }\item[{vector$<$ int $>$ \&}]{output}{}\end{DoxyParamCaption})}
+
+
+
+Helper function that parses a comma-\/separated string of node IDs to avoid. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em input} & Comma-\/separated string of node IDs \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & Vector to store parsed node IDs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if parsing succeeded 
+
+false if invalid integer format encountered 
+\end{DoxyReturn}
+\Hypertarget{_input_8cpp_a1c3bdd7dcd8a1244236e3dce3abeb7c4}\index{Input.cpp@{Input.cpp}!parseSegmentsToAvoid@{parseSegmentsToAvoid}}
+\index{parseSegmentsToAvoid@{parseSegmentsToAvoid}!Input.cpp@{Input.cpp}}
+\doxysubsubsection{\texorpdfstring{parseSegmentsToAvoid()}{parseSegmentsToAvoid()}}
+{\footnotesize\ttfamily \label{_input_8cpp_a1c3bdd7dcd8a1244236e3dce3abeb7c4} 
+bool parse\+Segments\+To\+Avoid (\begin{DoxyParamCaption}\item[{const string \&}]{input}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{output}{}\end{DoxyParamCaption})}
+
+
+
+Helper function that parses segments to avoid in format (x,y),(a,b) 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em input} & String containing segment pairs \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & Vector to store parsed segment pairs \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if parsing succeeded 
+
+false if invalid format encountered 
+\end{DoxyReturn}
