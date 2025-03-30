@@ -54,8 +54,6 @@ void initializeVertices(Graph<T> *g) {
 
 template<class T>
 void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, const vector<pair<T, T> > &avoidSegments) {
-    std::cout << "DEBUG: Starting Dijkstra from vertex " << start->getInfo() << std::endl;
-
     MutablePriorityQueue<Vertex<T> > q;
     q.insert(start);
 
@@ -64,25 +62,21 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
         for (auto e: v->getAdj()) {
             // Skip walking-only routes (driving time is INT_MAX)
             if (e->getDriving() == INT_MAX) {
-                std::cout << "DEBUG: Skipping walking-only route " << e->getOrig()->getInfo() << "->" << e->getDest()->getInfo() << std::endl;
                 continue;
             }
 
             // skip restricted nodes
             if (std::find(avoidNodes.begin(), avoidNodes.end(), e->getDest()->getInfo()) != avoidNodes.end()) {
-                std::cout << "DEBUG: Skipping restricted node " << e->getDest()->getInfo() << std::endl;
                 continue;
             }
             // skip restricted segments
             if (std::find(avoidSegments.begin(), avoidSegments.end(),
                           std::make_pair(e->getOrig()->getInfo(), e->getDest()->getInfo())) != avoidSegments.end()) {
-                std::cout << "DEBUG: Skipping restricted segment " << e->getOrig()->getInfo() << "->" << e->getDest()->getInfo() << std::endl;
                 continue;
             }
 
             auto oldDist = e->getDest()->getDist();
             if (relax(e)) {
-                std::cout << "DEBUG: Updated distance to " << e->getDest()->getInfo() << " from " << oldDist << " to " << e->getDest()->getDist() << std::endl;
                 if (oldDist == INT_MAX) {
                     q.insert(e->getDest());
                 } else {
