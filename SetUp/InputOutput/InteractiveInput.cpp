@@ -28,7 +28,6 @@ bool parseNodes(vector<int> &avoidNodes, string line) {
 
     // check if it's in the right format
     if (!line.empty()) {
-        // check if it's in the right format
         regex nodesRegex("^\\d+( \\d+)*$");
         if (!regex_match(line, nodesRegex)) {
             return false;
@@ -70,7 +69,6 @@ bool InterInputBestRoute(string &mode, int &source, int &destination){
   cout << "Enter Mode: ";
   cin >> mode;
   if (mode != "driving" && mode != "Driving"){
-    //cout << "Invalid mode! Please try again (only driving is accepted)." << endl;
     return false;
   }
 
@@ -88,7 +86,6 @@ bool InterInputRestrictedRoute(string &mode, int &source, int &destination, vect
     cout << "Enter Mode: ";
     cin >> mode;
     if (mode != "driving" && mode != "Driving"){
-        //cout << "Invalid mode! Please try again (only driving is accepted)." << endl;
         return false;
     }
 
@@ -138,7 +135,7 @@ bool InterInputEnvironmetalRoute(string &mode, int &source, int &destination, in
 
     regex intRegex("^\\d+$");
     if (!regex_match(line, intRegex)) {
-        return false; // Invalid input
+        return false;
     }
     maxWalkTime = stoi(line);
 

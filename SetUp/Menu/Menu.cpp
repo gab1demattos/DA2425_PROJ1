@@ -52,11 +52,6 @@ void optionBestRoute(Graph<T> *g) {
     string mode;
     int source, destination;
 
-    // Get input values
-    // if (!InputBestRoute(file, mode, source, destination)) {
-    //     return; // Stop if input is invalid
-    // }
-
     if (!InterInputBestRoute(mode, source, destination)) {
         cout << "Invalid input. Please try again." << endl;
         return;
@@ -86,11 +81,6 @@ void optionRestrictedRoute(Graph<T> *g) {
     int totalTime;
     bool flag;
 
-    // Get input values
-    // if (!InputRestrictedRoute(file, mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
-    //     return; // Stop if input is invalid
-    // }
-
     if (!InterInputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
         cout << "Invalid input. Please try again." << endl;
         return;
@@ -116,16 +106,11 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     pair<vector<int>, int> drivingRoute, walkingRoute;
     vector<ApproximateSolution<int> > approximateSolutions;
 
-    // if (!InputEnvironmentalRoute(file, mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
-    //     return;
-    // }
-
     if (!InterInputEnvironmetalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         cout << "Invalid input. Please try again." << endl;
         return;
     }
 
-    // Update the function call to include approximateSolutions
     EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
                                      drivingRoute, parkingNode, walkingRoute, totalTime,
                                      approximateSolutions);
