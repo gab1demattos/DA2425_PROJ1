@@ -16,10 +16,10 @@ using namespace std;
  * @return Selected menu option (1-5)
  *
  * @note Menu options:
- * 1. Best Route and Alternative Independent Route
+ * 1. Best Route and Alternative Independent Route Planning
  * 2. Restricted Route Planning
  * 3. Environmentally-Friendly Route Planning
- * 4. Info
+ * 4. Input Info
  * 5. Exit
  */
 int optionsMenu();
@@ -28,7 +28,6 @@ int optionsMenu();
  * @brief Handles the Best Route planning option
  * @tparam T Node ID type (typically int)
  * @param g Pointer to the graph object
- * @param file
  *
  * @details Flow:
  * 1. Gets input using InputBestRoute()
@@ -44,7 +43,6 @@ void optionBestRoute(Graph<T> *g);
  * @brief Handles the Restricted Route planning option
  * @tparam T Node ID type (typically int)
  * @param g Pointer to the graph object
- * @param file
  *
  * @details Flow:
  * 1. Gets input using InputRestrictedRoute()
@@ -59,7 +57,6 @@ void optionRestrictedRoute(Graph<T> *g);
  * @brief Handles the Environmentally Friendly Route planning option
  * @tparam T Node ID type (typically int)
  * @param g Pointer to the graph object
- * @param file
  *
  * @details Flow:
  * 1. Gets input using InputEnvironmentalRoute()
@@ -74,7 +71,6 @@ void optionEnvironmentalRoute(Graph<T> *g);
 /**
  * @brief Displays comprehensive information about the program
  * @param g Pointer to the graph object (for maintaining context)
- * @param file
  *
  * @details Shows two main sections:
  * 1. Input Info: Detailed format requirements for all routing options
