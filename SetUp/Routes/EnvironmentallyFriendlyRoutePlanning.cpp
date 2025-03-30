@@ -116,12 +116,12 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
 
         if (walkTime <= maxWalkTime) {
             walkingPath.push_back(dest);
-            reverse(walkingPath.begin(), walkingPath.end());
             validWalkingPaths.push_back(make_pair(walkingPath, walkTime));
         }
     }
 
     // Find the shortest driving path from each valid parking node to origin
+    int walkingTime = INT_MAX;
     vector<pair<vector<T>, int> > validDrivingPaths;
     for (auto &walkPath : validWalkingPaths) {
         T parkNode = walkPath.first.front();
@@ -139,25 +139,21 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
         }
 
         if (!drivingPath.empty()) {
-            reverse(drivingPath.begin(), drivingPath.end());
             drivingPath.push_back(parkNode);
             validDrivingPaths.push_back(make_pair(drivingPath, driveTime));
             int total = driveTime + walkPath.second;
 
-            if (total < totalTime || (total == totalTime && walkPath.second > walkingRoute.second)) {
+            if (total < totalTime || (total == totalTime && walkPath.second > walkingTime)) {
                 totalTime = total;
                 drivingRoute = make_pair(drivingPath, driveTime);
                 walkingRoute = walkPath;
+                walkingTime = walkPath.second;
                 parkingNode = parkNode;
             }
         }
     }
 
-
-
-
     /////
-
 
     // no routes found
     if (totalTime == INT_MAX) {
