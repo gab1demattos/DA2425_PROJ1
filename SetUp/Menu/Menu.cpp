@@ -120,6 +120,11 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     //     return;
     // }
 
+    if (!InterInputEnvironmetalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
+        cout << "Invalid input. Please try again." << endl;
+        return;
+    }
+
     // Update the function call to include approximateSolutions
     EnvironmentallyFriendlyBestRoute(g, source, destination, maxWalkTime, avoidNodes, avoidSegments,
                                      drivingRoute, parkingNode, walkingRoute, totalTime,
