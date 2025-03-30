@@ -32,10 +32,11 @@ struct ApproximateSolution {
  * @brief Finds approximate solutions when no exact route meets requirements
  * @tparam T Node ID type (typically int)
  * @param g Graph object
- * @param drivingPaths Precomputed driving paths to parking nodes
+ * @param approxWalkingpaths Precomputed walking paths from parking nodes to destination without the walking time limit
  * @param avoidNodes List of nodes to avoid
  * @param avoidSegments List of segments (node pairs) to avoid
  * @param destination Target node ID
+ * @param destination Source node ID
  * @param[out] approximateSolutions Vector to store found solutions
  *
  * @details Finds top 2 alternative routes sorted by:
@@ -43,9 +44,9 @@ struct ApproximateSolution {
  * 2. Walking time (ascending)
  */
 template<class T>
-void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &drivingPaths,
+void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &approxWalkingpaths,
                               const vector<T> &avoidNodes, const vector<pair<T, T> > &avoidSegments,
-                              int destination, vector<ApproximateSolution<T> > &approximateSolutions);
+                              int destination, int origin, vector<ApproximateSolution<T> > &approximateSolutions);
 
 /**
  * @brief Finds the best environmentally friendly route (driving + walking)
