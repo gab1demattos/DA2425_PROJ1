@@ -25,7 +25,6 @@
 #include "DataStructures/Graph.h"
 #include "Menu/Menu.h"
 #include "ReadData/readCSV.h"
-#include "InputOutput/BatchMode.h"
 #include <iostream>
 #include "InputOutput/BatchInput.h"
 
@@ -63,21 +62,6 @@ int main(int argc, char *argv[]) {
         std::cout << "Batch mode processing completed successfully." << std::endl;
         return 0;
     }
-
-
-
-    // If command line arguments are provided, use batch mode
-    // if (argc == 3) {
-    //     //std::string inputFile = argv[1];
-    //     std::string outputFile = argv[2];
-    //
-    //     if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
-    //         std::cout << "Batch mode processing completed successfully." << std::endl;
-    //     } else {
-    //         std::cerr << "Batch mode processing failed." << std::endl;
-    //     }
-    //     return 0;
-    // }
 
     // Interactive menu mode
     switch (optionsMenu()) {
