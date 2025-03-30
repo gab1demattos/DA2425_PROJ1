@@ -96,59 +96,68 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
         totalTime = -2; // means route is not possible bc there are no parking nodes
         return;
     }
+    //////
 
+    // Find all possible walking routes from dest to a parking node within maxTotalTime
+    vector<pair<vector<T>, int> > validWalkingPaths;
+    restrictedDijkstraWalking(g, dest, avoidNodes, avoidSegments);
 
-    // find the shortest path from origin to each parking node
-    restrictedDijkstra(g, origin, avoidNodes, avoidSegments);
-    vector<pair<vector<T>, int> > drivingPaths;
-    for (auto v: parkingNodes) {
-        vector<T> drivingPath;
-        int driveTime = 0;
+    for (auto v : parkingNodes) {
+        vector<T> walkingPath;
+        int walkTime = 0;
         Vertex<T> *temp = v;
 
         while (temp->getPath() != nullptr) {
             auto edge = temp->getPath();
-            driveTime += edge->getDriving();
-            drivingPath.push_back(temp->getInfo());
+            walkTime += edge->getWalking();
+            walkingPath.push_back(temp->getInfo());
             temp = edge->getOrig();
         }
 
-        drivingPath.push_back(origin);
-        reverse(drivingPath.begin(), drivingPath.end());
-        drivingPaths.push_back(make_pair(drivingPath, driveTime));
+        if (walkTime <= maxWalkTime) {
+            walkingPath.push_back(dest);
+            reverse(walkingPath.begin(), walkingPath.end());
+            validWalkingPaths.push_back(make_pair(walkingPath, walkTime));
+        }
     }
 
-
-    // find the shortest path from each parking node to dest
-    vector<pair<vector<T>, int> > walkingPaths;
-    for (auto drivingPath: drivingPaths) {
-        T parkNode = drivingPath.first.back();
+    // Find the shortest driving path from each valid parking node to origin
+    vector<pair<vector<T>, int> > validDrivingPaths;
+    for (auto &walkPath : validWalkingPaths) {
+        T parkNode = walkPath.first.front();
         restrictedDijkstra(g, parkNode, avoidNodes, avoidSegments);
 
-        vector<T> walkingPath; // start from parking node
-        walkingPath.push_back(parkNode);
-        int walkTime = 0;
-        Vertex<T> *v = g->findVertex(dest);
+        vector<T> drivingPath;
+        int driveTime = 0;
+        Vertex<T> *v = g->findVertex(origin);
 
         while (v && v->getPath() != nullptr) {
             auto edge = v->getPath();
-            walkTime += edge->getWalking();
-            walkingPath.push_back(v->getInfo());
+            driveTime += edge->getDriving();
+            drivingPath.push_back(v->getInfo());
             v = edge->getOrig();
         }
 
-        if (walkTime <= maxWalkTime) {
-            reverse(walkingPath.begin() + 1, walkingPath.end());
-            int total = drivingPath.second + walkTime;
+        if (!drivingPath.empty()) {
+            reverse(drivingPath.begin(), drivingPath.end());
+            drivingPath.push_back(parkNode);
+            validDrivingPaths.push_back(make_pair(drivingPath, driveTime));
+            int total = driveTime + walkPath.second;
 
-            if (total < totalTime || (total == totalTime && walkTime > walkingRoute.second)) {
+            if (total < totalTime || (total == totalTime && walkPath.second > walkingRoute.second)) {
                 totalTime = total;
-                drivingRoute = make_pair(drivingPath.first, drivingPath.second);
-                walkingRoute = make_pair(walkingPath, walkTime);
+                drivingRoute = make_pair(drivingPath, driveTime);
+                walkingRoute = walkPath;
                 parkingNode = parkNode;
             }
         }
     }
+
+
+
+
+    /////
+
 
     // no routes found
     if (totalTime == INT_MAX) {
@@ -156,7 +165,7 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
         totalTime = -3;
 
         // Call the new function to find approximate solutions
-        FindApproximateSolutions(g, drivingPaths, avoidNodes, avoidSegments, dest, approximateSolutions);
+        //FindApproximateSolutions(g, drivingPaths, avoidNodes, avoidSegments, dest, approximateSolutions);
     }
 }
 
