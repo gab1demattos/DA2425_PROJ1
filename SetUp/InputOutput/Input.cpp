@@ -21,13 +21,13 @@ bool isModeDriving(const string &mode) {
 }
 
 
-bool InputBestRoute(string &mode, int &source, int &destination) {
+bool InputBestRoute(const string &file, string &mode, int &source, int &destination) {
     // Read from file
-    ifstream inputFile("../Input/inputBestRoute.txt");
-    if (!inputFile.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return false;
-    }
+     ifstream inputFile(file);
+     if (!inputFile.is_open()) {
+         cerr << "Error opening file!" << endl;
+         return false;
+     }
 
     string line;
     while (getline(inputFile, line)) {
@@ -113,10 +113,10 @@ bool isModeDrivingWalking(const string &mode) {
 }
 
 
-bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
+bool InputEnvironmentalRoute(const string &file, string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
                              vector<pair<int, int> > &avoidSegments) {
     // Read from file
-    ifstream inputFile("../Input/inputEnvironmentalRoute.txt");
+    ifstream inputFile(file);
     if (!inputFile.is_open()) {
         cerr << "Error opening file!" << endl;
         return false;
@@ -151,12 +151,13 @@ bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &m
 }
 
 
-bool InputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
+bool InputRestrictedRoute(const string &file, string &mode, int &source, int &destination, vector<int> &avoidNodes,
                           vector<pair<int, int> > &avoidSegments, int &includeNode) {
-    ifstream inputFile("../Input/inputRestrictedRoute.txt");
+
+    ifstream inputFile(file);
     if (!inputFile.is_open()) {
-        cerr << "Error opening file!" << endl;
-        return false;
+         cerr << "Error opening file!" << endl;
+         return false;
     }
 
     string line;
@@ -177,6 +178,9 @@ bool InputRestrictedRoute(string &mode, int &source, int &destination, vector<in
             string include = line.substr(line.find(':') + 1);
             if (!include.empty()) {
                 includeNode = stoi(line.substr(line.find(':') + 1));
+            }
+            else {
+                includeNode = INT_MAX;
             }
         }
     }

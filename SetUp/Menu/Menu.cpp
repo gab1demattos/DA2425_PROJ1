@@ -16,7 +16,7 @@ int optionsMenu() {
     cout << endl << "Hello user!" << endl;
     cout << "Welcome to the Route Planning Tool!" << endl << endl;
 
-    cout << "If you have doubts about the input format, feel free to check the Input Info section." << endl;
+    cout << "If you have doubts about the input format, feel free to check the Info section." << endl;
     cout << endl << "Here are the options..." << endl << endl;
     cout.flush();
     for (int i = 2; i > 0; --i) {
@@ -35,7 +35,7 @@ int optionsMenu() {
         cout << "1: Best Route and Alternative Independent Route " << endl;
         cout << "2: Restricted Route Planning " << endl;
         cout << "3: Environmentally-Friendly Route Planning" << endl;
-        cout << "4: Input Info ! " << endl;
+        cout << "4: Info ! " << endl;
         cout << "5: Exit" << endl;
         cout << "Option: ";
         cin >> i;
@@ -48,12 +48,12 @@ int optionsMenu() {
 
 
 template<class T>
-void optionBestRoute(Graph<T> *g) {
+void optionBestRoute(Graph<T> *g, const string& file) {
     string mode;
     int source, destination;
 
     // Get input values
-    if (!InputBestRoute(mode, source, destination)) {
+    if (!InputBestRoute(file, mode, source, destination)) {
         return; // Stop if input is invalid
     }
 
@@ -63,16 +63,16 @@ void optionBestRoute(Graph<T> *g) {
 
     if (OutputBestRoute(g, source, destination, solBestRoute, solAlternativeRoute)) {
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     }
 }
 
 // Explicit instantiation for the required type (e.g., int)
-template void optionBestRoute<int>(Graph<int> *g);
+template void optionBestRoute<int>(Graph<int> *g, const string& file);
 
 
 template<class T>
-void optionRestrictedRoute(Graph<T> *g) {
+void optionRestrictedRoute(Graph<T> *g, const string& file) {
     string mode;
     int source, destination;
     vector<int> avoidNodes;
@@ -80,25 +80,26 @@ void optionRestrictedRoute(Graph<T> *g) {
     int includeNode;
     vector<T> route;
     int totalTime;
+    bool flag;
 
     // Get input values
-    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
+    if (!InputRestrictedRoute(file, mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
         return; // Stop if input is invalid
     }
 
-    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
+    RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime, flag);
 
     if (OutputRestrictedRoute(g, source, destination, route, totalTime, avoidNodes, avoidSegments)) {
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     }
 }
 
-template void optionRestrictedRoute<int>(Graph<int> *g);
+template void optionRestrictedRoute<int>(Graph<int> *g, const string& file);
 
 
 template<class T>
-void optionEnvironmentalRoute(Graph<T> *g) {
+void optionEnvironmentalRoute(Graph<T> *g, const string& file) {
     string mode;
     int source, destination, maxWalkTime, parkingNode, totalTime;
     vector<int> avoidNodes;
@@ -106,7 +107,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     pair<vector<int>, int> drivingRoute, walkingRoute;
     vector<ApproximateSolution<int> > approximateSolutions;
 
-    if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
+    if (!InputEnvironmentalRoute(file, mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         return;
     }
 
@@ -122,14 +123,14 @@ void optionEnvironmentalRoute(Graph<T> *g) {
 
     if (shouldShowMenu) {
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     }
 }
 
-template void optionEnvironmentalRoute<int>(Graph<int> *g);
+template void optionEnvironmentalRoute<int>(Graph<int> *g, const string& file);
 
 
-void optionInputInfo(Graph<int> *g) {
+void optionInfo(Graph<int> *g, const string& file) {
     cout << endl << "=============================================\n";
     cout << "       ROUTE PLANNER - INPUT INFO        \n";
     cout << "=============================================\n\n";
@@ -149,7 +150,6 @@ void optionInputInfo(Graph<int> *g) {
     cout << "   AvoidSegments: <comma_separated_pairs> e.g., (3,2),(7,8) (optional)\n";
     cout << "   IncludeNode: <node_number> (optional)\n";
 
-
     cout << endl << "3. ENVIRONMENTALLY-FRIENDLY ROUTE PLANNING (DRIVING + WALKING)\n";
     cout << endl;
     cout << "   Mode: driving-walking\n";
@@ -159,13 +159,29 @@ void optionInputInfo(Graph<int> *g) {
     cout << "   AvoidNodes: <comma_separated_node_numbers> (optional)\n";
     cout << "   AvoidSegments: <comma_separated_pairs> (optional)\n";
 
-
     cout << endl << "NOTES:\n";
     cout <<
             "- Please put the input in the 'Input' folder of the project before running. If it isn't to your liking go change it now!\n";
     cout << "  The input files have their name correspond to the option you will choose so be aware of that." << endl;
     cout << "- For empty optional fields, leave them blank.\n";
-    cout << "=============================================\n";
+    cout << "=============================================\n\n";
+
+    cout << "======================" << endl;
+    cout << "BATCH MODE INFO" << endl;
+    cout << "======================" << endl << endl;
+    cout << "Usage:\n";
+    cout << "1. Interactive Menu Mode:\n";
+    cout << "   ./route_planner\n\n";
+    cout << "2. Batch Mode:\n";
+    cout << "   ./route_planner input.txt output.txt\n\n";
+    cout << "Example:\n";
+    cout << "   ./route_planner Input/input.txt Output/output.txt\n\n";
+    cout << "Notes:\n";
+    cout << "- Batch mode processes input file and writes results to output file\n";
+    cout << "- Input file should be in the Input folder\n";
+    cout << "- Output will be written to the specified output file\n";
+    cout << "- Program exits after processing in batch mode\n";
+    cout << "======================" << endl;
 
     cout << "Are you ready to go back to the menu? [y/n] ";
     char response;
@@ -183,7 +199,7 @@ void optionInputInfo(Graph<int> *g) {
         cout << endl << endl;
 
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     } else {
         cout << endl << "Ok! Goodbye!" << endl;
         cout << "Exiting in... ";
@@ -199,19 +215,19 @@ void optionInputInfo(Graph<int> *g) {
 
 
 template<class T>
-void handleMenuOption(int option, Graph<T> *g) {
+void handleMenuOption(int option, Graph<T> *g, const string& file) {
     switch (option) {
         case 1:
-            optionBestRoute(g);
+            optionBestRoute(g, file);
             break;
         case 2:
-            optionRestrictedRoute(g);
+            optionRestrictedRoute(g, file);
             break;
         case 3:
-            optionEnvironmentalRoute(g);
+            optionEnvironmentalRoute(g, file);
             break;
         case 4:
-            optionInputInfo(g);
+            optionInfo(g, file);
             break;
         case 5:
             cout << "Exiting..." << endl;

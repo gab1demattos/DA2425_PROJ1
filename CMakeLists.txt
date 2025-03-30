@@ -1,10 +1,10 @@
 add_compile_definitions()
 cmake_minimum_required(VERSION 3.30)
-project(untitled)
+project(route_planner)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(untitled
+add_executable(route_planner
         SetUp/DataStructures/Graph.h
         SetUp/DataStructures/MutablePriorityQueue.h
         SetUp/DataStructures/UFDS.h
