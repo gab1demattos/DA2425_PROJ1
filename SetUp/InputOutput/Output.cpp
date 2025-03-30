@@ -7,7 +7,7 @@
 
 using namespace std;
 
-void BackToMenu (bool &showMenu) {
+void BackToMenu(bool &showMenu) {
     cout << "Hope the solution was to your liking!" << endl;
     cout << "Do you want to go back to the menu? [y/n] ";
     char response;
@@ -171,7 +171,7 @@ bool OutputBestEnvironmentallyFriendlyRoute(Graph<int> *graph, int source, int d
     int walkingTime = solBestWalkingRoute.second;
 
     // Output the source and destination
-    cout << "Source:" << source << endl;
+    cout << endl << "Source:" << source << endl;
     cout << "Destination:" << destination << endl;
 
 

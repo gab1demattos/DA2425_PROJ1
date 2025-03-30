@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <regex>
+#include <climits>
 using namespace std;
 
 bool checkSourceDest(int &source, int &destination, string line) {
@@ -65,27 +66,27 @@ bool parseSegments(vector<pair<int, int> > &avoidSegments, string line) {
     return true;
 }
 
-bool InterInputBestRoute(string &mode, int &source, int &destination){
-  cout << "Enter Mode: ";
-  cin >> mode;
-  if (mode != "driving" && mode != "Driving"){
-    return false;
-  }
+bool InterInputBestRoute(string &mode, int &source, int &destination) {
+    cout << "Enter Mode: ";
+    cin >> mode;
+    if (mode != "driving" && mode != "Driving") {
+        return false;
+    }
 
     string line;
     cin.ignore();
-  if (!checkSourceDest(source, destination, line)) {
-      return false;
-  }
-  cout << endl;
-  return true;
+    if (!checkSourceDest(source, destination, line)) {
+        return false;
+    }
+    cout << endl;
+    return true;
 }
 
 bool InterInputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
-                          vector<pair<int, int> > &avoidSegments, int &includeNode) {
+                               vector<pair<int, int> > &avoidSegments, int &includeNode) {
     cout << "Enter Mode: ";
     cin >> mode;
-    if (mode != "driving" && mode != "Driving"){
+    if (mode != "driving" && mode != "Driving") {
         return false;
     }
 
@@ -116,10 +117,10 @@ bool InterInputRestrictedRoute(string &mode, int &source, int &destination, vect
 }
 
 bool InterInputEnvironmetalRoute(string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
-                             vector<pair<int, int> > &avoidSegments) {
+                                 vector<pair<int, int> > &avoidSegments) {
     cout << "Enter Mode: ";
     cin >> mode;
-    if (mode != "driving-walking" && mode != "Driving-walking"){
+    if (mode != "driving-walking" && mode != "Driving-walking") {
         return false;
     }
 
