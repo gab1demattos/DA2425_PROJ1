@@ -57,7 +57,10 @@ void optionBestRoute(Graph<T> *g) {
     //     return; // Stop if input is invalid
     // }
 
-    InterInputBestRoute(mode, source, destination);
+    if (!InterInputBestRoute(mode, source, destination)) {
+        cout << "Invalid input. Please try again." << endl;
+        return;
+    }
     pair<vector<T>, int> solBestRoute = BestRoute(g, source, destination);
 
     pair<vector<T>, int> solAlternativeRoute = AlternativeRoute(g, solBestRoute, source, destination);
@@ -87,6 +90,11 @@ void optionRestrictedRoute(Graph<T> *g) {
     // if (!InputRestrictedRoute(file, mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
     //     return; // Stop if input is invalid
     // }
+
+    if (!InterInputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
+        cout << "Invalid input. Please try again." << endl;
+        return;
+    }
 
     RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime, flag);
 
