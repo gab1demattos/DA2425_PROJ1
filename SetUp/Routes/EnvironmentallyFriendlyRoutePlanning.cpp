@@ -74,6 +74,8 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
                                       vector<ApproximateSolution<T> > &approximateSolutions) {
     totalTime = INT_MAX;
 
+    vector<pair<vector<T>, int> > approxWalkingpaths;
+
     // ensure src and dest are not adj
     auto src = g->findVertex(origin);
     for (auto e: src->getAdj()) {
@@ -112,11 +114,10 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
             walkingPath.push_back(temp->getInfo());
             temp = edge->getOrig();
         }
-
-        if (walkTime <= maxWalkTime) {
-            walkingPath.push_back(dest);
+        walkingPath.push_back(dest);
+        if (walkTime <= maxWalkTime)
             validWalkingPaths.push_back(make_pair(walkingPath, walkTime));
-        }
+        else approxWalkingpaths.push_back(make_pair(walkingPath, walkTime));
     }
 
     // Find the shortest driving path from each valid parking node to origin
@@ -169,7 +170,7 @@ void EnvironmentallyFriendlyBestRoute(Graph<T> *g, const int &origin, const int 
         totalTime = -3;
 
         // Call the new function to find approximate solutions
-        //FindApproximateSolutions(g, validDrivingPaths, avoidNodes, avoidSegments, dest, approximateSolutions);
+        FindApproximateSolutions(g, approxWalkingpaths, avoidNodes, avoidSegments, dest, origin, approximateSolutions);
     }
 }
 
@@ -230,39 +231,40 @@ void restrictedDijkstraWalking(Graph<T> *g, const T &origin, const vector<T> &av
 
 
 template<class T>
-void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &drivingPaths,
+void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &approxWalkingpaths,
                               const vector<T> &avoidNodes, const vector<pair<T, T> > &avoidSegments,
-                              int destination, vector<ApproximateSolution<T> > &approximateSolutions) {
+                              int destination, int origin, vector<ApproximateSolution<T> > &approximateSolutions) {
     // Find all possible approximate solutions
     vector<ApproximateSolution<T> > allApproximates;
 
-    for (const auto &drivingPath: drivingPaths) {
-        T parkNode = drivingPath.first.back();
-        restrictedDijkstraWalking(g, parkNode, avoidNodes, avoidSegments);
+    for (const auto &approxWalkingpath: approxWalkingpaths) {
+        T parkNode = approxWalkingpath.first.front();
+        restrictedDijkstra(g, parkNode, avoidNodes, avoidSegments);
 
-        vector<T> walkingPath;
-        walkingPath.push_back(parkNode);
-        int walkTime = 0;
-        Vertex<T> *v = g->findVertex(destination);
+        vector<T> approxDrivingPath;
+        int approxDriveTime = 0;
+        Vertex<T> *v = g->findVertex(origin);
 
         while (v && v->getPath() != nullptr) {
             auto edge = v->getPath();
-            walkTime += edge->getWalking();
-            walkingPath.push_back(v->getInfo());
+            approxDriveTime += edge->getDriving();
+            approxDrivingPath.push_back(v->getInfo());
             v = edge->getOrig();
         }
 
-        reverse(walkingPath.begin() + 1, walkingPath.end());
+        if (!approxDrivingPath.empty()) {
+            approxDrivingPath.push_back(parkNode);
 
-        ApproximateSolution<T> sol;
-        sol.drivingRoute = drivingPath.first;
-        sol.drivingTime = drivingPath.second;
-        sol.parkingNode = parkNode;
-        sol.walkingRoute = walkingPath;
-        sol.walkingTime = walkTime;
-        sol.totalTime = drivingPath.second + walkTime;
+            ApproximateSolution<T> sol;
+            sol.drivingRoute = approxDrivingPath;
+            sol.drivingTime = approxDriveTime;
+            sol.parkingNode = parkNode;
+            sol.walkingRoute = approxWalkingpath.first;
+            sol.walkingTime = approxWalkingpath.second;
+            sol.totalTime = approxDriveTime + approxWalkingpath.second;
 
-        allApproximates.push_back(sol);
+            allApproximates.push_back(sol);
+        }
     }
 
     // Sort by total time, then by walking time
@@ -272,11 +274,11 @@ void FindApproximateSolutions(Graph<T> *g, const vector<pair<vector<T>, int> > &
              return a.walkingTime < b.walkingTime;
          });
 
+
     // Take top 2 solutions
     if (!allApproximates.empty()) {
         approximateSolutions.push_back(allApproximates[0]);
-        if (allApproximates.size() > 1) {
+        if (allApproximates.size() > 1)
             approximateSolutions.push_back(allApproximates[1]);
-        }
     }
 }
