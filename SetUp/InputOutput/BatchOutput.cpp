@@ -1,14 +1,12 @@
 #include "BatchOutput.h"
 #include <vector>
 #include <sstream>
-#include <iostream>
 #include <fstream>
-#include "../DataStructures/Graph.h"
 #include "../Routes/EnvironmentallyFriendlyRoutePlanning.h"
 using namespace std;
 
 void BatchOutputBestRoute(int source, int destination, const pair<vector<int>, int> &solBestRoute,
-                                 const pair<vector<int>, int> &solAlternativeRoute, const string& outfile){
+                          const pair<vector<int>, int> &solAlternativeRoute, const string &outfile) {
     ofstream outFile(outfile);
     stringstream ss;
 
@@ -49,8 +47,7 @@ void BatchOutputBestRoute(int source, int destination, const pair<vector<int>, i
 
 template<class T>
 void BatchOutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute,
-                                int totalTime, bool flag, const string& outfile) {
-
+                                int totalTime, bool flag, const string &outfile) {
     ofstream outFile(outfile);
     stringstream ss;
 
@@ -59,8 +56,7 @@ void BatchOutputRestrictedRoute(int source, int destination, vector<T> bestRestr
     ss << "RestrictedDrivingRoute:";
     if (flag == false) {
         ss << "none" << endl;
-    }
-    else {
+    } else {
         for (size_t i = 0; i < bestRestrictedRoute.size(); ++i) {
             ss << bestRestrictedRoute[i];
             if (i < bestRestrictedRoute.size() - 1) {
@@ -75,13 +71,15 @@ void BatchOutputRestrictedRoute(int source, int destination, vector<T> bestRestr
 }
 
 // Explicit template instantiation
-template void BatchOutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute, int totalTime, bool flag, const std::string& outfile);
+template void BatchOutputRestrictedRoute<int>(int source, int destination, std::vector<int> bestRestrictedRoute,
+                                              int totalTime, bool flag, const std::string &outfile);
 
 void BatchOutputEnvironmentallyFriendlyRoute(int source, int destination,
-                                                    const std::pair<std::vector<int>, int> &solBestDrivingRoute,
-                                                    const std::pair<std::vector<int>, int> &solBestWalkingRoute,
-                                                    const int &parkingNode, const int &totalTime, int maxWalkTime,
-                                                    const vector<ApproximateSolution<int> > &approximateSolutions, const string& outfile) {
+                                             const std::pair<std::vector<int>, int> &solBestDrivingRoute,
+                                             const std::pair<std::vector<int>, int> &solBestWalkingRoute,
+                                             const int &parkingNode, const int &totalTime, int maxWalkTime,
+                                             const vector<ApproximateSolution<int> > &approximateSolutions,
+                                             const string &outfile) {
     ofstream outFile(outfile);
     stringstream ss;
 

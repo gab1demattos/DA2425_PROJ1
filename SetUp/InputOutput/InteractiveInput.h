@@ -5,9 +5,12 @@
 
 #ifndef INTERACTIVEINPUT_H
 #define INTERACTIVEINPUT_H
+
 #include <string>
-using namespace std;
 #include <vector>
+#include <utility>
+#include "../DataStructures/Graph.h"
+
 
 /**
  * @brief Handles interactive input for the best route
@@ -16,7 +19,7 @@ using namespace std;
  * @param[out] destination Destination node ID
  * @return True if the input is valid, false otherwise.
  */
-bool InterInputBestRoute(string &mode, int &source, int &destination);
+bool InterInputBestRoute(string &mode, int &source, int &destination, Graph<int> *g);
 
 /**
  * @brief Handles interactive input for the restricted route
@@ -29,7 +32,7 @@ bool InterInputBestRoute(string &mode, int &source, int &destination);
  * @return True if the input is valid, false otherwise.
  */
 bool InterInputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
-                          vector<pair<int, int> > &avoidSegments, int &includeNode);
+                          vector<pair<int, int> > &avoidSegments, int &includeNode, Graph<int> *g);
 
 /**
  * @brief Handles interactive input for the environmentally-friendly route
@@ -42,9 +45,7 @@ bool InterInputRestrictedRoute(string &mode, int &source, int &destination, vect
  * @return True if the input is valid, false otherwise.
  */
 bool InterInputEnvironmetalRoute(string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
-                             vector<pair<int, int> > &avoidSegments);
+                             vector<pair<int, int> > &avoidSegments, Graph<int> *g);
 
 
-
-
-#endif //INTERACTIVEINPUT_H
+#endif // INTERACTIVEINPUT_H
