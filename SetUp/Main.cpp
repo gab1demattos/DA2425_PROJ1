@@ -55,8 +55,9 @@ int main(int argc, char *argv[]) {
 
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
-    std::string inputFile = argv[1];
+
     if (argc == 3) {
+        std::string inputFile = argv[1];
         std::string outputFile = argv[2];
         runBatchMode(inputFile, outputFile, &graph);
         std::cout << "Batch mode processing completed successfully." << std::endl;

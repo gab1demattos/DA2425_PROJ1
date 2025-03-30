@@ -1,8 +1,13 @@
 #ifndef INTERACTIVEINPUT_H
 #define INTERACTIVEINPUT_H
 #include <string>
+using namespace std;
+#include <vector>
 
-void InterInputBestRoute(std::string &mode, int &source, int &destination);
+bool InterInputBestRoute(string &mode, int &source, int &destination);
+
+bool InterInputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
+                          vector<pair<int, int> > &avoidSegments, int &includeNode);
 
 
 
