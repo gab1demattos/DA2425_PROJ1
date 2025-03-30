@@ -28,4 +28,8 @@ add_executable(route_planner
         SetUp/InputOutput/Visualizer.h
         SetUp/InputOutput/InteractiveInput.cpp
         SetUp/InputOutput/InteractiveInput.h
+        SetUp/InputOutput/BatchInput.cpp
+        SetUp/InputOutput/BatchInput.h
+        SetUp/InputOutput/BatchOutput.cpp
+        SetUp/InputOutput/BatchOutput.h
 )
