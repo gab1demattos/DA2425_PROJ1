@@ -179,6 +179,9 @@ bool InputRestrictedRoute(const string &file, string &mode, int &source, int &de
             if (!include.empty()) {
                 includeNode = stoi(line.substr(line.find(':') + 1));
             }
+            else {
+                includeNode = INT_MAX;
+            }
         }
     }
     inputFile.close();
