@@ -74,6 +74,7 @@ void optionEnvironmentalRoute(Graph<T> *g, const string& file);
 /**
  * @brief Displays comprehensive information about the program
  * @param g Pointer to the graph object (for maintaining context)
+ * @param file
  *
  * @details Shows two main sections:
  * 1. Input Info: Detailed format requirements for all routing options
@@ -86,7 +87,7 @@ void optionEnvironmentalRoute(Graph<T> *g, const string& file);
  * - Program execution modes (interactive and batch)
  * - Command-line usage examples
  */
-void optionInfo(Graph<int> *g);
+void optionInfo(Graph<int> *g, const string& file);
 
 /**
  * @brief Routes execution to the appropriate menu option handler
@@ -102,6 +103,6 @@ void optionInfo(Graph<int> *g);
  * 5 → Exits program
  */
 template<class T>
-void handleMenuOption(int option, Graph<T> *g);
+void handleMenuOption(int option, Graph<T> *g, const string& file);
 
 #endif //MENU_H

@@ -63,7 +63,7 @@ void optionBestRoute(Graph<T> *g, const string& file) {
 
     if (OutputBestRoute(g, source, destination, solBestRoute, solAlternativeRoute)) {
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     }
 }
 
@@ -90,7 +90,7 @@ void optionRestrictedRoute(Graph<T> *g, const string& file) {
 
     if (OutputRestrictedRoute(g, source, destination, route, totalTime, avoidNodes, avoidSegments)) {
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     }
 }
 
@@ -122,14 +122,14 @@ void optionEnvironmentalRoute(Graph<T> *g, const string& file) {
 
     if (shouldShowMenu) {
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     }
 }
 
 template void optionEnvironmentalRoute<int>(Graph<int> *g, const string& file);
 
 
-void optionInfo(Graph<int> *g) {
+void optionInfo(Graph<int> *g, const string& file) {
     cout << endl << "=============================================\n";
     cout << "       ROUTE PLANNER - INPUT INFO        \n";
     cout << "=============================================\n\n";
@@ -198,7 +198,7 @@ void optionInfo(Graph<int> *g) {
         cout << endl << endl;
 
         int option = optionsMenu();
-        handleMenuOption(option, g);
+        handleMenuOption(option, g, file);
     } else {
         cout << endl << "Ok! Goodbye!" << endl;
         cout << "Exiting in... ";
@@ -214,19 +214,19 @@ void optionInfo(Graph<int> *g) {
 
 
 template<class T>
-void handleMenuOption(int option, Graph<T> *g) {
+void handleMenuOption(int option, Graph<T> *g, const string& file) {
     switch (option) {
         case 1:
-            optionBestRoute(g);
+            optionBestRoute(g, file);
             break;
         case 2:
-            optionRestrictedRoute(g);
+            optionRestrictedRoute(g, file);
             break;
         case 3:
-            optionEnvironmentalRoute(g);
+            optionEnvironmentalRoute(g, file);
             break;
         case 4:
-            optionInfo(g);
+            optionInfo(g, file);
             break;
         case 5:
             cout << "Exiting..." << endl;

@@ -56,23 +56,28 @@ int main(int argc, char *argv[]) {
 
     // read distances and add edges to the graph
     readDistances("../Data/PortoDistances.csv", graph);
-
     std::string inputFile = argv[1];
-    fileToSingleLine(inputFile, &graph);
+    if (argc == 3) {
+        std::string outputFile = argv[2];
+        runBatchMode(inputFile, outputFile, &graph);
+        std::cout << "Batch mode processing completed successfully." << std::endl;
+        return 0;
+    }
+
 
 
     // If command line arguments are provided, use batch mode
-    if (argc == 3) {
-        //std::string inputFile = argv[1];
-        std::string outputFile = argv[2];
-
-        if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
-            std::cout << "Batch mode processing completed successfully." << std::endl;
-        } else {
-            std::cerr << "Batch mode processing failed." << std::endl;
-        }
-        return 0;
-    }
+    // if (argc == 3) {
+    //     //std::string inputFile = argv[1];
+    //     std::string outputFile = argv[2];
+    //
+    //     if (BatchMode::processBatchMode(graph, inputFile, outputFile)) {
+    //         std::cout << "Batch mode processing completed successfully." << std::endl;
+    //     } else {
+    //         std::cerr << "Batch mode processing failed." << std::endl;
+    //     }
+    //     return 0;
+    // }
 
     // Interactive menu mode
     switch (optionsMenu()) {
@@ -89,7 +94,7 @@ int main(int argc, char *argv[]) {
             optionEnvironmentalRoute(&graph, inputFile);
             break;
         case 4:
-            optionInfo(&graph);
+            optionInfo(&graph, inputFile);
             break;
         case 5:
             std::cout << "Exiting..." << std::endl;

@@ -1,3 +1,4 @@
+/*
 #include "BatchMode.h"
 #include "../Routes/IndependentRoutePlanning.h"
 #include "../Routes/RestrictedRoutePlanning.h"
@@ -374,4 +375,5 @@ bool BatchMode::processEnvironmentalRoute(Graph<int>& graph, std::ifstream& inFi
 
     outFile << ss.str();
     return true;
-} 
+}
+*/

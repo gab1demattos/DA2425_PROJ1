@@ -1,3 +1,5 @@
+/*
+
 #ifndef BATCHMODE_H
 #define BATCHMODE_H
 
@@ -9,7 +11,7 @@
 
 class BatchMode {
 public:
-    /**
+
      * @brief Processes the batch mode input and generates output
      * @param graph Reference to the graph object
      * @param inputFile Path to the input file
@@ -24,7 +26,7 @@ public:
      * AvoidNodes:<int>,<int>,... (optional)
      * AvoidSegments:(int,int),(int,int),... (optional)
      * IncludeNode:<int> (for restricted mode)
-     */
+
     static bool processBatchMode(Graph<int>& graph, const std::string& inputFile, const std::string& outputFile);
 
 private:
@@ -38,4 +40,6 @@ private:
     static bool processRestrictedRouteWithSourceDest(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile, int source, int destination);
 };
 
-#endif // BATCHMODE_H 
+#endif // BATCHMODE_H
+*/
+#pragma once
