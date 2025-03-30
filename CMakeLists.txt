@@ -26,6 +26,4 @@ add_executable(route_planner
         SetUp/Routes/EnvironmentallyFriendlyRoutePlanning.cpp
         SetUp/InputOutput/Visualizer.cpp
         SetUp/InputOutput/Visualizer.h
-        SetUp/InputOutput/BatchMode.h
-        SetUp/InputOutput/BatchMode.cpp
 )
