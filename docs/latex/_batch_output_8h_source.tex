@@ -1,0 +1,34 @@
+\doxysection{Batch\+Output.\+h}
+\hypertarget{_batch_output_8h_source}{}\label{_batch_output_8h_source}\index{SetUp/InputOutput/BatchOutput.h@{SetUp/InputOutput/BatchOutput.h}}
+\mbox{\hyperlink{_batch_output_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ BATCHOUTPUT\_H}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ BATCHOUTPUT\_H}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../DataStructures/Graph.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_environmentally_friendly_route_planning_8h}{../Routes/EnvironmentallyFriendlyRoutePlanning.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_batch_output_8h_a875f317dcbc034a958e562ecbeee923f}{BatchOutputBestRoute}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination,\ \textcolor{keyword}{const}\ pair<vector<int>,\ \textcolor{keywordtype}{int}>\ \&solBestRoute,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ pair<vector<int>,\ \textcolor{keywordtype}{int}>\ \&solAlternativeRoute,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ outfile);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_batch_output_8h_a9c6de0669eb1629f28de5a94f80b75d0}{BatchOutputRestrictedRoute}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination,\ vector<T>\ bestRestrictedRoute,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ totalTime,\ \textcolor{keywordtype}{bool}\ flag,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ outfile);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_batch_output_8h_a44c09c5c9f4c3121f3d5ed7f149539f6}{BatchOutputEnvironmentallyFriendlyRoute}}(\textcolor{keywordtype}{int}\ source,\ \textcolor{keywordtype}{int}\ destination,}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::pair<std::vector<int>,\ \textcolor{keywordtype}{int}>\ \&solBestDrivingRoute,}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::pair<std::vector<int>,\ \textcolor{keywordtype}{int}>\ \&solBestWalkingRoute,}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&parkingNode,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&totalTime,\ \textcolor{keywordtype}{int}\ maxWalkTime,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ vector<\mbox{\hyperlink{struct_approximate_solution}{ApproximateSolution<int>}}\ >\ \&approximateSolutions,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ outfile);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//BATCHOUTPUT\_H}}
+
+\end{DoxyCode}
