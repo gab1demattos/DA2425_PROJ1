@@ -1,0 +1,92 @@
+\doxysection{Set\+Up/\+Read\+Data/read\+CSV.h File Reference}
+\hypertarget{read_c_s_v_8h}{}\label{read_c_s_v_8h}\index{SetUp/ReadData/readCSV.h@{SetUp/ReadData/readCSV.h}}
+
+
+CSV file reading utilities for graph data.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}../\+Data\+Structures/\+Graph.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{read_c_s_v_8h_ad73547989474807b0cfa70f0e0d7be80}{read\+Locations}} (const std\+::string \&filename, Graph$<$ int $>$ \&graph)
+\begin{DoxyCompactList}\small\item\em Reads location data from CSV file and populates the graph. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{read_c_s_v_8h_a391edc28fc4dd5075a6377c4a4c99eca}{read\+Distances}} (const std\+::string \&filename, Graph$<$ int $>$ \&graph)
+\begin{DoxyCompactList}\small\item\em Reads distance data from CSV file and populates graph edges. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+CSV file reading utilities for graph data. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{read_c_s_v_8h_a391edc28fc4dd5075a6377c4a4c99eca}\index{readCSV.h@{readCSV.h}!readDistances@{readDistances}}
+\index{readDistances@{readDistances}!readCSV.h@{readCSV.h}}
+\doxysubsubsection{\texorpdfstring{readDistances()}{readDistances()}}
+{\footnotesize\ttfamily \label{read_c_s_v_8h_a391edc28fc4dd5075a6377c4a4c99eca} 
+void read\+Distances (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{Graph$<$ int $>$ \&}]{graph}{}\end{DoxyParamCaption})}
+
+
+
+Reads distance data from CSV file and populates graph edges. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Path to the CSV file containing distance data \\
+\hline
+{\em graph} & Graph object to populate with edge data\\
+\hline
+\end{DoxyParams}
+Expected CSV format\+: Location1,Location2,Driving,Walking
+
+Where\+:
+\begin{DoxyItemize}
+\item Location1\+: Source location code
+\item Location2\+: Destination location code
+\item Driving\+: Driving time in minutes or \textquotesingle{}X\textquotesingle{} if not drivable
+\item Walking\+: Walking time in minutes
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+Skips the header line automatically 
+
+\textquotesingle{}X\textquotesingle{} in Driving column is converted to INT\+\_\+\+MAX (unreachable) 
+
+Creates bidirectional edges with both driving and walking times 
+
+Only adds edges between vertices that exist in the graph 
+\end{DoxyNote}
+\Hypertarget{read_c_s_v_8h_ad73547989474807b0cfa70f0e0d7be80}\index{readCSV.h@{readCSV.h}!readLocations@{readLocations}}
+\index{readLocations@{readLocations}!readCSV.h@{readCSV.h}}
+\doxysubsubsection{\texorpdfstring{readLocations()}{readLocations()}}
+{\footnotesize\ttfamily \label{read_c_s_v_8h_ad73547989474807b0cfa70f0e0d7be80} 
+void read\+Locations (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{Graph$<$ int $>$ \&}]{graph}{}\end{DoxyParamCaption})}
+
+
+
+Reads location data from CSV file and populates the graph. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em filename} & Path to the CSV file containing location data \\
+\hline
+{\em graph} & Graph object to populate with vertex data\\
+\hline
+\end{DoxyParams}
+Expected CSV format\+: Location,Id,Code,Parking
+
+Where\+:
+\begin{DoxyItemize}
+\item Location\+: Full location name
+\item Id\+: Unique node identifier (integer)
+\item Code\+: Short location code (string)
+\item Parking\+: 1 if parking available, 0 otherwise
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Note}
+Skips the header line automatically 
+
+Creates vertices with associated location metadata 
+\end{DoxyNote}

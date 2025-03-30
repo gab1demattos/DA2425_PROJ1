@@ -1,0 +1,174 @@
+\doxysection{Set\+Up/\+Routes/\+Restricted\+Route\+Planning.cpp File Reference}
+\hypertarget{_restricted_route_planning_8cpp}{}\label{_restricted_route_planning_8cpp}\index{SetUp/Routes/RestrictedRoutePlanning.cpp@{SetUp/Routes/RestrictedRoutePlanning.cpp}}
+
+
+Route planning with node/segment restrictions and required nodes.  
+
+
+{\ttfamily \#include "{}Restricted\+Route\+Planning.\+h"{}}\newline
+{\ttfamily \#include "{}../\+Data\+Structures/\+Graph.\+h"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T$>$ }\\bool \mbox{\hyperlink{_restricted_route_planning_8cpp_a24fffa37658bb0541fa3bf02d207321d}{relax}} (Edge$<$ T $>$ \texorpdfstring{$\ast$}{*}edge)
+\begin{DoxyCompactList}\small\item\em Relaxes an edge during Dijkstra\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\void \mbox{\hyperlink{_restricted_route_planning_8cpp_ad05be3f66a83e139e7eaab50cb32d542}{initialize\+Vertices}} (Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Helper function that initializes all vertices for Dijkstra\textquotesingle{}s algorithm. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\void \mbox{\hyperlink{_restricted_route_planning_8cpp_a4867c4f3a0a2b22be99e701904952c7d}{run\+Dijkstra}} (Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}g, Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}start, const vector$<$ T $>$ \&avoid\+Nodes, const vector$<$ pair$<$ T, T $>$ $>$ \&avoid\+Segments)
+\begin{DoxyCompactList}\small\item\em Core Dijkstra execution with restrictions (avoid\+Nodes and avoid\+Segments) \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\void \mbox{\hyperlink{_restricted_route_planning_8cpp_a1478636fc8ba9a88c27dd07cdf0ea7a3}{Restricted\+Route\+Planning}} (Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}g, const int \&origin, const int \&dest, const vector$<$ T $>$ \&avoid\+Nodes, const vector$<$ pair$<$ T, T $>$ $>$ \&avoid\+Segments, const T \&include\+Node, vector$<$ T $>$ \&route, int \&total\+Time, bool \&flag)
+\begin{DoxyCompactList}\small\item\em Finds restricted route that must include specific node (if requested) \end{DoxyCompactList}\item 
+\Hypertarget{_restricted_route_planning_8cpp_a8cfa82981ae1126ba5a9af876dd7bf22}\label{_restricted_route_planning_8cpp_a8cfa82981ae1126ba5a9af876dd7bf22} 
+template void {\bfseries Restricted\+Route\+Planning$<$ int $>$} (Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g, const int \&origin, const int \&dest, const vector$<$ int $>$ \&avoid\+Nodes, const vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, const int \&include\+Node, std\+::vector$<$ int $>$ \&route, int \&total\+Time, bool \&flag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Route planning with node/segment restrictions and required nodes. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_restricted_route_planning_8cpp_ad05be3f66a83e139e7eaab50cb32d542}\index{RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}!initializeVertices@{initializeVertices}}
+\index{initializeVertices@{initializeVertices}!RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}}
+\doxysubsubsection{\texorpdfstring{initializeVertices()}{initializeVertices()}}
+{\footnotesize\ttfamily \label{_restricted_route_planning_8cpp_ad05be3f66a83e139e7eaab50cb32d542} 
+template$<$class T$>$ \\
+void initialize\+Vertices (\begin{DoxyParamCaption}\item[{Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Helper function that initializes all vertices for Dijkstra\textquotesingle{}s algorithm. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Node ID type (typically int) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph object\\
+\hline
+\end{DoxyParams}
+Sets all vertices to\+:
+\begin{DoxyItemize}
+\item Distance = INT\+\_\+\+MAX
+\item Path = nullptr
+\item Visited = false 
+\end{DoxyItemize}\Hypertarget{_restricted_route_planning_8cpp_a24fffa37658bb0541fa3bf02d207321d}\index{RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}!relax@{relax}}
+\index{relax@{relax}!RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}}
+\doxysubsubsection{\texorpdfstring{relax()}{relax()}}
+{\footnotesize\ttfamily \label{_restricted_route_planning_8cpp_a24fffa37658bb0541fa3bf02d207321d} 
+template$<$class T$>$ \\
+bool relax (\begin{DoxyParamCaption}\item[{Edge$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{edge}{}\end{DoxyParamCaption})}
+
+
+
+Relaxes an edge during Dijkstra\textquotesingle{}s algorithm. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Node ID type (typically int) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em edge} & Edge to relax \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if relaxation occurred (shorter path found), false otherwise
+\end{DoxyReturn}
+Updates the destination vertex\textquotesingle{}s distance if a shorter path is found through this edge. Uses driving times for edge weights. \Hypertarget{_restricted_route_planning_8cpp_a1478636fc8ba9a88c27dd07cdf0ea7a3}\index{RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}!RestrictedRoutePlanning@{RestrictedRoutePlanning}}
+\index{RestrictedRoutePlanning@{RestrictedRoutePlanning}!RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}}
+\doxysubsubsection{\texorpdfstring{RestrictedRoutePlanning()}{RestrictedRoutePlanning()}}
+{\footnotesize\ttfamily \label{_restricted_route_planning_8cpp_a1478636fc8ba9a88c27dd07cdf0ea7a3} 
+template$<$class T$>$ \\
+void Restricted\+Route\+Planning (\begin{DoxyParamCaption}\item[{Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{const int \&}]{origin}{, }\item[{const int \&}]{dest}{, }\item[{const vector$<$ T $>$ \&}]{avoid\+Nodes}{, }\item[{const vector$<$ pair$<$ T, T $>$ $>$ \&}]{avoid\+Segments}{, }\item[{const T \&}]{include\+Node}{, }\item[{vector$<$ T $>$ \&}]{route}{, }\item[{int \&}]{total\+Time}{, }\item[{bool \&}]{flag}{}\end{DoxyParamCaption})}
+
+
+
+Finds restricted route that must include specific node (if requested) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Node ID type (typically int) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em g} & Graph object \\
+\hline
+ & {\em origin} & Source node ID \\
+\hline
+ & {\em dest} & Destination node ID \\
+\hline
+ & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+ & {\em avoid\+Segments} & Vector of segments to avoid \\
+\hline
+ & {\em include\+Node} & Node that must be included in route (INT\+\_\+\+MAX if not required) \\
+\hline
+\mbox{\texttt{ out}}  & {\em route} & Resulting path as vector of node IDs (empty if no valid route found) \\
+\hline
+\mbox{\texttt{ out}}  & {\em total\+Time} & Total driving time in seconds (0 if no valid route) \\
+\hline
+\mbox{\texttt{ out}}  & {\em flag} & Success indicator (true if valid route found, false otherwise)\\
+\hline
+\end{DoxyParams}
+Finds shortest driving route from origin to destination while\+:
+\begin{DoxyEnumerate}
+\item Avoiding specified nodes and segments
+\item Including required node (if specified) by finding optimal path\+: origin → include\+Node → destination
+\item Using Dijkstra\textquotesingle{}s algorithm with driving times as edge weights
+\item Skipping walking-\/only routes
+\end{DoxyEnumerate}
+
+Handles edge cases\+:
+\begin{DoxyItemize}
+\item Invalid/unreachable origin or destination nodes
+\item Unreachable required node
+\item No valid path exists meeting all constraints
+\item Required node same as origin/destination 
+\end{DoxyItemize}\Hypertarget{_restricted_route_planning_8cpp_a4867c4f3a0a2b22be99e701904952c7d}\index{RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}!runDijkstra@{runDijkstra}}
+\index{runDijkstra@{runDijkstra}!RestrictedRoutePlanning.cpp@{RestrictedRoutePlanning.cpp}}
+\doxysubsubsection{\texorpdfstring{runDijkstra()}{runDijkstra()}}
+{\footnotesize\ttfamily \label{_restricted_route_planning_8cpp_a4867c4f3a0a2b22be99e701904952c7d} 
+template$<$class T$>$ \\
+void run\+Dijkstra (\begin{DoxyParamCaption}\item[{Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{g}{, }\item[{Vertex$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{start}{, }\item[{const vector$<$ T $>$ \&}]{avoid\+Nodes}{, }\item[{const vector$<$ pair$<$ T, T $>$ $>$ \&}]{avoid\+Segments}{}\end{DoxyParamCaption})}
+
+
+
+Core Dijkstra execution with restrictions (avoid\+Nodes and avoid\+Segments) 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Node ID type (typically int) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em g} & Graph object \\
+\hline
+{\em start} & Starting vertex \\
+\hline
+{\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+{\em avoid\+Segments} & Vector of segments (node pairs) to avoid\\
+\hline
+\end{DoxyParams}
+Runs Dijkstra\textquotesingle{}s algorithm to find shortest paths while\+:
+\begin{DoxyEnumerate}
+\item Skipping nodes in avoid\+Nodes list
+\item Skipping segments in avoid\+Segments list
+\item Using driving times as edge weights
+\item Skipping walking-\/only routes (where driving time is INT\+\_\+\+MAX)
+\item Maintaining a priority queue for efficient vertex selection
+\item Relaxing edges to update shortest path distances 
+\end{DoxyEnumerate}

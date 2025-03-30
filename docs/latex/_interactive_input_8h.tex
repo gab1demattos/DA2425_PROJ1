@@ -1,0 +1,106 @@
+\doxysection{Set\+Up/\+Input\+Output/\+Interactive\+Input.h File Reference}
+\hypertarget{_interactive_input_8h}{}\label{_interactive_input_8h}\index{SetUp/InputOutput/InteractiveInput.h@{SetUp/InputOutput/InteractiveInput.h}}
+
+
+Interactive menu input handling functions.  
+
+
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include "{}../\+Data\+Structures/\+Graph.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_interactive_input_8h_aa2d10868528aea92f315102cffc28bb0}{Inter\+Input\+Best\+Route}} (string \&mode, int \&source, int \&destination, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Handles interactive input for the best route. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8h_a744f36d67a2573a50f851da660402119}{Inter\+Input\+Restricted\+Route}} (string \&mode, int \&source, int \&destination, vector$<$ int $>$ \&avoid\+Nodes, vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, int \&include\+Node, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Handles interactive input for the restricted route. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8h_ad92e58b2275e5090c3d0efd3a5ca9359}{Inter\+Input\+Environmetal\+Route}} (string \&mode, int \&source, int \&destination, int \&max\+Walk\+Time, vector$<$ int $>$ \&avoid\+Nodes, vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Handles interactive input for the environmentally-\/friendly route. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interactive menu input handling functions. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_interactive_input_8h_aa2d10868528aea92f315102cffc28bb0}\index{InteractiveInput.h@{InteractiveInput.h}!InterInputBestRoute@{InterInputBestRoute}}
+\index{InterInputBestRoute@{InterInputBestRoute}!InteractiveInput.h@{InteractiveInput.h}}
+\doxysubsubsection{\texorpdfstring{InterInputBestRoute()}{InterInputBestRoute()}}
+{\footnotesize\ttfamily \label{_interactive_input_8h_aa2d10868528aea92f315102cffc28bb0} 
+bool Inter\+Input\+Best\+Route (\begin{DoxyParamCaption}\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Handles interactive input for the best route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em mode} & Mode of transportation \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the input is valid, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_interactive_input_8h_ad92e58b2275e5090c3d0efd3a5ca9359}\index{InteractiveInput.h@{InteractiveInput.h}!InterInputEnvironmetalRoute@{InterInputEnvironmetalRoute}}
+\index{InterInputEnvironmetalRoute@{InterInputEnvironmetalRoute}!InteractiveInput.h@{InteractiveInput.h}}
+\doxysubsubsection{\texorpdfstring{InterInputEnvironmetalRoute()}{InterInputEnvironmetalRoute()}}
+{\footnotesize\ttfamily \label{_interactive_input_8h_ad92e58b2275e5090c3d0efd3a5ca9359} 
+bool Inter\+Input\+Environmetal\+Route (\begin{DoxyParamCaption}\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{int \&}]{max\+Walk\+Time}{, }\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Handles interactive input for the environmentally-\/friendly route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em mode} & Mode of transportation \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em max\+Walk\+Time} & The maximum walking time. \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Vector of segments to avoid (node pairs) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the input is valid, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_interactive_input_8h_a744f36d67a2573a50f851da660402119}\index{InteractiveInput.h@{InteractiveInput.h}!InterInputRestrictedRoute@{InterInputRestrictedRoute}}
+\index{InterInputRestrictedRoute@{InterInputRestrictedRoute}!InteractiveInput.h@{InteractiveInput.h}}
+\doxysubsubsection{\texorpdfstring{InterInputRestrictedRoute()}{InterInputRestrictedRoute()}}
+{\footnotesize\ttfamily \label{_interactive_input_8h_a744f36d67a2573a50f851da660402119} 
+bool Inter\+Input\+Restricted\+Route (\begin{DoxyParamCaption}\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{, }\item[{int \&}]{include\+Node}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Handles interactive input for the restricted route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em mode} & Mode of transportation \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Vector of segments to avoid (node pairs) \\
+\hline
+\mbox{\texttt{ out}}  & {\em include\+Node} & Node that must be included in route (INT\+\_\+\+MAX if not required) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the input is valid, false otherwise. 
+\end{DoxyReturn}

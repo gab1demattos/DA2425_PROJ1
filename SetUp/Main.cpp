@@ -14,7 +14,7 @@
  *
  * Usage
  * 1. Load graph data from `Locations.csv` and `Distances.csv`.
- * 2. Select a routing mode via the interactive menu.
+ * 2. Select a routing mode via the interactive menu or use Batch Mode.
  * 3. Input source/destination nodes and constraints (if applicable).
  * 4. View the computed path and total time.
  *
@@ -38,8 +38,8 @@
  * 3. Otherwise, show interactive menu
  *
  * @note Required data files:
- * - ../Data/PortoLocations.csv
- * - ../Data/PortoDistances.csv
+ * - ../Data/Locations.csv
+ * - ../Data/Distances.csv
  *
  * @see Graph for underlying data structure
  * @see optionsMenu() for UI logic
@@ -51,10 +51,10 @@ int main(int argc, char *argv[]) {
     Graph<int> graph;
 
     // read locations and add vertices to the graph
-    readLocations("../Data/PortoLocations.csv", graph);
+    readLocations("../Data/Locations.csv", graph);
 
     // read distances and add edges to the graph
-    readDistances("../Data/PortoDistances.csv", graph);
+    readDistances("../Data/Distances.csv", graph);
 
     // Batch mode
     if (argc == 3) {

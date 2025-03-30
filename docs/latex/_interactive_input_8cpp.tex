@@ -1,0 +1,183 @@
+\doxysection{Set\+Up/\+Input\+Output/\+Interactive\+Input.cpp File Reference}
+\hypertarget{_interactive_input_8cpp}{}\label{_interactive_input_8cpp}\index{SetUp/InputOutput/InteractiveInput.cpp@{SetUp/InputOutput/InteractiveInput.cpp}}
+
+
+Interactive menu input handling functions.  
+
+
+{\ttfamily \#include "{}Interactive\+Input.\+h"{}}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$regex$>$}\newline
+{\ttfamily \#include $<$climits$>$}\newline
+{\ttfamily \#include "{}../\+Data\+Structures/\+Graph.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_interactive_input_8cpp_af1ccaeac046666aca45f48b5f4a5859d}{check\+Source\+Dest}} (int \&source, int \&destination, string line, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Validates and parses source and destination node inputs. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8cpp_a42bc8a481bd369bca9c5af91edee255f}{parse\+Nodes}} (vector$<$ int $>$ \&avoid\+Nodes, string line, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Validates and parses node IDs to avoid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8cpp_aaa2b159b8abb37ad0839298ffd92b5b6}{parse\+Segments}} (vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, string line, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Validates and parses segments to avoid. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8cpp_aa2d10868528aea92f315102cffc28bb0}{Inter\+Input\+Best\+Route}} (string \&mode, int \&source, int \&destination, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Handles interactive input for the best route. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8cpp_a744f36d67a2573a50f851da660402119}{Inter\+Input\+Restricted\+Route}} (string \&mode, int \&source, int \&destination, vector$<$ int $>$ \&avoid\+Nodes, vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, int \&include\+Node, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Handles interactive input for the restricted route. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_interactive_input_8cpp_ad92e58b2275e5090c3d0efd3a5ca9359}{Inter\+Input\+Environmetal\+Route}} (string \&mode, int \&source, int \&destination, int \&max\+Walk\+Time, vector$<$ int $>$ \&avoid\+Nodes, vector$<$ pair$<$ int, int $>$ $>$ \&avoid\+Segments, Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}g)
+\begin{DoxyCompactList}\small\item\em Handles interactive input for the environmentally-\/friendly route. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interactive menu input handling functions. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_interactive_input_8cpp_af1ccaeac046666aca45f48b5f4a5859d}\index{InteractiveInput.cpp@{InteractiveInput.cpp}!checkSourceDest@{checkSourceDest}}
+\index{checkSourceDest@{checkSourceDest}!InteractiveInput.cpp@{InteractiveInput.cpp}}
+\doxysubsubsection{\texorpdfstring{checkSourceDest()}{checkSourceDest()}}
+{\footnotesize\ttfamily \label{_interactive_input_8cpp_af1ccaeac046666aca45f48b5f4a5859d} 
+bool check\+Source\+Dest (\begin{DoxyParamCaption}\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{string}]{line}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Validates and parses source and destination node inputs. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em source} & Reference to store the parsed source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Reference to store the parsed destination node ID \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em line} & String used for input storage and processing \\
+\hline
+\mbox{\texttt{ in}}  & {\em g} & Pointer to the graph containing the nodes and edges \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if both inputs are valid integers, false otherwise
+\end{DoxyReturn}
+Prompts user for source and destination nodes, validates they are positive integers, and stores the parsed values in the output parameters. Clears and reuses the line string for both inputs. \Hypertarget{_interactive_input_8cpp_aa2d10868528aea92f315102cffc28bb0}\index{InteractiveInput.cpp@{InteractiveInput.cpp}!InterInputBestRoute@{InterInputBestRoute}}
+\index{InterInputBestRoute@{InterInputBestRoute}!InteractiveInput.cpp@{InteractiveInput.cpp}}
+\doxysubsubsection{\texorpdfstring{InterInputBestRoute()}{InterInputBestRoute()}}
+{\footnotesize\ttfamily \label{_interactive_input_8cpp_aa2d10868528aea92f315102cffc28bb0} 
+bool Inter\+Input\+Best\+Route (\begin{DoxyParamCaption}\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Handles interactive input for the best route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em mode} & Mode of transportation \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the input is valid, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_interactive_input_8cpp_ad92e58b2275e5090c3d0efd3a5ca9359}\index{InteractiveInput.cpp@{InteractiveInput.cpp}!InterInputEnvironmetalRoute@{InterInputEnvironmetalRoute}}
+\index{InterInputEnvironmetalRoute@{InterInputEnvironmetalRoute}!InteractiveInput.cpp@{InteractiveInput.cpp}}
+\doxysubsubsection{\texorpdfstring{InterInputEnvironmetalRoute()}{InterInputEnvironmetalRoute()}}
+{\footnotesize\ttfamily \label{_interactive_input_8cpp_ad92e58b2275e5090c3d0efd3a5ca9359} 
+bool Inter\+Input\+Environmetal\+Route (\begin{DoxyParamCaption}\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{int \&}]{max\+Walk\+Time}{, }\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Handles interactive input for the environmentally-\/friendly route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em mode} & Mode of transportation \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em max\+Walk\+Time} & The maximum walking time. \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Vector of segments to avoid (node pairs) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the input is valid, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_interactive_input_8cpp_a744f36d67a2573a50f851da660402119}\index{InteractiveInput.cpp@{InteractiveInput.cpp}!InterInputRestrictedRoute@{InterInputRestrictedRoute}}
+\index{InterInputRestrictedRoute@{InterInputRestrictedRoute}!InteractiveInput.cpp@{InteractiveInput.cpp}}
+\doxysubsubsection{\texorpdfstring{InterInputRestrictedRoute()}{InterInputRestrictedRoute()}}
+{\footnotesize\ttfamily \label{_interactive_input_8cpp_a744f36d67a2573a50f851da660402119} 
+bool Inter\+Input\+Restricted\+Route (\begin{DoxyParamCaption}\item[{string \&}]{mode}{, }\item[{int \&}]{source}{, }\item[{int \&}]{destination}{, }\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{, }\item[{int \&}]{include\+Node}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Handles interactive input for the restricted route. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em mode} & Mode of transportation \\
+\hline
+\mbox{\texttt{ out}}  & {\em source} & Source node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em destination} & Destination node ID \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Vector of segments to avoid (node pairs) \\
+\hline
+\mbox{\texttt{ out}}  & {\em include\+Node} & Node that must be included in route (INT\+\_\+\+MAX if not required) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the input is valid, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{_interactive_input_8cpp_a42bc8a481bd369bca9c5af91edee255f}\index{InteractiveInput.cpp@{InteractiveInput.cpp}!parseNodes@{parseNodes}}
+\index{parseNodes@{parseNodes}!InteractiveInput.cpp@{InteractiveInput.cpp}}
+\doxysubsubsection{\texorpdfstring{parseNodes()}{parseNodes()}}
+{\footnotesize\ttfamily \label{_interactive_input_8cpp_a42bc8a481bd369bca9c5af91edee255f} 
+bool parse\+Nodes (\begin{DoxyParamCaption}\item[{vector$<$ int $>$ \&}]{avoid\+Nodes}{, }\item[{string}]{line}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Validates and parses node IDs to avoid. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em avoid\+Nodes} & Reference to vector that will store parsed node IDs \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em line} & String used for input storage and processing \\
+\hline
+\mbox{\texttt{ in}}  & {\em g} & Pointer to the graph containing the nodes and edges \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if input format is valid or empty, false otherwise
+\end{DoxyReturn}
+Prompts user for space-\/separated node IDs, validates the format, and stores parsed integers in the output vector. Accepts empty input. \Hypertarget{_interactive_input_8cpp_aaa2b159b8abb37ad0839298ffd92b5b6}\index{InteractiveInput.cpp@{InteractiveInput.cpp}!parseSegments@{parseSegments}}
+\index{parseSegments@{parseSegments}!InteractiveInput.cpp@{InteractiveInput.cpp}}
+\doxysubsubsection{\texorpdfstring{parseSegments()}{parseSegments()}}
+{\footnotesize\ttfamily \label{_interactive_input_8cpp_aaa2b159b8abb37ad0839298ffd92b5b6} 
+bool parse\+Segments (\begin{DoxyParamCaption}\item[{vector$<$ pair$<$ int, int $>$ $>$ \&}]{avoid\+Segments}{, }\item[{string}]{line}{, }\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{g}{}\end{DoxyParamCaption})}
+
+
+
+Validates and parses segments to avoid. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em avoid\+Segments} & Reference to vector that will store parsed segment pairs \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em line} & String used for input storage and processing \\
+\hline
+\mbox{\texttt{ in}}  & {\em g} & Pointer to the graph containing the nodes and edges \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if input format is valid or empty, false otherwise
+\end{DoxyReturn}
+Prompts user for segment pairs in format "{}x,y z,w"{}, validates the format, and stores parsed pairs in the output vector. Accepts empty input. 

@@ -1,0 +1,25 @@
+\chapter{Route Planning Tool -\/ Design of Algorithms}
+\hypertarget{index}{}\label{index}\index{Route Planning Tool -\/ Design of Algorithms@{Route Planning Tool -\/ Design of Algorithms}}
+This project uses Dijkstra\textquotesingle{}s Algorithm in order to find the best route from a given source node to a given destination node. Supports three routing modes with graph restrictions and environmental constraints.
+
+Key Features
+\begin{DoxyEnumerate}
+\item Independent Route Planning -\/ Classic shortest-\/path (time-\/based).
+\item Restricted Route Planning -\/ Calculates shortest path taking in account segments and nodes to avoid, as well as nodes to include in the route.
+\item Environmentally-\/\+Friendly Route Planning -\/ Hybrid driving/walking route where the user can choose the maximum time they are willing to walk after parking.
+\end{DoxyEnumerate}
+
+Usage
+\begin{DoxyEnumerate}
+\item Load graph data from {\ttfamily Locations.\+csv} and {\ttfamily Distances.\+csv}.
+\item Select a routing mode via the interactive menu or use Batch Mode.
+\item Input source/destination nodes and constraints (if applicable).
+\item View the computed path and total time.
+\end{DoxyEnumerate}
+
+\begin{DoxyAuthor}{Author}
+Francisca Portugal, Gabriela de Mattos, Maria Luiza Vieira 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+29/03/2025 
+\end{DoxyDate}

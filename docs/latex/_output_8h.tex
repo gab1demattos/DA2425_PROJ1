@@ -1,0 +1,162 @@
+\doxysection{Set\+Up/\+Input\+Output/\+Output.h File Reference}
+\hypertarget{_output_8h}{}\label{_output_8h}\index{SetUp/InputOutput/Output.h@{SetUp/InputOutput/Output.h}}
+
+
+Output handling functions for route planning system results.  
+
+
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}../\+Routes/\+Environmentally\+Friendly\+Route\+Planning.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_output_8h_ab32f9833b281bfc2688a6dbeb5f1e23d}{Output\+Best\+Route}} (Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}graph, int source, int destination, const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&sol\+Best\+Route, const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&sol\+Alternative\+Route)
+\begin{DoxyCompactList}\small\item\em Outputs the best route solution with alternative option. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_output_8h_ad951e4748663ee708199e858b0314f0f}{Output\+Best\+Environmentally\+Friendly\+Route}} (Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}graph, int source, int destination, const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&sol\+Best\+Driving\+Route, const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&sol\+Best\+Walking\+Route, const int \&parking\+Node, const int \&total\+Time, int max\+Walk\+Time, const vector$<$ \mbox{\hyperlink{struct_approximate_solution}{Approximate\+Solution}}$<$ int $>$ $>$ \&approximate\+Solutions)
+\begin{DoxyCompactList}\small\item\em Outputs the best environmentally friendly route solution. \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T$>$ }\\bool \mbox{\hyperlink{_output_8h_a905b21bd40875d49dba6024a666c8233}{Output\+Restricted\+Route}} (Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}graph, int source, int destination, vector$<$ T $>$ best\+Restricted\+Route, int total\+Time, const vector$<$ T $>$ \&avoid\+Nodes, const vector$<$ pair$<$ T, T $>$ $>$ \&avoid\+Segments)
+\begin{DoxyCompactList}\small\item\em Outputs a restricted route solution. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{_output_8h_abdc957bf874e0ed1716f235ca45bfffa}{Output\+Approximate\+Solutions}} (Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}graph, int source, int destination, int max\+Walk\+Time, const vector$<$ \mbox{\hyperlink{struct_approximate_solution}{Approximate\+Solution}}$<$ int $>$ $>$ \&solutions)
+\begin{DoxyCompactList}\small\item\em Outputs approximate solutions when no exact route is found. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Output handling functions for route planning system results. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_output_8h_abdc957bf874e0ed1716f235ca45bfffa}\index{Output.h@{Output.h}!OutputApproximateSolutions@{OutputApproximateSolutions}}
+\index{OutputApproximateSolutions@{OutputApproximateSolutions}!Output.h@{Output.h}}
+\doxysubsubsection{\texorpdfstring{OutputApproximateSolutions()}{OutputApproximateSolutions()}}
+{\footnotesize\ttfamily \label{_output_8h_abdc957bf874e0ed1716f235ca45bfffa} 
+bool Output\+Approximate\+Solutions (\begin{DoxyParamCaption}\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{graph}{, }\item[{int}]{source}{, }\item[{int}]{destination}{, }\item[{int}]{max\+Walk\+Time}{, }\item[{const vector$<$ \mbox{\hyperlink{struct_approximate_solution}{Approximate\+Solution}}$<$ int $>$ $>$ \&}]{solutions}{}\end{DoxyParamCaption})}
+
+
+
+Outputs approximate solutions when no exact route is found. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to graph object \\
+\hline
+{\em source} & Source node ID \\
+\hline
+{\em destination} & Destination node ID \\
+\hline
+{\em max\+Walk\+Time} & Maximum walking time specified by user \\
+\hline
+{\em solutions} & Vector of approximate solutions \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if user wants to return to menu, false to exit
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Output format for each solution\+: Driving\+Route$<$\+X$>$\+:$<$path$>$($<$time$>$) Parking\+Node$<$\+X$>$\+:$<$id$>$ Walking\+Route$<$\+X$>$\+:$<$path$>$($<$time$>$) Total\+Time$<$\+X$>$\+:$<$time$>$ 
+\end{DoxyNote}
+\Hypertarget{_output_8h_ad951e4748663ee708199e858b0314f0f}\index{Output.h@{Output.h}!OutputBestEnvironmentallyFriendlyRoute@{OutputBestEnvironmentallyFriendlyRoute}}
+\index{OutputBestEnvironmentallyFriendlyRoute@{OutputBestEnvironmentallyFriendlyRoute}!Output.h@{Output.h}}
+\doxysubsubsection{\texorpdfstring{OutputBestEnvironmentallyFriendlyRoute()}{OutputBestEnvironmentallyFriendlyRoute()}}
+{\footnotesize\ttfamily \label{_output_8h_ad951e4748663ee708199e858b0314f0f} 
+bool Output\+Best\+Environmentally\+Friendly\+Route (\begin{DoxyParamCaption}\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{graph}{, }\item[{int}]{source}{, }\item[{int}]{destination}{, }\item[{const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&}]{sol\+Best\+Driving\+Route}{, }\item[{const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&}]{sol\+Best\+Walking\+Route}{, }\item[{const int \&}]{parking\+Node}{, }\item[{const int \&}]{total\+Time}{, }\item[{int}]{max\+Walk\+Time}{, }\item[{const vector$<$ \mbox{\hyperlink{struct_approximate_solution}{Approximate\+Solution}}$<$ int $>$ $>$ \&}]{approximate\+Solutions}{}\end{DoxyParamCaption})}
+
+
+
+Outputs the best environmentally friendly route solution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph object \\
+\hline
+{\em source} & Source node ID \\
+\hline
+{\em destination} & Destination node ID \\
+\hline
+{\em sol\+Best\+Driving\+Route} & Best driving route (path and time) \\
+\hline
+{\em sol\+Best\+Walking\+Route} & Best walking route (path and time) \\
+\hline
+{\em parking\+Node} & ID of parking node used \\
+\hline
+{\em total\+Time} & Total combined time \\
+\hline
+{\em max\+Walk\+Time} & Maximum walking time specified \\
+\hline
+{\em approximate\+Solutions} & Vector of approximate solutions (used if no exact solution) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if user wants to return to menu, false to exit
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Output format\+: Source\+:$<$id$>$ Destination\+:$<$id$>$ Driving\+Route\+:$<$path$>$($<$time$>$) or "{}\+None"{} Parking\+Node\+:$<$id$>$ or "{}\+None"{} Walking\+Route\+:$<$path$>$($<$time$>$) or "{}\+None"{} Total\+Time\+:$<$time$>$ or "{}"{} Message\+: $<$error message$>$ (if no solution) 
+\end{DoxyNote}
+\Hypertarget{_output_8h_ab32f9833b281bfc2688a6dbeb5f1e23d}\index{Output.h@{Output.h}!OutputBestRoute@{OutputBestRoute}}
+\index{OutputBestRoute@{OutputBestRoute}!Output.h@{Output.h}}
+\doxysubsubsection{\texorpdfstring{OutputBestRoute()}{OutputBestRoute()}}
+{\footnotesize\ttfamily \label{_output_8h_ab32f9833b281bfc2688a6dbeb5f1e23d} 
+bool Output\+Best\+Route (\begin{DoxyParamCaption}\item[{Graph$<$ int $>$ \texorpdfstring{$\ast$}{*}}]{graph}{, }\item[{int}]{source}{, }\item[{int}]{destination}{, }\item[{const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&}]{sol\+Best\+Route}{, }\item[{const std\+::pair$<$ std\+::vector$<$ int $>$, int $>$ \&}]{sol\+Alternative\+Route}{}\end{DoxyParamCaption})}
+
+
+
+Outputs the best route solution with alternative option. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph object \\
+\hline
+{\em source} & Source node ID \\
+\hline
+{\em destination} & Destination node ID \\
+\hline
+{\em sol\+Best\+Route} & Best route solution (path and total time) \\
+\hline
+{\em sol\+Alternative\+Route} & Alternative route solution (path and time) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if user wants to return to menu, false to exit
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Output format\+: Source\+:$<$id$>$ Destination\+:$<$id$>$ Best\+Driving\+Route\+:$<$path$>$($<$time$>$) Alternative\+Route\+:$<$path$>$($<$time$>$) or "{}\+None"{} 
+\end{DoxyNote}
+\Hypertarget{_output_8h_a905b21bd40875d49dba6024a666c8233}\index{Output.h@{Output.h}!OutputRestrictedRoute@{OutputRestrictedRoute}}
+\index{OutputRestrictedRoute@{OutputRestrictedRoute}!Output.h@{Output.h}}
+\doxysubsubsection{\texorpdfstring{OutputRestrictedRoute()}{OutputRestrictedRoute()}}
+{\footnotesize\ttfamily \label{_output_8h_a905b21bd40875d49dba6024a666c8233} 
+template$<$class T$>$ \\
+bool Output\+Restricted\+Route (\begin{DoxyParamCaption}\item[{Graph$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{graph}{, }\item[{int}]{source}{, }\item[{int}]{destination}{, }\item[{vector$<$ T $>$}]{best\+Restricted\+Route}{, }\item[{int}]{total\+Time}{, }\item[{const vector$<$ T $>$ \&}]{avoid\+Nodes}{, }\item[{const vector$<$ pair$<$ T, T $>$ $>$ \&}]{avoid\+Segments}{}\end{DoxyParamCaption})}
+
+
+
+Outputs a restricted route solution. 
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & Node ID type (typically int) \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & Pointer to the graph object \\
+\hline
+{\em source} & Source node ID \\
+\hline
+{\em destination} & Destination node ID \\
+\hline
+{\em best\+Restricted\+Route} & Vector of nodes in the restricted route \\
+\hline
+{\em total\+Time} & Total time of the restricted route \\
+\hline
+{\em avoid\+Nodes} & Vector of nodes to avoid \\
+\hline
+{\em avoid\+Segments} & Vector of segments to avoid \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if user wants to return to menu, false to exit
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Output format\+: Source\+:$<$id$>$ Destination\+:$<$id$>$ Restricted\+Driving\+Route\+:$<$path$>$($<$time$>$) 
+\end{DoxyNote}
