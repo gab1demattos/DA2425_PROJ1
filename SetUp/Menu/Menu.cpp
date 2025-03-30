@@ -52,7 +52,7 @@ void optionBestRoute(Graph<T> *g) {
     string mode;
     int source, destination;
 
-    if (!InterInputBestRoute(mode, source, destination)) {
+    if (!InterInputBestRoute(mode, source, destination, g)) {
         cout << "Invalid input. Please try again." << endl;
         return;
     }
@@ -81,7 +81,7 @@ void optionRestrictedRoute(Graph<T> *g) {
     int totalTime;
     bool flag;
 
-    if (!InterInputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
+    if (!InterInputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode, g)) {
         cout << "Invalid input. Please try again." << endl;
         return;
     }
@@ -106,7 +106,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     pair<vector<int>, int> drivingRoute, walkingRoute;
     vector<ApproximateSolution<int> > approximateSolutions;
 
-    if (!InterInputEnvironmetalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
+    if (!InterInputEnvironmetalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments, g)) {
         cout << "Invalid input. Please try again." << endl;
         return;
     }
