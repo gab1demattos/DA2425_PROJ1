@@ -131,85 +131,110 @@ template void optionEnvironmentalRoute<int>(Graph<int> *g);
 
 void optionInfo(Graph<int> *g) {
     cout << endl << "=============================================\n";
-    cout << "       ROUTE PLANNER - INPUT INFO        \n";
+    cout << "       ROUTE PLANNER - INPUT INFORMATION       \n";
     cout << "=============================================\n\n";
 
-    cout << "1. BEST ROUTE AND ALTERNATIVE INDEPENDENT ROUTE (DRIVING)\n";
-    cout << endl;
-    cout << "   Mode: driving\n";
-    cout << "   Source: <node_number>\n";
-    cout << "   Destination: <node_number>\n";
+    cout << "Choose your input method:\n";
+    cout << "1. Batch Mode (file input)\n";
+    cout << "2. Interactive Menu (console input)\n";
+    cout << "\nEnter your choice (1 or 2): ";
 
-    cout << endl << "2. RESTRICTED ROUTE PLANNING\n";
-    cout << endl;
-    cout << "   Mode: driving\n";
-    cout << "   Source: <node_number>\n";
-    cout << "   Destination: <node_number>\n";
-    cout << "   AvoidNodes: <comma_separated_node_numbers> (optional)\n";
-    cout << "   AvoidSegments: <comma_separated_pairs> e.g., (3,2),(7,8) (optional)\n";
-    cout << "   IncludeNode: <node_number> (optional)\n";
-
-    cout << endl << "3. ENVIRONMENTALLY-FRIENDLY ROUTE PLANNING (DRIVING + WALKING)\n";
-    cout << endl;
-    cout << "   Mode: driving-walking\n";
-    cout << "   Source: <node_number>\n";
-    cout << "   Destination: <node_number>\n";
-    cout << "   MaxWalkTime: <minutes> (maximum walking time allowed)\n";
-    cout << "   AvoidNodes: <comma_separated_node_numbers> (optional)\n";
-    cout << "   AvoidSegments: <comma_separated_pairs> (optional)\n";
-
-    cout << endl << "NOTES:\n";
-    cout <<
-            "- Please put the input in the 'Input' folder of the project before running. If it isn't to your liking go change it now!\n";
-    cout << "  The input files have their name correspond to the option you will choose so be aware of that." << endl;
-    cout << "- For empty optional fields, leave them blank.\n";
-    cout << "=============================================\n\n";
-
-    cout << "======================" << endl;
-    cout << "BATCH MODE INFO" << endl;
-    cout << "======================" << endl << endl;
-    cout << "Usage:\n";
-    cout << "1. Interactive Menu Mode:\n";
-    cout << "   ./route_planner\n\n";
-    cout << "2. Batch Mode:\n";
-    cout << "   ./route_planner input.txt output.txt\n\n";
-    cout << "Example:\n";
-    cout << "   ./route_planner Input/input.txt Output/output.txt\n\n";
-    cout << "Notes:\n";
-    cout << "- Batch mode processes input file and writes results to output file\n";
-    cout << "- Input file should be in the Input folder\n";
-    cout << "- Output will be written to the specified output file\n";
-    cout << "- Program exits after processing in batch mode\n";
-    cout << "======================" << endl;
-
-    cout << "Are you ready to go back to the menu? [y/n] ";
-    char response;
-    cin >> response;
+    int choice;
+    cin >> choice;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear input buffer
 
-    if (response == 'y' || response == 'Y') {
-        cout << "Redirecting you to the menu in 3 seconds...";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
+    if (choice == 1) {
+        // Batch Mode Information
+        cout << endl << "======================" << endl;
+        cout << "BATCH MODE INSTRUCTIONS" << endl;
+        cout << "======================" << endl << endl;
 
-        int option = optionsMenu();
-        handleMenuOption(option, g);
-    } else {
-        cout << endl << "Ok! Goodbye!" << endl;
-        cout << "Exiting in... ";
-        cout.flush();
-        for (int i = 3; i > 0; --i) {
-            this_thread::sleep_for(chrono::seconds(1));
-            cout << " " << i << "...";
-            cout.flush();
-        }
-        cout << endl << endl;
+        cout << "1. BEST ROUTE\n";
+        cout << "   Required format:\n";
+        cout << "   Mode: driving\n";
+        cout << "   Source: <integer_node_id>\n";
+        cout << "   Destination: <integer_node_id>\n\n";
+
+        cout << "2. RESTRICTED ROUTE\n";
+        cout << "   Required format:\n";
+        cout << "   Mode: driving\n";
+        cout << "   Source: <integer_node_id>\n";
+        cout << "   Destination: <integer_node_id>\n";
+        cout << "   AvoidNodes: <comma_separated_integers> (optional)\n";
+        cout << "   AvoidSegments: <comma_separated_pairs> e.g., (3,2),(7,8) (optional)\n";
+        cout << "   IncludeNode: <integer_node_id> (optional)\n\n";
+
+        cout << "3. ENVIRONMENTALLY-FRIENDLY ROUTE\n";
+        cout << "   Required format:\n";
+        cout << "   Mode: driving-walking\n";
+        cout << "   Source: <integer_node_id>\n";
+        cout << "   Destination: <integer_node_id>\n";
+        cout << "   MaxWalkTime: <integer_minutes>\n";
+        cout << "   AvoidNodes: <comma_separated_integers> (optional)\n";
+        cout << "   AvoidSegments: <comma_separated_pairs> (optional)\n\n";
+
+        cout << "USAGE INSTRUCTIONS:\n";
+        cout << "1. Place your input file in the 'Build' folder\n";
+        cout << "2. Run the program in batch mode:\n";
+        cout << "   cd build\n";
+        cout << "   make\n";
+        cout << "   ./route_planner inputFile.txt outputFile.txt\n";
+        cout << "3. Results will be saved to the specified output file\n";
+        cout << "4. For empty optional fields, leave them blank\n";
+        cout << "======================" << endl;
     }
+    else if (choice == 2) {
+        // Interactive Menu Information
+        cout << endl << "============================" << endl;
+        cout << "INTERACTIVE MENU INSTRUCTIONS" << endl;
+        cout << "============================" << endl << endl;
+
+        cout << "1. BEST INDEPENDENT ROUTE (DRIVING)\n";
+        cout << "   - Mode has to be 'driving'\n";
+        cout << "   - Source node: Enter an integer node ID\n";
+        cout << "   - Destination node: Enter an integer node ID\n\n";
+
+        cout << "2. RESTRICTED ROUTE PLANNING\n";
+        cout << "   - Mode has to be 'driving'\n";
+        cout << "   - Source node: Enter an integer node ID\n";
+        cout << "   - Destination node: Enter an integer node ID\n";
+        cout << "   - AvoidNodes: Enter integers separated by spaces (optional)\n";
+        cout << "     Example: 3 5 7\n";
+        cout << "   - AvoidSegments: Enter pairs with a comma inside and a space between (optional)\n";
+        cout << "     Example: 3,2 7,8 1,4\n";
+        cout << "   - IncludeNode: Enter an integer node ID (optional)\n\n";
+
+        cout << "3. ENVIRONMENTALLY-FRIENDLY ROUTE (DRIVING + WALKING)\n";
+        cout << "   - Mode has to be 'driving-walking'\n";
+        cout << "   - Source node: Enter an integer node ID\n";
+        cout << "   - Destination node: Enter an integer node ID\n";
+        cout << "   - MaxWalkTime: Enter an integer (minutes)\n";
+        cout << "   - AvoidNodes: Enter integers separated by spaces (optional)\n";
+        cout << "     Example: 2 4 6\n";
+        cout << "   - AvoidSegments: Enter pairs with a comma inside and a space between (optional)\n";
+        cout << "     Example: 1,3 5,2 4,7\n\n";
+
+        cout << "NOTES:\n";
+        cout << "- For optional fields, you can press Enter to skip\n";
+        cout << "- All node IDs must be valid integers from the graph\n";
+        cout << "============================" << endl;
+    }
+    else {
+        cout << "Invalid choice!\n";
+    }
+
+    // Return to menu after a delay
+    cout << "\nReturning to main menu in 3 seconds...";
+    cout.flush();
+    for (int i = 3; i > 0; --i) {
+        this_thread::sleep_for(chrono::seconds(1));
+        cout << " " << i << "...";
+        cout.flush();
+    }
+    cout << endl << endl;
+
+    int option = optionsMenu();
+    handleMenuOption(option, g);
 }
 
 
