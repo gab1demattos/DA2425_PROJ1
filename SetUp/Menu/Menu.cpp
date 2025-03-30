@@ -48,12 +48,12 @@ int optionsMenu() {
 
 
 template<class T>
-void optionBestRoute(Graph<T> *g) {
+void optionBestRoute(Graph<T> *g, const string& file) {
     string mode;
     int source, destination;
 
     // Get input values
-    if (!InputBestRoute(mode, source, destination)) {
+    if (!InputBestRoute(file, mode, source, destination)) {
         return; // Stop if input is invalid
     }
 
@@ -68,11 +68,11 @@ void optionBestRoute(Graph<T> *g) {
 }
 
 // Explicit instantiation for the required type (e.g., int)
-template void optionBestRoute<int>(Graph<int> *g);
+template void optionBestRoute<int>(Graph<int> *g, const string& file);
 
 
 template<class T>
-void optionRestrictedRoute(Graph<T> *g) {
+void optionRestrictedRoute(Graph<T> *g, const string& file) {
     string mode;
     int source, destination;
     vector<int> avoidNodes;
@@ -82,7 +82,7 @@ void optionRestrictedRoute(Graph<T> *g) {
     int totalTime;
 
     // Get input values
-    if (!InputRestrictedRoute(mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
+    if (!InputRestrictedRoute(file, mode, source, destination, avoidNodes, avoidSegments, includeNode)) {
         return; // Stop if input is invalid
     }
 
@@ -94,11 +94,11 @@ void optionRestrictedRoute(Graph<T> *g) {
     }
 }
 
-template void optionRestrictedRoute<int>(Graph<int> *g);
+template void optionRestrictedRoute<int>(Graph<int> *g, const string& file);
 
 
 template<class T>
-void optionEnvironmentalRoute(Graph<T> *g) {
+void optionEnvironmentalRoute(Graph<T> *g, const string& file) {
     string mode;
     int source, destination, maxWalkTime, parkingNode, totalTime;
     vector<int> avoidNodes;
@@ -106,7 +106,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     pair<vector<int>, int> drivingRoute, walkingRoute;
     vector<ApproximateSolution<int> > approximateSolutions;
 
-    if (!InputEnvironmentalRoute(mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
+    if (!InputEnvironmentalRoute(file, mode, source, destination, maxWalkTime, avoidNodes, avoidSegments)) {
         return;
     }
 
@@ -126,7 +126,7 @@ void optionEnvironmentalRoute(Graph<T> *g) {
     }
 }
 
-template void optionEnvironmentalRoute<int>(Graph<int> *g);
+template void optionEnvironmentalRoute<int>(Graph<int> *g, const string& file);
 
 
 void optionInfo(Graph<int> *g) {

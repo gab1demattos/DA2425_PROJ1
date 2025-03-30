@@ -16,6 +16,7 @@ using namespace std;
 
 /**
  * @brief Reads input for basic route planning (driving mode only)
+ * @param file
  * @param[out] mode Transportation mode (will be checked if it is "driving")
  * @param[out] source Source node ID
  * @param[out] destination Destination node ID
@@ -27,10 +28,11 @@ using namespace std;
  * Source:<int>
  * Destination:<int>
  */
-bool InputBestRoute(string &mode, int &source, int &destination);
+bool InputBestRoute(const string &file, string &mode, int &source, int &destination);
 
 /**
  * @brief Reads input for environmentally friendly route planning
+ * @param file
  * @param[out] mode Transportation mode (checked if it is "driving-walking")
  * @param[out] source Source node ID
  * @param[out] destination Destination node ID
@@ -48,11 +50,12 @@ bool InputBestRoute(string &mode, int &source, int &destination);
  * AvoidNodes:<int>,<int>,...
  * AvoidSegments:(int,int),(int,int),...
  */
-bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
+bool InputEnvironmentalRoute(const string &file, string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
                              vector<pair<int, int> > &avoidSegments);
 
 /**
  * @brief Reads input for restricted route planning with included nodes
+ * @param file
  * @param[out] mode Transportation mode (set to "driving")
  * @param[out] source Source node ID
  * @param[out] destination Destination node ID
@@ -70,6 +73,6 @@ bool InputEnvironmentalRoute(string &mode, int &source, int &destination, int &m
  * AvoidSegments:(int,int),(int,int),...
  * IncludeNode:<int>
  */
-bool InputRestrictedRoute(string &mode, int &source, int &destination, vector<int> &avoidNodes,
+bool InputRestrictedRoute(const string &file, string &mode, int &source, int &destination, vector<int> &avoidNodes,
                           vector<pair<int, int> > &avoidSegments, int &includeNode);
 #endif //INPUT_H

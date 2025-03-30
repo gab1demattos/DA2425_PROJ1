@@ -34,6 +34,8 @@ private:
     static bool processBestRoute(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile);
     static bool processRestrictedRoute(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile);
     static bool processEnvironmentalRoute(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile);
+    static bool processBestRouteWithSourceDest(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile, int source, int destination);
+    static bool processRestrictedRouteWithSourceDest(Graph<int>& graph, std::ifstream& inFile, std::ofstream& outFile, int source, int destination);
 };
 
 #endif // BATCHMODE_H 
