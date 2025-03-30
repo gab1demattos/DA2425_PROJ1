@@ -5,6 +5,7 @@
 
 #include "Input.h"
 #include <sstream>
+#include <climits>
 
 /**
  * @brief Helper function that checks if the given mode is "driving".
@@ -23,11 +24,11 @@ bool isModeDriving(const string &mode) {
 
 bool InputBestRoute(const string &file, string &mode, int &source, int &destination) {
     // Read from file
-     ifstream inputFile(file);
-     if (!inputFile.is_open()) {
-         cerr << "Error opening file!" << endl;
-         return false;
-     }
+    ifstream inputFile(file);
+    if (!inputFile.is_open()) {
+        cerr << "Error opening file!" << endl;
+        return false;
+    }
 
     string line;
     while (getline(inputFile, line)) {
@@ -113,7 +114,8 @@ bool isModeDrivingWalking(const string &mode) {
 }
 
 
-bool InputEnvironmentalRoute(const string &file, string &mode, int &source, int &destination, int &maxWalkTime, vector<int> &avoidNodes,
+bool InputEnvironmentalRoute(const string &file, string &mode, int &source, int &destination, int &maxWalkTime,
+                             vector<int> &avoidNodes,
                              vector<pair<int, int> > &avoidSegments) {
     // Read from file
     ifstream inputFile(file);
@@ -153,11 +155,10 @@ bool InputEnvironmentalRoute(const string &file, string &mode, int &source, int 
 
 bool InputRestrictedRoute(const string &file, string &mode, int &source, int &destination, vector<int> &avoidNodes,
                           vector<pair<int, int> > &avoidSegments, int &includeNode) {
-
     ifstream inputFile(file);
     if (!inputFile.is_open()) {
-         cerr << "Error opening file!" << endl;
-         return false;
+        cerr << "Error opening file!" << endl;
+        return false;
     }
 
     string line;
@@ -178,8 +179,7 @@ bool InputRestrictedRoute(const string &file, string &mode, int &source, int &de
             string include = line.substr(line.find(':') + 1);
             if (!include.empty()) {
                 includeNode = stoi(line.substr(line.find(':') + 1));
-            }
-            else {
+            } else {
                 includeNode = INT_MAX;
             }
         }

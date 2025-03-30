@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <climits>
 #include <cstdint>
+#include <iostream>
 
 /**
  * @brief Relaxes an edge during Dijkstra's algorithm
@@ -20,15 +21,18 @@
  * @details Updates the destination vertex's distance if a shorter path is found
  * through this edge. Uses driving times for edge weights.
  */
-template <class T>
-bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
-    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
+template<class T>
+bool relax(Edge<T> *edge) {
+    // d[u] + w(u,v) < d[v]
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) {
+        // we have found a better way to reach v
         edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
         edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
         return true;
     }
     return false;
 }
+
 /**
  * @brief Helper function that initializes all vertices for Dijkstra's algorithm
  * @tparam T Node ID type (typically int)
@@ -56,14 +60,21 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
     while (!q.empty()) {
         auto v = q.extractMin();
         for (auto e: v->getAdj()) {
-            // skip restricted nodes
-            if (std::find(avoidNodes.begin(), avoidNodes.end(), e->getDest()->getInfo()) != avoidNodes.end())
+            // Skip walking-only routes (driving time is INT_MAX)
+            if (e->getDriving() == INT_MAX) {
                 continue;
+            }
+
+            // skip restricted nodes
+            if (std::find(avoidNodes.begin(), avoidNodes.end(), e->getDest()->getInfo()) != avoidNodes.end()) {
+                continue;
+            }
             // skip restricted segments
             if (std::find(avoidSegments.begin(), avoidSegments.end(),
                           std::make_pair(e->getOrig()->getInfo(), e->getDest()->getInfo())) != avoidSegments.end()) {
                 continue;
             }
+
             auto oldDist = e->getDest()->getDist();
             if (relax(e)) {
                 if (oldDist == INT_MAX) {
@@ -78,35 +89,29 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
 
 template<class T>
 void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, const vector<T> &avoidNodes,
-                           const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
-                           int &totalTime, bool &flag) {
-
+                             const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
+                             int &totalTime, bool &flag) {
     flag = true;
-    // Determine if we have a valid includeNode (not 32760)
-    const T INVALID_NODE = INT_MAX; // Or whatever your magic number is
+    const T INVALID_NODE = INT_MAX;
     bool hasIncludeNode = (includeNode != INVALID_NODE && g->findVertex(includeNode) != nullptr);
 
     if (!hasIncludeNode) {
-        // CASE 1: No include node specified - find direct path with restrictions
+        // Handle case without include node
         initializeVertices(g);
         auto startVertex = g->findVertex(origin);
         if (!startVertex) {
-            //std::cout << "RestrictedDrivingRoute:None" << std::endl;
             flag = false;
             return;
         }
         startVertex->setDist(0);
-
         runDijkstra(g, startVertex, avoidNodes, avoidSegments);
 
         Vertex<T> *destVertex = g->findVertex(dest);
         if (!destVertex || destVertex->getDist() == INT_MAX) {
             flag = false;
-            //std::cout << "RestrictedDrivingRoute:None" << std::endl;
             return;
         }
 
-        // Reconstruct path
         route.clear();
         totalTime = 0;
         for (Vertex<T> *v = destVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
@@ -116,15 +121,19 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
             }
         }
     } else {
-        // CASE 2: With include node - two-phase approach
+        // Case with include node
         route.clear();
         totalTime = 0;
 
-        // Phase 1: Origin → IncludeNode
+        // Phase 1: Find path from origin to include node
+        // Add destination to avoid nodes to ensure we don't go through it
+        vector<T> phase1AvoidNodes = avoidNodes;
+        phase1AvoidNodes.push_back(dest);
+
         initializeVertices(g);
         auto startVertex = g->findVertex(origin);
         startVertex->setDist(0);
-        runDijkstra(g, startVertex, avoidNodes, avoidSegments);
+        runDijkstra(g, startVertex, phase1AvoidNodes, avoidSegments);
 
         Vertex<T> *includeVertex = g->findVertex(includeNode);
         if (!includeVertex || includeVertex->getDist() == INT_MAX) {
@@ -132,14 +141,14 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
             return;
         }
 
-        // Reconstruct first part of path
+        // Store the first path
         vector<T> firstPart;
         int firstPartTime = includeVertex->getDist();
         for (Vertex<T> *v = includeVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
-            firstPart.push_back(v->getInfo());
+            firstPart.insert(firstPart.begin(), v->getInfo());
         }
 
-        // Phase 2: IncludeNode → Destination
+        // Phase 2: Find path from include node to destination
         initializeVertices(g);
         includeVertex->setDist(0);
         runDijkstra(g, includeVertex, avoidNodes, avoidSegments);
@@ -150,20 +159,17 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
             return;
         }
 
-        // Reconstruct second part of path
+        // Store the second path
         vector<T> secondPart;
         int secondPartTime = destVertex->getDist();
-        for (Vertex<T> *v = destVertex; v != nullptr && v->getInfo() != includeNode; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
-            secondPart.push_back(v->getInfo());
+        for (Vertex<T> *v = destVertex; v != nullptr; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
+            secondPart.insert(secondPart.begin(), v->getInfo());
         }
 
-        // Combine paths (reverse first part since we built it backwards)
-        route.insert(route.end(), firstPart.rbegin(), firstPart.rend());
-        route.insert(route.end(), secondPart.rbegin(), secondPart.rend());
-
-        // Remove duplicate includeNode if present
-        if (!route.empty() && !secondPart.empty() && route.back() == secondPart.back()) {
-            route.pop_back();
+        // Combine paths
+        route = firstPart;
+        if (!secondPart.empty()) {
+            route.insert(route.end(), secondPart.begin() + 1, secondPart.end());
         }
 
         totalTime = firstPartTime + secondPartTime;
