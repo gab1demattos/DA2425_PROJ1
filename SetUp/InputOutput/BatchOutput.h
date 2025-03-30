@@ -46,9 +46,27 @@ inline void BatchOutputBestRoute(int source, int destination, const pair<vector<
 }
 
 template<class T>
-bool BatchOutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime,
-                           const vector<T> &avoidNodes,
-                           const vector<pair<T, T> > &avoidSegments, const string& outfile);
+void BatchOutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute,
+                                int totalTime, const string& outfile) {
+
+    ofstream outFile(outfile);
+    stringstream ss;
+
+    ss << "Source:" << source << endl;
+    ss << "Destination:" << destination << endl;
+
+    ss << "RestrictedDrivingRoute:";
+
+    for (size_t i = 0; i < bestRestrictedRoute.size(); ++i) {
+        ss << bestRestrictedRoute[i];
+        if (i < bestRestrictedRoute.size() - 1) {
+            ss << ",";
+        }
+    }
+
+    ss << "(" << totalTime << ")" << endl;
+    outFile << ss.str();
+}
 
 
 bool BatchOutputEnvironmentallyFriendlyRoute(int source, int destination,

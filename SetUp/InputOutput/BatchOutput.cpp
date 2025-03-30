@@ -9,10 +9,7 @@ using namespace std;
 
 
 
-template<class T>
-bool BatchOutputRestrictedRoute(int source, int destination, vector<T> bestRestrictedRoute, int totalTime,
-                           const vector<T> &avoidNodes,
-                           const vector<pair<T, T> > &avoidSegments, const string& outfile);
+
 
 
 bool BatchOutputEnvironmentallyFriendlyRoute(int source, int destination,

@@ -64,6 +64,7 @@ void runBatchMode(const std::string& infile, const std::string& outfile, Graph<T
                 return;
             }
             RestrictedRoutePlanning(g, source, destination, avoidNodes, avoidSegments, includeNode, route, totalTime);
+            BatchOutputRestrictedRoute(source, destination, route, totalTime, outfile);
         }
         else {
             if (!InputBestRoute(infile, mode, source, destination)) {
