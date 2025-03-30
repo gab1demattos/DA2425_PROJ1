@@ -75,48 +75,7 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
         }
     }
 }
-/*
-template<class T>
-void restrictedDijkstra(Graph<T> *g, const int &origin, const vector<T> &avoidNodes,
-                        const vector<pair<T, T> > &avoidSegments, const T &includeNode) {
-    // check if includeNode exists in the graph
-    auto includeVertex = g->findVertex(includeNode);
-    bool includeNodeExists = (includeVertex != nullptr);
 
-    // initialize all vertices
-    initializeVertices(g);
-
-    // start vertex
-    auto startVertex = g->findVertex(origin);
-    startVertex->setDist(0);
-
-    // first run of Dijkstra to find the shortest paths without considering includeNode
-    runDijkstra(g, startVertex, avoidNodes, avoidSegments);
-
-    // if includeNode exists and was not found in the first run, run Dijkstra again to include it
-    if (includeNodeExists) {
-        bool includeNodeFound = (includeVertex->getDist() != INT_MAX);
-
-        if (!includeNodeFound) {
-            // reset vertices and run Dijkstra from startVertex to includeVertex
-            initializeVertices(g);
-            startVertex->setDist(0);
-            runDijkstra(g, startVertex, avoidNodes, avoidSegments);
-
-            // if includeVertex is still not reachable, return (no valid path)
-            if (includeVertex->getDist() == INT_MAX) {
-                std::cout << "RestrictedDrivingRoute:none" << std::endl;
-                return;
-            }
-
-            // reset vertices and run Dijkstra from includeVertex to all other nodes
-            initializeVertices(g);
-            includeVertex->setDist(0);
-            runDijkstra(g, includeVertex, avoidNodes, avoidSegments);
-        }
-    }
-}
-*/
 template<class T>
 void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, const vector<T> &avoidNodes,
                            const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
