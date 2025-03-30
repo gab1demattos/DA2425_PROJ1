@@ -20,15 +20,18 @@
  * @details Updates the destination vertex's distance if a shorter path is found
  * through this edge. Uses driving times for edge weights.
  */
-template <class T>
-bool relax(Edge<T> *edge) { // d[u] + w(u,v) < d[v]
-    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) { // we have found a better way to reach v
+template<class T>
+bool relax(Edge<T> *edge) {
+    // d[u] + w(u,v) < d[v]
+    if (edge->getOrig()->getDist() + edge->getDriving() < edge->getDest()->getDist()) {
+        // we have found a better way to reach v
         edge->getDest()->setDist(edge->getOrig()->getDist() + edge->getDriving()); // d[v] = d[u] + w(u,v)
         edge->getDest()->setPath(edge); // set the predecessor of v to u; in this case the edge from u to v
         return true;
     }
     return false;
 }
+
 /**
  * @brief Helper function that initializes all vertices for Dijkstra's algorithm
  * @tparam T Node ID type (typically int)
@@ -78,9 +81,8 @@ void runDijkstra(Graph<T> *g, Vertex<T> *start, const vector<T> &avoidNodes, con
 
 template<class T>
 void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, const vector<T> &avoidNodes,
-                           const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
-                           int &totalTime, bool &flag) {
-
+                             const vector<pair<T, T> > &avoidSegments, const T &includeNode, vector<T> &route,
+                             int &totalTime, bool &flag) {
     flag = true;
     // Determine if we have a valid includeNode (not 32760)
     const T INVALID_NODE = INT_MAX; // Or whatever your magic number is
@@ -153,16 +155,19 @@ void RestrictedRoutePlanning(Graph<T> *g, const int &origin, const int &dest, co
         // Reconstruct second part of path
         vector<T> secondPart;
         int secondPartTime = destVertex->getDist();
-        for (Vertex<T> *v = destVertex; v != nullptr && v->getInfo() != includeNode; v = v->getPath() ? v->getPath()->getOrig() : nullptr) {
+        for (Vertex<T> *v = destVertex; v != nullptr && v->getInfo() != includeNode; v = v->getPath()
+                         ? v->getPath()->getOrig()
+                         : nullptr) {
             secondPart.push_back(v->getInfo());
         }
 
-        // Combine paths (reverse first part since we built it backwards)
-        route.insert(route.end(), firstPart.rbegin(), firstPart.rend());
-        route.insert(route.end(), secondPart.rbegin(), secondPart.rend());
+        // Combine paths
+        route.insert(route.end(), firstPart.rbegin(), firstPart.rend()); // first part is built backwards, so reverse it
+        route.insert(route.end(), secondPart.begin(), secondPart.end());
+        // second part is already built in correct order
 
         // Remove duplicate includeNode if present
-        if (!route.empty() && !secondPart.empty() && route.back() == secondPart.back()) {
+        if (!route.empty() && route.back() == includeNode) {
             route.pop_back();
         }
 
