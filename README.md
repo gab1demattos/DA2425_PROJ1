@@ -74,4 +74,4 @@ This project was developed by:
 
 ## Course Information
 
-Developed for the BD (Databases) course at FEUP (Faculty of Engineering, University of Porto).
+Developed for the DA (Algorithm Design) course at FEUP (Faculty of Engineering, University of Porto).
